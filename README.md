@@ -7,12 +7,14 @@ This repository contains our project of SPL-I. The project is mandatory for the 
 
 The project is regarding a task/project management website which enables users to maintain and monitor everyday tasks both on a personal and group level. 
 
-### Contributor to this project :
+### Contributors to this project :
 
 [Sian Ashsad]()
 
 [Rhidwan Rashid Dihan]()
 
 [M M Nazmul Hossain]()
+
+[Md. Saidul Islam]() (Supervisor)
  
  
