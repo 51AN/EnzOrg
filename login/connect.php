@@ -23,7 +23,7 @@
         header('location: ../Homepage/index.html');
         $stmt -> close();
         $conn -> close();
-    }
+    } 
 
 
 ?>
