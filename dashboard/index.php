@@ -11,20 +11,49 @@
 
 
 <body>
-
+<!--  section of the whole page -->
 <section class="header">
+    <!--  nav bar begins here -->
     <nav>
         <!--<div class="title__name">EnzOrg</div>-->
         <div class="nav-links">
             <ul>
+                <!-- elements of nav bar  -->
                 <li><a href="../Homepage/index.php">HOME</a></li>
-                <li><a href="../login/index.php">LOG IN</a></li>
+                <li><a href="../login/index.php">LOG OUT</a></li>
                 <li><a href="#">ABOUT</a></li>
                 <li><a href="#">CONTACT</a></li>
             </ul>
         </div>
     </nav>
+
+    <!-- task entry form here  -->
+    <div class="task_entry">
+        <form action="" class="add_task_form" method="POST" id="">
+        <h1 class="add_task_title"> Add Task </h1>
+        <!-- task name add here  -->
+        <div class="add_task_input_group">
+            <input type="text" class="add_task_input" autofocus placeholder="Task Name" id="taskname" name="taskname">
+
+        </div>
+        <!--  task description add here -->
+        <div class="add_task_input_group">
+            <input type="text" class="add_task_input" autofocus placeholder="Description" id="description" name="description">
+        </div>
+        <!-- task due date -->
+        <div class="add_task_input_group">
+            <input type="datetime-local" class="add_task_input" autofocus placeholder="Due Date" id="duetime" name="duetime">
+        </div>
+        <button class="add_task_button" type="submit" name="addtasksubmit"> ADD </button>
+
+        
+
+
+        </form>
+    </div>
 </section>
+
+
 
     
 

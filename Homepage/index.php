@@ -28,6 +28,7 @@
                 <ul>
                     <li><a href="#">HOME</a></li>
                     <li><a href="../login/index.php">LOG IN</a></li>
+                    <li><a href="../register/index.php">SIGN IN</a></li>
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="#">CONTACT</a></li>
                 </ul>
