@@ -12,23 +12,21 @@
 
 <?php
     session_start();
+    $message = '';
 
     if(isset($_SESSION['username']))
-        echo '<h1>Welcome ' . $_SESSION['username'] . '!</h1>';
-    else
-        echo '<h1>Welcome Guest!</h1>';
+        $message = $_SESSION['username'];
 ?>
 
 <body>
-    <a href="logout.php"><h3>Logout</h3></a>
     <section class="header"> 
         <nav>
             <!--<div class="title__name">EnzOrg</div>-->
             <div class="nav-links">
                 <ul>
                     <li><a href="#">HOME</a></li>
-                    <li><a href="../login/index.php">LOG IN</a></li>
-                    <li><a href="../register/index.php">SIGN IN</a></li>
+                    <li><a href="<?php echo $message ? '../Homepage/logout.php' : '../login/index.php';?>"><?php echo $message ? 'LOG OUT' : 'LOG IN';?></a></li>
+                    <li><a href="<?php echo !$message ? '../register/index.php' : null;?>"><?php echo $message ? $message : 'SIGN IN';?></a></li>
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="#">CONTACT</a></li>
                 </ul>
@@ -39,7 +37,7 @@
         <h1>Organize your Life with EnzOrg</h1>
         <p> A powerful project management tool to get you involved with your everyday tasks<br>
         </p>
-        <a href="../dashboard/index.php" class="start--btn">Get Started</a>
+        <a href="<?php echo $message ? '../dashboard/index.php' : '../login/index.php';?>" class="start--btn">Get Started</a>
     </div>
     <section>
 

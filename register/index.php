@@ -11,7 +11,7 @@
 </head>
 
 <?php
-    $username = $email = $passError = $emailError = $userError = $password = $confirmPassword = '';
+    $username = $email = $passError = $passError1 = $emailError = $userError = $password = $confirmPassword = '';
 
     if(isset($_POST['submit'])){
         $username = $_POST['username'];
@@ -29,7 +29,9 @@
             $emailError = "Invalid Email";
         if($query->num_rows > 0)
             $userError = "username already exists";
-        if(empty($passError) && empty($emailError) && empty($userError))
+        if(strlen($password) < 8 || ctype_upper($password) || ctype_lower($password))
+            $passError1 = "Password must be atleast 8 character long and contain uppercase and lowercase";
+        if(empty($passError) && empty($emailError) && empty($userError) && empty($passError1))
         {
             if($conn -> connect_error){
                 die('Connection Failed : ' .$conn->connect_error);
@@ -72,7 +74,9 @@
             </div> 
             <div class="form__input-group">
                 <input type="password" class="form__input" autofocus placeholder="Password" name="password" required>
-                <div class="form__input-error-message"></div>
+                <div class="form__input-error-message">
+                <?php echo $passError1? $passError1 : null; ?>
+                </div>
             </div>
             <div class="form__input-group">
                 <input type="password" class="form__input" autofocus placeholder="Confirm password" name="confirmPass" required>
