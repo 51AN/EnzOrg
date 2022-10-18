@@ -81,11 +81,11 @@
    ?>
 
    <form action="" method="POST" enctype="multipart/form-data">
-
+      <div class="image">
       <?php
       if(empty($fetch['image']))
       {
-         echo '<img src="images/background.jpg">';
+         echo '<img src="images/profile.jpg">';
       }
       else
       {
@@ -98,6 +98,7 @@
       }
             
       ?> 
+      </div>
 
       
       <div class="flex">

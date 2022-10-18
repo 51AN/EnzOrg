@@ -12,7 +12,7 @@ html{
 .header{
     min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url(images/backgroundimage.jpg);
+    background-image: url(../bg.jpg);
     background-position: center;
     background-size: cover;
     position: relative;
@@ -22,7 +22,7 @@ html{
 
 .title__name{
     font-size: 30px;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 
 
@@ -50,9 +50,9 @@ nav img{
     position: relative;
 }
 .nav-links ul li a{
-    color: #fff;
+    color: rgb(0, 0, 0);
     text-decoration: none;
-    font-size: 13px;
+    font-size: 15px;
 
 }
 
@@ -60,7 +60,7 @@ nav img{
     content: '';
     width: 0%;
     height: 2px;
-    background:#38e7c1;
+    background:#009579;
     display: block;
     margin: auto;
     transition: 0.5s;
@@ -71,7 +71,7 @@ nav img{
 }
 .text-box{
     width: 90%;
-    color: #fff;
+    color: rgb(0, 0, 0);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -82,7 +82,7 @@ nav img{
 .text-box h1{
     font-size:60px;
     color: transparent;
-    -webkit-text-stroke: 1px #fff;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
     background: url(images/back.png);
     background-clip: unset;
     -webkit-background-clip: text;
@@ -99,13 +99,13 @@ nav img{
 .text-box p{
     margin: 10px 0 40px;
     font-size: 14px;
-    color: #fff;
+    color: rgb(0, 0, 0);
 }
 .start--btn{
     display: inline-block;
     text-decoration: none;
-    color: #fff;
-    border: 1px solid #fff;
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
     padding: 12px 34px;
     font-size: 13px;
     background: transparent;
@@ -114,7 +114,7 @@ nav img{
 }
 
 .start--btn:hover{
-    border: 1px solid #0096FF;
-    background: #0096FF;
+    border: 1px solid #009579;
+    background: #009579;
     transition: 1s;
 }

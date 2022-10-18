@@ -21,6 +21,9 @@
                 <!-- elements of nav bar  -->
                 <li><a href="../Homepage/index.php">HOME</a></li>
                 <li><a href="../login/index.php">LOG OUT</a></li>
+                
+                <!-- Write profile name here -->
+                
                 <li><a href="#">ABOUT</a></li>
                 <li><a href="#">CONTACT</a></li>
             </ul>

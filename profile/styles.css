@@ -1,11 +1,14 @@
-/* .container{
+.container{
     min-height: 100vh;
     width: 100%;
-    background-image: linear-gradient(rgba(4,9,30,0.7),rgba(4,9,30,0.7)),url(images/background.jpg);
+    background-image: url(../bg.jpg);
     background-position: center;
     background-size: cover;
     position: relative;
-} */
+}
+.image{
+   border-radius: 50%;
+}
 .update-profile{
     
     background-color: var(--light-bg);
