@@ -28,7 +28,9 @@
 
             if($query->num_rows > 0)
             {
+                $row = mysqli_fetch_assoc($query);
                 $_SESSION['username'] = $username;
+                $_SESSION['user_id'] = $row['id'];
                 header('location: ../Homepage/index.php');
             }    
             else

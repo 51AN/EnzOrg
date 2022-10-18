@@ -18,6 +18,7 @@
         $email = $_POST['email'];
         $password = $_POST['password'];
         $confirmPassword = $_POST['confirmPass'];
+        $image = '';
 
         $conn = new mysqli('localhost','root','','spl');
         $query = $conn->query("SELECT * FROM users WHERE `username` = '$username';");
@@ -39,8 +40,8 @@
             else{
                 // $SQL="INSERT INTO `users`(`username`, `email`, `password`) VALUES ('$username','$email','$password')";
                 // $result=mysqli_query($conn,$SQL);
-                $stmt = $conn->prepare("insert into users(username,email,password) values(?,?,?)");
-                $stmt ->bind_param("sss",$username, $email, md5($password));
+                $stmt = $conn->prepare("insert into users(username,email,password,image) values(?,?,?,?)");
+                $stmt ->bind_param("ssss",$username, $email, md5($password), $image);
                 $stmt -> execute();
                 header('location: ../login/index.php');
                 $stmt -> close();
