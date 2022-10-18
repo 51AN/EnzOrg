@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta name="viewport" content="with=device-width, initial-scale=1.0">
-                <title>Genshin Impact Website Design</title>
+                <title>Project Board</title>
                 <link rel="stylesheet" href="styles.css">
                 <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -30,10 +30,10 @@
     <!-- task entry form here  -->
     <div class="task_entry">
         <form action="" class="add_task_form" method="POST" id="">
-        <h1 class="add_task_title"> Add Task </h1>
+        <h1 class="add_task_title"> Add Project </h1>
         <!-- task name add here  -->
         <div class="add_task_input_group">
-            <input type="text" class="add_task_input" autofocus placeholder="Task Name" id="taskname" name="taskname">
+            <input type="text" class="add_task_input" autofocus placeholder="Project Name" id="taskname" name="taskname">
 
         </div>
         <!--  task description add here -->
@@ -50,6 +50,18 @@
 
 
         </form>
+    </div>
+    <div>
+        <h1>Project list</h1>
+        <table>
+            <tr>
+                <td>Project name</td>
+                <td>Priority</td>
+                <td>Tasks</td>
+                <td>Status</td>
+                <td>Due</td>
+            </tr>
+        </table>
     </div>
 </section>
 

@@ -1,3 +1,6 @@
+<?php
+   $conn = new mysqli('localhost','root','','spl');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,31 +13,89 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700&display=swap" rel="stylesheet">
 </head>
+
+<?php
+   session_start();
+   $user_id = $_SESSION['user_id'];
+   if(isset($_POST['update_profile']))
+   {
+      $username = $_POST['update_name'];
+      $email = $_POST['update_email'];
+
+      mysqli_query($conn, "UPDATE `users` SET username = '$username', email = '$email' WHERE id = '$user_id'") or die('query failed');
+      
+      $old_pass = $_POST['old_pass'];
+      $update_pass = md5($_POST['update_pass']);
+      $temp_pass = $_POST['new_pass'];
+      $new_pass = md5($_POST['new_pass']);
+      $confirm_pass = md5($_POST['confirm_pass']);
+   
+      if(!empty($update_pass) || !empty($new_pass) || !empty($confirm_pass)){
+         if($update_pass != $old_pass){
+            $message[] = 'old password not matched!';
+         }elseif($new_pass != $confirm_pass){
+            $message[] = 'confirm password not matched!';
+         }else if(strlen($temp_pass) < 8 || ctype_upper($temp_pass) || ctype_lower($temp_pass)){
+            $message[] = "Password must be atleast 8 character long and contain uppercase and lowercase";
+         }else{
+            mysqli_query($conn, "UPDATE `users` SET password = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
+            $message[] = 'password updated successfully!';
+         }
+      }
+
+      $image = $_FILES['update_image']['name'];
+      $imageSize = $_FILES['update_image']['size'];
+      $imageTempName = $_FILES['update_image']['tmp_name'];
+      $imageFolder = 'upload/'. $image;
+   
+      if(!empty($image))
+      {
+         if($imageSize > 2000000)
+            $message[] = "Image is too large";
+         else
+         {
+            $imageUpdateQuery = mysqli_query($conn, "UPDATE users SET image = '$image' WHERE id = '$user_id'") or die("query failed");
+         
+            if($imageUpdateQuery)
+            {
+               move_uploaded_file($imageTempName, $imageFolder);
+            }
+            $message[] = "Image updated successfully";   
+         }
+      }
+   }
+?>
+
 <body>
 <section class="container">
 <div class="update-profile">
 <!-- php code user information -->
 
    <?php
-     /* $select = mysqli_query($conn,  "SELECT * FROM `user_form` WHERE id = '$user_id'") or die('query failed');
-      if(mysqli_num_rows($select) > 0){
+
+      $select = mysqli_query($conn, "SELECT * FROM USERS WHERE id = '$user_id'") or die('query failed');
+      if(mysqli_num_rows($select) > 0)
+      {
          $fetch = mysqli_fetch_assoc($select);
-      }*/
+      }
    ?>
 
    <form action="" method="POST" enctype="multipart/form-data">
 
       <?php
-      /* if($fetch['image'] == ''){
-               echo '<img src="images/default-avatar.png">'; // gives a stock image if no profile picture is found
-            }else{
-               echo '<img src="uploaded_img/'.$fetch['image'].'">';
-            }
-            if(isset($message)){
-               foreach($message as $message){
-                  echo '<div class="message">'.$message.'</div>';
-               }
-            } */ 
+      if(empty($fetch['image']))
+      {
+         echo '<img src="images/background.jpg">';
+      }
+      else
+      {
+         echo '<img src = "upload/'.$fetch['image'].'">';
+      }
+      if(isset($message)){
+         foreach($message as $message){
+            echo '<div class="message">'.$message.'</div>';
+         }
+      }
             
       ?> 
 
@@ -43,14 +104,14 @@
          <div class="inputBox">
             <span>username :</span>
             <!-- put values here from database -->
-            <input type="text" name="update_name" value="" class="box">
+            <input type="text" name="update_name" value="<?php echo $fetch['username'];?>" class="box">
             <span>your email :</span>
-            <input type="email" name="update_email" value="" class="box">
+            <input type="email" name="update_email" value="<?php echo $fetch['email'];?>" class="box">
             <span>update your pic :</span>
             <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
          </div>
          <div class="inputBox">
-            <input type="hidden" name="old_pass" value="">
+            <input type="hidden" name="old_pass" value="<?php echo $fetch['password']; ?>">
             <span>old password :</span>
             <input type="password" name="update_pass" placeholder="enter previous password" class="box">
             <span>new password :</span>
@@ -60,7 +121,7 @@
          </div>
       </div>
       <input type="submit" value="update profile" name="update_profile" class="btn">
-      <a href="home.php" class="delete-btn">go back</a>
+      <a href="../Homepage/index.php" class="delete-btn">go back</a>
    </form>
 
 </div>
