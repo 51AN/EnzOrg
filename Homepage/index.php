@@ -26,7 +26,7 @@
                 <ul>
                     <li><a href="#">HOME</a></li>
                     <li><a href="<?php echo $message ? '../Homepage/logout.php' : '../login/index.php';?>"><?php echo $message ? 'LOG OUT' : 'LOG IN';?></a></li>
-                    <li><a href="<?php echo !$message ? '../register/index.php' : null;?>"><?php echo $message ? $message : 'SIGN IN';?></a></li>
+                    <li><a href="<?php echo !$message ? '../register/index.php' : '../profile/index.php';?>"><?php echo $message ? $message : 'SIGN IN';?></a></li>
                     <li><a href="#">ABOUT</a></li>
                     <li><a href="#">CONTACT</a></li>
                 </ul>
