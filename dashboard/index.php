@@ -95,13 +95,13 @@
 
     <div class="col_project_list">
         <h1>Project list</h1>
-        <table>
+        <table class="project_show_table">
             <tr>
-                <td>Project name</td>
-                <td>Priority</td>
-                <td>Tasks</td>
-                <td>Status</td>
-                <td>Due</td>
+                <th>Project name</th>
+                <th>Priority</th>
+                <th>Tasks</th>
+                <th>Status</th>
+                <th>Due</td>
             </tr>
 
             <?php foreach($projects as $project):?>
