@@ -1,3 +1,6 @@
+<?php
+    $conn = new mysqli('localhost','root','','spl');
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -17,6 +20,30 @@
 
     if(isset($_SESSION['username']))
         $message = $_SESSION['username'];
+?>
+
+<?php
+    $projname = $projdes = $priority = $projstatus = $due = '';
+    $userId = $_SESSION['user_id'];
+    if(isset($_POST['addprojectsubmit']))
+    {
+        $projname = $_POST['projectname'];
+        $projdes = $_POST['description'];
+        $priority = $_POST['priority'];
+        $projstatus = $_POST['status'];
+        $due = $_POST['duetime'];
+
+        if(!empty($projname) && !empty($projdes) && !empty($priority) && !empty($projstatus))
+        {
+            $query = mysqli_query($conn, "INSERT INTO `projects` (`projname`, `projdescription`, `priority`, `projstatus`, `tasks`, `due`, `user_id`) VALUES ('$projname', '$projdes', '$priority', '$projstatus', '1', '$due', '$userId')");
+            header('Location: '.$_SERVER['PHP_SELF'].'?success');
+        }  
+    }
+?>
+
+<?php
+    $fetch = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
+    $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
 <!--  section of the whole page -->
 <section class="header">
@@ -48,11 +75,17 @@
             </div>
             <!--  project description add here -->
             <div class="add_project_input_group">
-                <input type="text" class="add_project_input" autofocus placeholder="Description" id="description" name="description">
+                <input type="text" class="add_project_input" autofocus placeholder="Description" id="description" name="description" require>
+            </div>
+            <div class="add_project_input_group">
+                <input type="text" class="add_project_input" autofocus placeholder="Priority" id="priority" name="priority" require>
+            </div>
+            <div class="add_project_input_group">
+                <input type="text" class="add_project_input" autofocus placeholder="Status" id="stautus" name="status" require>
             </div>
             <!-- project due date -->
             <div class="add_project_input_group">
-                <input type="datetime-local" class="add_project_input" autofocus placeholder="Due Date" id="duetime" name="duetime">
+                <input type="date" class="add_project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
             </div>
             <button class="add_project_button" type="submit" name="addprojectsubmit"> ADD </button>
 
@@ -70,6 +103,16 @@
                 <td>Status</td>
                 <td>Due</td>
             </tr>
+
+            <?php foreach($projects as $project):?>
+                <tr>
+                    <td><?php echo $project['projname']?></td>
+                    <td><?php echo $project['priority']?></td>
+                    <td><?php echo $project['tasks']?></td>
+                    <td><?php echo $project['projstatus']?></td>
+                    <td><?php echo $project['due']?></td>
+                </tr>
+            <?php endforeach;?>
         </table>
     </div>
 </div>
