@@ -103,12 +103,12 @@
       
       <div class="flex">
          <div class="inputBox">
-            <span>username :</span>
+            <span>Username :</span>
             <!-- put values here from database -->
             <input type="text" name="update_name" value="<?php echo $fetch['username'];?>" class="box">
-            <span>your email :</span>
+            <span>Your Email :</span>
             <input type="email" name="update_email" value="<?php echo $fetch['email'];?>" class="box">
-            <span>update your pic :</span>
+            <span>Update Your Profile Picture :</span>
             <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
          </div>
          <div class="inputBox">
@@ -121,7 +121,11 @@
             <input type="password" name="confirm_pass" placeholder="confirm new password" class="box">
          </div>
       </div>
-      <input type="submit" value="update profile" name="update_profile" class="btn">
+      <div class="buttons">
+         <input type="submit" value="Update Profile" name="update_profile" class="btn">
+         
+         <input type="submit" value="Go Back" name="go_back" class="btn">
+      </div>
       <a href="../Homepage/index.php" class="delete-btn">go back</a>
    </form>
 

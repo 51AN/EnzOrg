@@ -75,6 +75,40 @@ html{
     color:var(--black);
     margin-top: 10px;
  }
+
+ .box{
+   display: block;
+   width: 100%;
+   padding: 0.75rem;
+   box-sizing: border-box;
+   border-radius: var(--border-radius);
+   border: 1px solid #000000;
+   outline: none;
+   background: #eeeeee;
+   transition: background 0.2s, border-color 0.2s;
+ }
+
+
+ .btn {
+   width: 100%;
+   padding: 1rem 2rem;
+   font-weight: bold;
+   font-size: 1.1rem;
+   color: #ffffff;
+   border: none;
+   border-radius: var(--border-radius);
+   outline: none;
+   cursor: pointer;
+   background: #009579;
+}
+
+.form__button:hover {
+   background: #007f67;
+}
+
+.form__button:active {
+   transform: scale(0.98);
+}
  
  @media (max-width:650px){
     .update-profile form .flex{
