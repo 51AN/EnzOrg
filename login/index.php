@@ -61,7 +61,7 @@
             </div>
             <button class="form__button" type="submit" name="submit">Continue</button>
             <p class="form__text">
-                <a href="#" class="form__link">Forgot your password?</a>
+                <a href="../forgotpassword/index.php" class="form__link" class="form__link">Forgot your password?</a>
             </p>
             <p class="form__text">
                 <a class="form__link" href="../register/index.php" id="linkCreateAccount">Don't have an account? Create account</a>

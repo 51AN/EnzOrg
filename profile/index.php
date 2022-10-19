@@ -123,10 +123,10 @@
       </div>
       <div class="buttons">
          <input type="submit" value="Update Profile" name="update_profile" class="btn">
-         
-         <input type="submit" value="Go Back" name="go_back" class="btn">
       </div>
-      <a href="../Homepage/index.php" class="delete-btn">go back</a>
+      <div class="buttons">
+      <a href="../Homepage/index.php"><input type="button" value="Go Back" name="go_back" class="btn"></a>
+      </div>
    </form>
 
 </div>
