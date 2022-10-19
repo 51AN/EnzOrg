@@ -85,6 +85,7 @@
                     <?php echo $passError? $passError : null; ?>
                 </div>
             </div>
+
             <button class="form__button" type="submit" name="submit">Continue</button>
             <p class="form__text">
                 <a class="form__link" href="../login/index.php" id="linkLogin">Already have an account? Sign in</a>

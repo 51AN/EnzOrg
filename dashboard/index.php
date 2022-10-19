@@ -23,7 +23,7 @@
                 <li><a href="../login/index.php">LOG OUT</a></li>
                 
                 <!-- Write profile name here -->
-                
+
                 <li><a href="#">ABOUT</a></li>
                 <li><a href="#">CONTACT</a></li>
             </ul>
@@ -31,30 +31,30 @@
     </nav>
 
     <!-- task entry form here  -->
-    <div class="task_entry">
-        <form action="" class="add_task_form" method="POST" id="">
-        <h1 class="add_task_title"> Add Project </h1>
-        <!-- task name add here  -->
-        <div class="add_task_input_group">
-            <input type="text" class="add_task_input" autofocus placeholder="Project Name" id="taskname" name="taskname">
+<div class="row_project">
+    <div class="col_project_entry">    
+        <form action="" class="add_project_form" method="POST" id="">
+            <h1 class="add_project_title"> Add Project </h1>
+            <!-- project name add here  -->
+            <div class="add_project_input_group">
+                <input type="text" class="add_project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
 
-        </div>
-        <!--  task description add here -->
-        <div class="add_task_input_group">
-            <input type="text" class="add_task_input" autofocus placeholder="Description" id="description" name="description">
-        </div>
-        <!-- task due date -->
-        <div class="add_task_input_group">
-            <input type="datetime-local" class="add_task_input" autofocus placeholder="Due Date" id="duetime" name="duetime">
-        </div>
-        <button class="add_task_button" type="submit" name="addtasksubmit"> ADD </button>
-
-        
-
+            </div>
+            <!--  project description add here -->
+            <div class="add_project_input_group">
+                <input type="text" class="add_project_input" autofocus placeholder="Description" id="description" name="description">
+            </div>
+            <!-- project due date -->
+            <div class="add_project_input_group">
+                <input type="datetime-local" class="add_project_input" autofocus placeholder="Due Date" id="duetime" name="duetime">
+            </div>
+            <button class="add_project_button" type="submit" name="addprojectsubmit"> ADD </button>
 
         </form>
     </div>
-    <div>
+
+
+    <div class="col_project_list">
         <h1>Project list</h1>
         <table>
             <tr>
@@ -66,6 +66,10 @@
             </tr>
         </table>
     </div>
+</div>
+
+
+
 </section>
 
 
