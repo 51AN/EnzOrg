@@ -42,6 +42,14 @@
 ?>
 
 <?php
+    if(isset($_POST['delete_button'])){
+        // $delete = mysqli_query($conn, "DELETE FROM `projects` WHERE user_id = $userId");
+        // header('Location: '.$_SERVER['PHP_SELF'].'?success');
+        echo "working";
+    }
+?>
+
+<?php
     $fetch = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
     $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
@@ -95,7 +103,7 @@
 
     <div class="col_project_list">
         <h1>Project list</h1>
-        <table class="project_show_table">
+        <table border="1" width="1000"  height="200" class="project_show_table">
             <tr>
                 <th>Project name</th>
                 <th>Priority</th>
@@ -105,12 +113,14 @@
             </tr>
 
             <?php foreach($projects as $project):?>
-                <tr>
+                <tr align="center">
                     <td><?php echo $project['projname']?></td>
                     <td><?php echo $project['priority']?></td>
                     <td><?php echo $project['tasks']?></td>
                     <td><?php echo $project['projstatus']?></td>
                     <td><?php echo $project['due']?></td>
+   
+                    
                 </tr>
             <?php endforeach;?>
         </table>
