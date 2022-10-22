@@ -113,11 +113,11 @@
          </div>
          <div class="inputBox">
             <input type="hidden" name="old_pass" value="<?php echo $fetch['password']; ?>">
-            <span>old password :</span>
+            <span>Old Password :</span>
             <input type="password" name="update_pass" placeholder="enter previous password" class="box">
-            <span>new password :</span>
+            <span>New Password :</span>
             <input type="password" name="new_pass" placeholder="enter new password" class="box">
-            <span>confirm password :</span>
+            <span>Confirm Password :</span>
             <input type="password" name="confirm_pass" placeholder="confirm new password" class="box">
          </div>
       </div>

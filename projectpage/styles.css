@@ -1,0 +1,108 @@
+*{
+    margin: 0;
+    padding: 0;    
+    font-family: 'Poppins', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+
+.header{
+    min-height: 100vh;
+    width: 100%;
+    background-image: url(../bg.jpg);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+
+    
+
+
+}
+
+nav{
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img{
+    width: 150px;
+
+}
+.nav-links{
+    flex: 1;
+    text-align: right;
+}
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+.nav-links ul li a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 15px;
+
+}
+
+.nav-links ul li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background:#009579;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.nav-links ul li:hover::after{
+    width: 100%;
+}
+
+.row_project{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+    
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.add_project_input {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    box-sizing: border-box;
+    border-radius: var(--border-radius);
+    border: 1px solid #dddddd;
+    outline: none;
+    background: #eeeeee;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.add_project_button {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--border-radius);
+    outline: none;
+    cursor: pointer;
+    background: #009579;
+    height: 70%;
+}
+
+.add_project_button:hover {
+    background: #007f67;
+}
+
+.add_project_button:active {
+    transform: scale(0.98);
+}
