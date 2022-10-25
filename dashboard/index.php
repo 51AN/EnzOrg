@@ -86,10 +86,22 @@
                 <input type="text" class="add_project_input" autofocus placeholder="Description" id="description" name="description" require>
             </div>
             <div class="add_project_input_group">
-                <input type="text" class="add_project_input" autofocus placeholder="Priority" id="priority" name="priority" require>
+                <!-- <input type="text" class="add_project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                <select class="add_project_input" id="priority" name="priority" >
+                    <option >Priority</option>
+                    <option >Low</option>
+                    <option >Medium</option>
+                    <option >High</option>
+                </select>
             </div>
             <div class="add_project_input_group">
-                <input type="text" class="add_project_input" autofocus placeholder="Status" id="stautus" name="status" require>
+                <!-- <input type="text" class="add_project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
+                <select class="add_project_input" id="status" name="status">
+                    <option>Status</option>
+                    <option>Completed</option>
+                    <option>In Progress</option>
+                    <option>Future</option>
+                </select>
             </div>
             <!-- project due date -->
             <div class="add_project_input_group">
@@ -124,6 +136,19 @@
                 </tr>
             <?php endforeach;?>
         </table>
+    </div>
+</div>
+<div class="row_project_1">\
+    <div class="col_project_delete">
+        <h1>Delete Project</h1>
+        <div class="add_project_input_group">
+                <!-- <input type="text" class="add_project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                <select class="add_project_input" id="priority" name="priority" >
+                    <option >Choose Project to Delete</option>
+                    
+                </select>
+        </div>
+
     </div>
 </div>
 

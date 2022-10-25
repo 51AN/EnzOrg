@@ -72,6 +72,14 @@ nav img{
     margin-left: 10%;
     margin-right: 10%;
 }
+.row_project_1{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+    
+    margin-left: 10%;
+    margin-right: 10%;
+}
 
 .add_project_input {
     display: block;
