@@ -81,7 +81,7 @@ nav img{
     margin-right: 10%;
 }
 
-.add_project_input {
+.project_input {
     display: block;
     width: 100%;
     padding: 0.75rem;
@@ -93,7 +93,7 @@ nav img{
     transition: background 0.2s, border-color 0.2s;
 }
 
-.add_project_button {
+.project_button {
     width: 100%;
     padding: 1rem 2rem;
     font-weight: bold;
@@ -107,10 +107,10 @@ nav img{
     height: 70%;
 }
 
-.add_project_button:hover {
+.project_button:hover {
     background: #007f67;
 }
 
-.add_project_button:active {
+.project_button:active {
     transform: scale(0.98);
 }

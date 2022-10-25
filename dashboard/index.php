@@ -74,40 +74,40 @@
     <!-- task entry form here  -->
 <div class="row_project">
     <div class="col_project_entry">    
-        <form action="" class="add_project_form" method="POST" id="">
-            <h1 class="add_project_title"> Add Project </h1>
+        <form action="" class="project_form" method="POST" id="">
+            <h1 class="project_title"> Add Project </h1>
             <!-- project name add here  -->
-            <div class="add_project_input_group">
-                <input type="text" class="add_project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
+            <div class="project_input_group">
+                <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
 
             </div>
             <!--  project description add here -->
-            <div class="add_project_input_group">
-                <input type="text" class="add_project_input" autofocus placeholder="Description" id="description" name="description" require>
+            <div class="project_input_group">
+                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" require>
             </div>
-            <div class="add_project_input_group">
-                <!-- <input type="text" class="add_project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                <select class="add_project_input" id="priority" name="priority" >
-                    <option >Priority</option>
+            <div class="project_input_group">
+                <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                <select class="project_input" id="priority" name="priority" >
+                    <option disabled selected hidden>Priority</option>
                     <option >Low</option>
                     <option >Medium</option>
                     <option >High</option>
                 </select>
             </div>
-            <div class="add_project_input_group">
-                <!-- <input type="text" class="add_project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
-                <select class="add_project_input" id="status" name="status">
-                    <option>Status</option>
+            <div class="project_input_group">
+                <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
+                <select class="project_input" id="status" name="status">
+                    <option disabled selected hidden>Status</option>
                     <option>Completed</option>
                     <option>In Progress</option>
                     <option>Future</option>
                 </select>
             </div>
             <!-- project due date -->
-            <div class="add_project_input_group">
-                <input type="date" class="add_project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
+            <div class="project_input_group">
+                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
             </div>
-            <button class="add_project_button" type="submit" name="addprojectsubmit"> ADD </button>
+            <button class="project_button" type="submit" name="addprojectsubmit"> ADD </button>
 
         </form>
     </div>
@@ -140,14 +140,17 @@
 </div>
 <div class="row_project_1">
     <div class="col_project_delete">
-        <h1>Delete Project</h1>
-        <div class="add_project_input_group">
-                <!-- <input type="text" class="add_project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                <select class="add_project_input" id="priority" name="priority" >
-                    <option >Choose Project to Delete</option>
-                    
-                </select>
-        </div>
+        <form action="" class="project_form" method="POST" id="">
+            <h1>Delete Project</h1>
+            <div class="project_input_group">
+                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                    <select class="project_input" id="priority" name="priority" >
+                        <option >Choose Project to Delete</option>
+                        
+                    </select>
+            </div>
+            <button class="project_button" type="submit" name="deleteprojectsubmit"> DELETE </button>
+        </form>
 
     </div>
 </div>
