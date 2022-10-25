@@ -138,7 +138,7 @@
         </table>
     </div>
 </div>
-<div class="row_project_1">\
+<div class="row_project_1">
     <div class="col_project_delete">
         <h1>Delete Project</h1>
         <div class="add_project_input_group">
