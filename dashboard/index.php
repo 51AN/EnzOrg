@@ -27,7 +27,8 @@
     $userId = $_SESSION['user_id'];
     if(isset($_POST['addprojectsubmit']))
     {
-        $projname = $_POST['projectname'];
+        // $projname = $_POST['projectname'];
+        $projname = filter_var($_POST['projectname'], FILTER_SANITIZE_STRING);
         $projdes = $_POST['description'];
         $priority = $_POST['priority'];
         $projstatus = $_POST['status'];
