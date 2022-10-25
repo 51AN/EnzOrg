@@ -27,9 +27,8 @@
     $userId = $_SESSION['user_id'];
     if(isset($_POST['addprojectsubmit']))
     {
-        // $projname = $_POST['projectname'];
-        $projname = filter_var($_POST['projectname'], FILTER_SANITIZE_STRING);
-        $projdes = $_POST['description'];
+        $projname = htmlspecialchars($_POST['projectname']);
+        $projdes = htmlspecialchars($_POST['description']);
         $priority = $_POST['priority'];
         $projstatus = $_POST['status'];
         $due = $_POST['duetime'];
@@ -43,16 +42,17 @@
 ?>
 
 <?php
-    if(isset($_POST['delete_button'])){
-        // $delete = mysqli_query($conn, "DELETE FROM `projects` WHERE user_id = $userId");
-        // header('Location: '.$_SERVER['PHP_SELF'].'?success');
-        echo "working";
-    }
+    $fetch = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
+    $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
 
 <?php
-    $fetch = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
-    $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
+    if(isset($_POST['deleteprojectsubmit']))
+    {
+        $selected = htmlspecialchars($_POST['delproj']);
+        $del = mysqli_query($conn, "DELETE FROM `projects` WHERE projname = '$selected' AND user_id = $userId");
+        header('Location: '.$_SERVER['PHP_SELF'].'?success');
+    }
 ?>
 <!--  section of the whole page -->
 <section class="header">
@@ -145,9 +145,10 @@
             <h1>Delete Project</h1>
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="priority" name="priority" >
-                        <option >Choose Project to Delete</option>
-                        
+                    <select class="project_input" id="delproj" name="delproj" >
+                        <?php foreach($projects as $values):?>
+                            <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
+                        <?php endforeach;?>
                     </select>
             </div>
             <button class="project_button" type="submit" name="deleteprojectsubmit"> DELETE </button>
