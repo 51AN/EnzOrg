@@ -51,7 +51,7 @@ if (isset($_POST['reg_user'])) {
 //   	$_SESSION['success'] = "You are now logged in";
 //   	header('location: index.php');
 //   }
-// }
+}
 
 // LOGIN USER
 if (isset($_POST['login_user'])) {

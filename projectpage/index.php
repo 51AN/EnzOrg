@@ -65,7 +65,7 @@
                 <li><a href="../login/index.php">LOG OUT</a></li>
                 <!-- Write profile name here -->
                 <?php echo '<li><a href="../profile/index.php">'.$message.'</a></li>';?>
-                <li><a href="#">ABOUT</a></li>
+                <li><a href="../about/index.php">ABOUT</a></li>
                 <li><a href="#">CONTACT</a></li>
             </ul>
         </div>

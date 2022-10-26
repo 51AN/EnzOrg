@@ -10,24 +10,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;600;700&display=swap" rel="stylesheet">
 </head>
 
-<?php
-    session_start();
-    $message = '';
-
-    if(isset($_SESSION['username']))
-        $message = $_SESSION['username'];
-?>
 
 <body>
+
     <section class="header"> 
         <nav>
-            <!--<div class="title__name">EnzOrg</div>-->
+            <!--<a href="https://genshin.hoyoverse.com/en/home"><img src="images/logo.png"></a>-->
             <div class="nav-links">
                 <ul>
                     <li><a href="#">HOME</a></li>
-                    <li><a href="<?php echo $message ? '../Homepage/logout.php' : '../login/index.php';?>"><?php echo $message ? 'LOG OUT' : 'LOG IN';?></a></li>
-                    <li><a href="<?php echo !$message ? '../register/index.php' : '../profile/index.php';?>"><?php echo $message ? $message : 'SIGN IN';?></a></li>
-                    <li><a href="../about/index.php">ABOUT</a></li>
+                    <li><a href="#">ABOUT</a></li>
+                    <li><a href="../login/index.html">LogIn / Sign Up</a></li>
+                    <li><a href="#">SPONSORS</a></li>
                     <li><a href="#">CONTACT</a></li>
                 </ul>
             </div>
@@ -37,9 +31,9 @@
         <h1>Organize your Life with EnzOrg</h1>
         <p> A powerful project management tool to get you involved with your everyday tasks<br>
         </p>
-        <a href="<?php echo $message ? '../dashboard/index.php' : '../login/index.php';?>" class="start--btn">Get Started</a>
+        <a href="#" class="start--btn">Get Started</a>
     </div>
-    <section>
+
 
 </body>
 </html>
