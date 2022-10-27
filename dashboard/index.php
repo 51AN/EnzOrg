@@ -151,7 +151,17 @@
                         <?php endforeach;?>
                     </select>
             </div>
-            <button class="project_button" type="submit" name="deleteprojectsubmit"> DELETE </button>
+            <button class="project_button" type="button" onclick="openPopup()"> DELETE </button>
+            <div class="popup_delete"  id="popup_delete">
+                <img src="./images/cross.png">
+                <h2>Delete?</h2>
+                <p>Are you sure about deleting this project?</p>
+                <div class="popup_button_space">
+                    <button type="submit" class="project_button" name="deleteprojectsubmit">Confirm</button>
+                </div>
+                    <button type="button" class="project_button" onclick="closePopup()">Cancel</button>
+                
+            </div>
         </form>
 
     </div>
@@ -164,7 +174,19 @@
 
 
     
+<script>
 
+let popup = document.getElementById("popup_delete");
+
+function openPopup(){
+    popup.classList.add("open-popup");
+}
+function closePopup(){
+    popup.classList.remove("open-popup");
+}
+
+
+</script>
 
 
 
