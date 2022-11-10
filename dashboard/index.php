@@ -108,7 +108,17 @@
             <div class="project_input_group">
                 <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
             </div>
-            <button class="project_button" type="submit" name="addprojectsubmit"> ADD </button>
+            <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
+            <div class="popup_add"  id="popup_add">
+                <img src="./images/cross.png">
+                <h2>Add?</h2>
+                <p>Do you want to add this project?</p>
+                <div class="popup_button_space">
+                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+                </div>
+                    <button type="button" class="project_button" onclick="closePopupAdd()">Cancel</button>
+                
+            </div>
 
         </form>
     </div>
@@ -116,27 +126,29 @@
 
     <div class="col_project_list">
         <h1>Project list</h1>
-        <table border="1" width="1000"  height="200" class="project_show_table">
-            <tr>
-                <th>Project name</th>
-                <th>Priority</th>
-                <th>Tasks</th>
-                <th>Status</th>
-                <th>Due</td>
-            </tr>
-
-            <?php foreach($projects as $project):?>
-                <tr align="center">
-                    <td><?php echo $project['projname']?></td>
-                    <td><?php echo $project['priority']?></td>
-                    <td><?php echo $project['tasks']?></td>
-                    <td><?php echo $project['projstatus']?></td>
-                    <td><?php echo $project['due']?></td>
-   
-                    
+        <div style="height: 300px; overflow: auto">
+            <table border="1" width="1000"  height="400" class="project_show_table" >
+                <tr>
+                    <th>Project name</th>
+                    <th>Priority</th>
+                    <th>Tasks</th>
+                    <th>Status</th>
+                    <th>Due</td>
                 </tr>
-            <?php endforeach;?>
-        </table>
+            
+                <?php foreach($projects as $project):?>
+                    <tr align="center">
+                        <td><?php echo $project['projname']?></td>
+                        <td><?php echo $project['priority']?></td>
+                        <td><?php echo $project['tasks']?></td>
+                        <td><?php echo $project['projstatus']?></td>
+                        <td><?php echo $project['due']?></td>
+    
+                        
+                    </tr>
+                <?php endforeach;?>
+            </table>
+        </div>
     </div>
 </div>
 <div class="row_project_1">
@@ -176,6 +188,18 @@
     
 <script>
 
+
+let popupOpen = document.getElementById("popup_add");
+
+function openPopupAdd(){
+    popupOpen.classList.add("open-popup-add");
+}
+function closePopupAdd(){
+    popupOpen.classList.remove("open-popup-add");
+}
+
+
+
 let popup = document.getElementById("popup_delete");
 
 function openPopup(){
@@ -184,6 +208,9 @@ function openPopup(){
 function closePopup(){
     popup.classList.remove("open-popup");
 }
+
+
+
 
 
 </script>
