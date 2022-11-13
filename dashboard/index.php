@@ -54,6 +54,15 @@
         header('Location: '.$_SERVER['PHP_SELF'].'?success');
     }
 ?>
+
+<?php
+    if(isset($_POST['viewprojectsubmit']))
+    {
+        $selectedview = htmlspecialchars($_POST['viewproj']);
+        $del = mysqli_query($conn, "SELECT * FROM `projects` WHERE projname = '$selectedview' AND user_id = $userId");
+        header('Location: ../projectpage/index.php');
+    }
+?>
 <!--  section of the whole page -->
 <section class="header">
     <!--  nav bar begins here -->
@@ -183,7 +192,7 @@
             <h1>View Project</h1>
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="delproj" name="delproj" >
+                    <select class="project_input" id="viewproj" name="viewproj" >
                         <?php foreach($projects as $values):?>
                             <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
                         <?php endforeach;?>
