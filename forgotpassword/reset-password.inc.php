@@ -34,7 +34,7 @@ if(!mysqli_stmt_prepare($stmt,$sql)){
         $tokenBin = hex2bin($validator);
         $tokenCheck = password_verify($tokenBin,$row["passwordResetToken"]);
         if($tokenCheck === false){
-            echo "You need re-submit your reset request. Token Check Failed.";
+            header("location: index.php?reset=tokenFail");
             exit();
         }elseif($tokenCheck ===true){
             $tokenEmail = $row["passwordResetEmail"];
@@ -49,7 +49,7 @@ if(!mysqli_stmt_prepare($stmt,$sql)){
                 $result = mysqli_stmt_get_result($stmt);
                 if(!$row=mysqli_fetch_assoc($result)){
                     header("location: index.php?reset=userdoesnotexist");
-                exit();
+                    exit();
                 }else{
                     $sql="UPDATE users SET password=? WHERE email=?";
                     $stmt = mysqli_stmt_init($conn);

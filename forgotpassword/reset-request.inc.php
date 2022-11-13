@@ -1,7 +1,6 @@
 <?php
 session_start();
 include "testMail.php";
-
 if(isset($_POST["reset-request-submit"])){
     $email = $_POST['email'];
     $conn = new mysqli('localhost','root','','spl');
