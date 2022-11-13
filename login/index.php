@@ -60,6 +60,14 @@
                 </div>
             </div>
             <button class="form__button" type="submit" name="submit">Continue</button>
+            <?php 
+            if(isset($_GET["newpassword"]))
+            {
+                if($_GET["newpassword"]=="passwordUpdated"){
+                    echo'<p>Your password has been reset.</p>';
+                }
+            }
+            ?>
             <p class="form__text">
                 <a href="../forgotpassword/index.php" class="form__link" class="form__link">Forgot your password?</a>
             </p>
