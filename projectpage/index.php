@@ -177,6 +177,22 @@
         </form>
 
     </div>
+
+    <div class="col_project_veiw">
+        <form action="" class="project_form" method="POST" id="">
+            <h1>View Task</h1>
+            <div class="project_input_group">
+                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                    <select class="project_input" id="delproj" name="delproj" >
+                        <?php foreach($projects as $values):?>
+                            <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
+                        <?php endforeach;?>
+                    </select>
+            </div>
+            <button class="project_button" type="submit" name="viewprojectsubmit"> VIEW </button>
+            
+        </form>
+    </div>
 </div>
 
 
