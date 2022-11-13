@@ -13,74 +13,6 @@
 <?php
 
     $username = $email = $passError = $passError1 = $emailError = $userError = $password = $confirmPassword = '';
-
-    if(isset($_POST['submit'])){
-        $conn = new mysqli('localhost','root','','spl');
-    //     $email = mysqli_real_escape_string($conn,$_POST['email']);
-    //     $token = md5(rand());
-
-    //     $query = $conn->query("SELECT * FROM users WHERE `email` = '$email' LIMIT 1");
-    //     $check_query = mysqli_query($conn,$query);
-    //     if(mysqli_num_rows($check_query)>0)
-    //     {
-    //         $row = mysqli_fetch_array($check_query);
-    //         $get_username = $row['username'];
-    //         $get_email = $row['email'];
-    //         $get_password = $row['password'];
-
-    //         $update_token= "UPDATE users SET verify_token='$token' WHERE email='$get_email' LIMIT 1";
-    //         $update_token_run=mysqli_query($conn,$update_token);
-    //         if($update_token_run)
-    //         {
-    //             send_password($get_username,$get_email,$get_password);
-    //             $_SESSION['status']="We sent you an email with the password";
-    //             header('location: ../forgotpassword/index.php');
-    //             exit(0);
-    //         }
-    //         else
-    //         {
-    //             $_SESSION['status']="Something went wrong. #1";
-    //             header('location: ../forgotpassword/index.php');
-    //             exit(0);
-    //         }
-    //     }
-    //     else
-    //     {
-    //         $_SESSION['status']="No Email Found";
-    //         header('location: ../forgotpassword/index.php');
-    //     }
-
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-            $emailError = "Invalid Email";
-        if(empty($emailError))
-        {
-            if($conn -> connect_error){
-                die('Connection Failed : ' .$conn->connect_error);
-            }
-            else{//Update here
-                // $SQL="INSERT INTO `users`(`username`, `email`, `password`) VALUES ('$username','$email','$password')";
-                // $result=mysqli_query($conn,$SQL);
-                // $stmt = $conn->prepare("insert into users(username,email,password) values(?,?,?)");
-                // $stmt ->bind_param("sss",$username, $email, md5($password));
-                // $stmt -> execute();
-                // header('location: ../login/index.php');
-                // $stmt -> close();
-                // $conn -> close();
-
-                $query = $conn->query("SELECT * FROM users WHERE `email` = '$email' LIMIT 1");
-                $check_query = mysqli_query($conn,$query);
-                if(mysqli_num_rows($check_query)>0)
-                {
-                    $row = mysqli_fetch_array($check_query);
-                    $get_username = $row['username'];
-                    $get_email = $row['email'];
-                    $get_password = $row['password'];
-                    $_SESSION['password']="$get_password";
-                } 
-            }
-        }
-    }
-
 ?>
 
 <body>
@@ -108,6 +40,17 @@
         if(isset($_GET["reset"])){
             if($_GET["reset"]=="success"){
                 echo'<p class="form__message form__message--error">Check your Email</p>';
+            }else if($_GET["reset"]=="tokenExpired"){
+                echo'<p class="form__message form__message--error">You need re-submit your reset request. The validation period is over.</p>';
+            }else if($_GET["reset"]=="userdoesnotexist"){
+                echo'<p class="form__message form__message--error">No user under that email exists in our Database.</p>';
+            }else if($_GET["reset"]=="invalidemail"){
+                echo'<p class="form__message form__message--error">The email you entered is Invalid.</p>';
+            }else if($_GET["reset"]=="emptyrow"){
+                echo'<p class="form__message form__message--error">No user under that email exists in our Database.</p>';
+            }
+            else if($_GET["reset"]=="tokenFail"){
+                echo'<p class="form__message form__message--error">You need re-submit your reset request. Token Check Failed.</p>';
             }
         }
         ?>

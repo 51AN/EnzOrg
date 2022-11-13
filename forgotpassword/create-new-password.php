@@ -13,26 +13,14 @@
         
 <?php
         $passError = $passError1 =$password = $confirmPassword = '';
-        $selector= $validator = 'muri';
+        $newpassword= $selector= $validator = 'muri';
+        $newpassword = $_GET['newpassword'];
         $selector =$_GET['selector'];
         $validator = $_GET['validator'];
         if(empty($selector)||empty($validator)){
             echo"Could not validate your request!";
         }else{
             if(ctype_xdigit($selector)!==false && ctype_xdigit($validator)!==false){
-                if(isset($_POST['reset-password-submit'])){
-                    $password = $_POST['password'];
-                    $confirmPassword = $_POST['confirmPassword'];
-            
-                    $conn = new mysqli('localhost','root','','spl');
-            
-            
-                    if($password != $confirmPassword)
-                        $passError = "Passwords don't match";
-                    if(strlen($password) < 8 || ctype_upper($password) || ctype_lower($password))
-                        $passError1 = "Password must be atleast 8 character long and contain uppercase and lowercase";
-        
-                }
                 ?>
                 <body>
                 <div class="container">
@@ -54,11 +42,21 @@
                     <?php echo $passError? $passError : null; ?>
                 </div>
             </div>
-                        <button class="form__button" type="submit" name="reset-password-submit">Continue</button>
+                <button class="form__button" type="submit" name="reset-password-submit">Continue</button>
+                <?php 
+                if(isset($_GET["newpassword"])){
+                    if($newpassword=="passwordnotsame"){
+                        echo'<p class="form__message form__message--error">Passwords Donot Match.</p>';
+                    }else if($newpassword =="error1"){
+                        echo'<p class="form__message form__message--error">Password Must be of atleast 8 letters</p>';
+                    }else if($newpassword =="error2"){
+                        echo'<p class="form__message form__message--error">Password Must Contain Both Uppercase and Lowercase Letters</p>';
+                    }
+                }
+                ?>
                 </form>
                 </div>
                 </body>
-            </main>
                 <?php
             }
         }

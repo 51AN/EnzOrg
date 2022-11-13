@@ -2,10 +2,42 @@
 session_start();
 include "testMail.php";
 if(isset($_POST["reset-request-submit"])){
+    $email = $_POST['email'];
+    $conn = new mysqli('localhost','root','','spl');
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL))
+        $emailError = "Invalid Email";
+    if(empty($emailError))
+    {
+        if($conn -> connect_error){
+            die('Connection Failed : ' .$conn->connect_error);
+        }
+        else{
+            $sql ="SELECT * FROM users WHERE email = ? LIMIT 1";
+            $stmt = mysqli_stmt_init($conn);
+            if(!mysqli_stmt_prepare($stmt,$sql)){
+                echo "There was an error 6";
+                exit();
+            }
+            else{
+                mysqli_stmt_bind_param($stmt,"s",$email);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+                if(!$row=mysqli_fetch_assoc($result)){
+                    header("location: index.php?reset=emptyrow");
+                    exit();
+                }
+            }
+        }
+    }
+    else{
+        header("location: index.php?reset=invalidemail");
+        exit();
+    }
+    $conn->close();
 $selector = bin2hex(random_bytes(8));
 $token = random_bytes(32);
 $binToken = bin2hex($token);
-$url = "http://localhost:3000/forgotpassword/create-new-password.php?selector=". urlencode($selector) . "&validator=" . urlencode($binToken);
+$url = "http://localhost:3000/forgotpassword/create-new-password.php?newpassword=nothing&selector=". urlencode($selector) . "&validator=" . urlencode($binToken);
 $expires = date("U")+300;
 
 $conn = mysqli_connect('localhost','root','','spl');
