@@ -49,6 +49,9 @@
             }else if($_GET["reset"]=="emptyrow"){
                 echo'<p class="form__message form__message--error">No user under that email exists in our Database.</p>';
             }
+            else if($_GET["reset"]=="tokenFail"){
+                echo'<p class="form__message form__message--error">You need re-submit your reset request. Token Check Failed.</p>';
+            }
         }
         ?>
     </div>
