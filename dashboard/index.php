@@ -110,7 +110,7 @@
             </div>
             <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
             <div class="popup_add"  id="popup_add">
-                <img src="./images/cross.png">
+                <img src="./images/question.png">
                 <h2>Add?</h2>
                 <p>Do you want to add this project?</p>
                 <div class="popup_button_space">

@@ -72,8 +72,16 @@ nav img{
     margin-left: 10%;
     margin-right: 10%;
 }
+.row_project_1{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+    
+    margin-left: 10%;
+    margin-right: 10%;
+}
 
-.add_project_input {
+.project_input {
     display: block;
     width: 100%;
     padding: 0.75rem;
@@ -85,7 +93,7 @@ nav img{
     transition: background 0.2s, border-color 0.2s;
 }
 
-.add_project_button {
+.project_button {
     width: 100%;
     padding: 1rem 2rem;
     font-weight: bold;
@@ -99,10 +107,105 @@ nav img{
     height: 70%;
 }
 
-.add_project_button:hover {
+.project_button:hover {
     background: #007f67;
 }
 
-.add_project_button:active {
+.project_button:active {
     transform: scale(0.98);
 }
+
+.popup_delete{
+    width: 400px;
+    background: #ffffff;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup{
+    visibility: visible;
+    top : 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup_delete img{
+    width: 100px;
+    margin-top: -50%;
+    border-radius: 50%;
+    box-shadow: 0 2px 5 px rgba(0, 0, 0, 0.2);
+}
+
+
+.popup_delete h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+.popup_button_space{
+    margin-bottom: 5px;
+}
+
+
+.popup_add{
+    width: 400px;
+    background: #ffffff;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.1);
+    text-align: center;
+    padding: 0 30px 30px;
+    
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+
+.open-popup-add{
+    visibility: visible;
+    top : 50%;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.popup_add img{
+    width: 100px;
+    margin-top: -50%;
+    border-radius: 50%;
+    box-shadow: 0 2px 5 px rgba(0, 0, 0, 0.2);
+}
+
+
+.popup_add h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+
+
+
+
+
+
+.project_show_table{
+    table-layout: fixed;
+}
+
+.project_show_table td{
+    height: 20px;
+    overflow: hidden;
+}
+
+.project_show_table th{
+    height: 30px;
+    overflow: hidden;
+}
+
