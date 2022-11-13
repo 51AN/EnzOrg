@@ -11,55 +11,6 @@
 </head>
 
 <?php
-session_start();
-require '../vendor/phpmailer/src/PHPMailer.php';
-require '../vendor/phpmailer/src/SMTP.php';
-require '../vendor/phpmailer/src/Exception.php';
-
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
-
-function send_mail($recpient,$subject,$message){
-    $mail = new PHPMailer();
-
-try {
-    //Server settings
-    $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'nazmul4532@gmail.com';                     //SMTP username
-    $mail->Password   = 'azpsedisgqmpzlph';                               //SMTP password
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-    $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-
-    //Recipients
-    // $mail->setFrom('nazmul4532@gmail.com', $get_email);
-    $mail->addAddress('nazmulhossain@iut-dhaka.edu', 'nazmul4532');     //Add a recipient
-    // $mail->addAddress('ellen@example.com');               //Name is optional
-    // $mail->addReplyTo('info@example.com', 'Information');
-    // $mail->addCC('cc@example.com');
-    // $mail->addBCC('bcc@example.com');
-
-    //Attachments
-    // $mail->addAttachment('/var/tmp/file.tar.gz');         //Add attachments
-    // $mail->addAttachment('/tmp/image.jpg', 'new.jpg');    //Optional name
-
-    //Content
-    $mail->isHTML(true);                                  //Set email format to HTML
-    $mail->Subject = 'Reset password';
-    $mail->Body    = 'Please let this message go through...<b>in bold!</b>';
-    $mail->AltBody = 'Please let this message go through...non-html client';
-
-    $mail->send();
-    echo 'Message has been sent';
-} catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-}
-
-  
-}
 
     $username = $email = $passError = $passError1 = $emailError = $userError = $password = $confirmPassword = '';
 
@@ -138,11 +89,12 @@ try {
 
 
         <!--Forgot Password form-->
-        <form action="http://localhost:3000/forgotpassword/reset-request.inc.php" method="POST" class="form" id="forgotAccount">
-            <h1 class="form__title">Reset Password</h1>
+        <form action="reset-request.inc.php" method="POST" class="form" id="forgotAccount">
+            <h1 class="form__title">Forgot Password?</h1>
+            <h6>An e-mail will be sent to you about resetting your password shortly.</h6>
             <div class="form__message form__message--error"></div>
             <div class="form__input-group">
-                <input type="text" class="form__input" autofocus placeholder="Email Address" name="email" required>
+                <input type="text" class="form__input" autofocus placeholder="Enter Your Email Address" name="email" required>
                 <div class="form__input-error-message">
                     <?php echo $emailError ? $emailError : null; ?>
                 </div>
