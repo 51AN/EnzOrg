@@ -59,7 +59,10 @@
     if(isset($_POST['viewprojectsubmit']))
     {
         $selectedview = htmlspecialchars($_POST['viewproj']);
-        $del = mysqli_query($conn, "SELECT * FROM `projects` WHERE projname = '$selectedview' AND user_id = $userId");
+        $view = mysqli_query($conn, "SELECT * FROM `projects` WHERE projname = '$selectedview' AND user_id = $userId");
+        $row = mysqli_fetch_assoc($view);
+        $_SESSION['projectName'] = $row['projname'];
+        $_SESSION['projectID'] = $row['proj_id'];
         header('Location: ../projectpageadmin/index.php');
     }
 ?>
@@ -97,7 +100,7 @@
             </div>
             <div class="project_input_group">
                 <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                <select class="project_input" id="priority" name="priority" >
+                <select class="project_input" id="priority" name="priority">
                     <option disabled selected hidden>Priority</option>
                     <option >Low</option>
                     <option >Medium</option>

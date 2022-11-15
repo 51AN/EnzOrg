@@ -23,19 +23,19 @@
 ?>
 
 <?php
-    $projname = $projdes = $priority = $projstatus = $due = '';
-    $userId = $_SESSION['user_id'];
+    $taskname = $taskdes = $priority = $taskstatus = $due = '';
+    $projId = $_SESSION['projectID'];
     if(isset($_POST['addprojectsubmit']))
     {
-        $projname = htmlspecialchars($_POST['projectname']);
-        $projdes = htmlspecialchars($_POST['description']);
+        $taskname = htmlspecialchars($_POST['taskname']);
+        $taskdes = htmlspecialchars($_POST['description']);
         $priority = $_POST['priority'];
-        $projstatus = $_POST['status'];
+        $taskstatus = $_POST['status'];
         $due = $_POST['duetime'];
 
-        if(!empty($projname) && !empty($projdes) && !empty($priority) && !empty($projstatus))
+        if(!empty($taskname) && !empty($taskdes) && !empty($priority) && !empty($taskstatus))
         {
-            $query = mysqli_query($conn, "INSERT INTO `projects` (`projname`, `projdescription`, `priority`, `projstatus`, `tasks`, `due`, `user_id`) VALUES ('$projname', '$projdes', '$priority', '$projstatus', '1', '$due', '$userId')");
+            $query = mysqli_query($conn, "INSERT INTO `tasks` (`taskName`, `taskDes`, `priority`, `status`, `members`, `due`, `projID`) VALUES ('$taskname', '$taskdes', '$priority', '$taskstatus', '1', '$due', '$projId')");
             header('Location: '.$_SERVER['PHP_SELF'].'?success');
         }  
     }
@@ -45,16 +45,28 @@
 
 
 <?php
-    $fetch = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
-    $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
+    $fetch = mysqli_query($conn, "SELECT * FROM tasks WHERE projID = $projId");
+    $tasks = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
 
 <?php
-    if(isset($_POST['deleteprojectsubmit']))
+    if(isset($_POST['deletetasksubmit']))
     {
-        $selected = htmlspecialchars($_POST['delproj']);
-        $del = mysqli_query($conn, "DELETE FROM `projects` WHERE projname = '$selected' AND user_id = $userId");
+        $selected = htmlspecialchars($_POST['deltask']);
+        $del = mysqli_query($conn, "DELETE FROM `tasks` WHERE taskName = '$selected' AND projID = $projId");
         header('Location: '.$_SERVER['PHP_SELF'].'?success');
+    }
+?>
+
+<?php
+    if(isset($_POST['viewtasksubmit']))
+    {
+        $selectedview = htmlspecialchars($_POST['viewtask']);
+        $view = mysqli_query($conn, "SELECT * FROM `tasks` WHERE taskName = '$selectedview' AND projID = $projId");
+        $row = mysqli_fetch_assoc($view);
+        $_SESSION['taskName'] = $row['taskName'];
+        $_SESSION['taskID'] = $row['taskID'];
+        header('Location: ../taskpageadmin/index.php');
     }
 ?>
 <!--  section of the whole page -->
@@ -62,7 +74,7 @@
     <!--  nav bar begins here -->
     <nav>
 
-        <div class="project__name"><b>Project Name</b></div>
+        <div class="project__name"><b><?php echo $_SESSION['projectName'] ?></b></div>
         <div class="nav-links">
             <ul>
                 <!-- elements of nav bar  -->
@@ -84,7 +96,7 @@
             <h1 class="project_title"> Add Task </h1>
             <!-- project name add here  -->
             <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
+                <input type="text" class="project_input" autofocus placeholder="Task Name" id="taskname" name="taskname">
 
             </div>
             <!--  project description add here -->
@@ -141,13 +153,13 @@
                     <th>Due</td>
                 </tr>
             
-                <?php foreach($projects as $project):?>
+                <?php foreach($tasks as $task):?>
                     <tr align="center">
-                        <td><?php echo $project['projname']?></td>
-                        <td><?php echo $project['priority']?></td>
-                        <td><?php echo $project['tasks']?></td>
-                        <td><?php echo $project['projstatus']?></td>
-                        <td><?php echo $project['due']?></td>
+                        <td><?php echo $task['taskName']?></td>
+                        <td><?php echo $task['priority']?></td>
+                        <td><?php echo $task['members']?></td>
+                        <td><?php echo $task['status']?></td>
+                        <td><?php echo $task['due']?></td>
     
                         
                     </tr>
@@ -162,9 +174,9 @@
             <h1>Delete Task</h1>
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="delproj" name="delproj" >
-                        <?php foreach($projects as $values):?>
-                            <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
+                    <select class="project_input" id="deltask" name="deltask" >
+                        <?php foreach($tasks as $values):?>
+                            <option value="<?php echo $values['taskName'];?>"><?php echo $values['taskName'];?></option>
                         <?php endforeach;?>
                     </select>
             </div>
@@ -174,7 +186,7 @@
                 <h2>Delete?</h2>
                 <p>Are you sure about deleting this project?</p>
                 <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="deleteprojectsubmit">Confirm</button>
+                    <button type="submit" class="project_button" name="deletetasksubmit">Confirm</button>
                 </div>
                     <button type="button" class="project_button" onclick="closePopup()">Cancel</button>
                 
@@ -188,13 +200,13 @@
             <h1>View Task</h1>
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="delproj" name="delproj" >
-                        <?php foreach($projects as $values):?>
-                            <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
+                    <select class="project_input" id="viewtask" name="viewtask" >
+                        <?php foreach($tasks as $values):?>
+                            <option value="<?php echo $values['taskName'];?>"><?php echo $values['taskName'];?></option>
                         <?php endforeach;?>
                     </select>
             </div>
-            <button class="project_button" type="submit" name="viewprojectsubmit"> VIEW </button>
+            <button class="project_button" type="submit" name="viewtasksubmit"> VIEW </button>
             
         </form>
     </div>
