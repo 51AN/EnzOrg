@@ -9,11 +9,11 @@ The project is regarding a task/project management website which enables users t
 
 ### Contributors to this project :
 
-[Sian Ashsad]()
+[Sian Ashsad](github.com/51AN)
 
-[Rhidwan Rashid Dihan]()
+[Rhidwan Rashid Dihan](github.com/dihan141)
 
-[M M Nazmul Hossain]()
+[M M Nazmul Hossain](github.com/nazmul4532)
 
 [Md. Saidul Islam]() (Supervisor)
  
