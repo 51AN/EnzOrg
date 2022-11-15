@@ -11,9 +11,9 @@ The project is regarding a task/project management website which enables users t
 
 [Sian Ashsad](https://www.github.com/51AN)
 
-[Rhidwan Rashid Dihan](github.com/dihan141)
+[Rhidwan Rashid Dihan](https://www.github.com/dihan141)
 
-[M M Nazmul Hossain](github.com/nazmul4532)
+[M M Nazmul Hossain](https://www.github.com/nazmul4532)
 
 [Md. Saidul Islam]() (Supervisor)
  
