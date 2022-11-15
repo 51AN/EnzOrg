@@ -9,7 +9,7 @@ The project is regarding a task/project management website which enables users t
 
 ### Contributors to this project :
 
-[Sian Ashsad](github.com/51AN)
+[Sian Ashsad](https://www.github.com/51AN)
 
 [Rhidwan Rashid Dihan](github.com/dihan141)
 
