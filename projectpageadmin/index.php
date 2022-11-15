@@ -41,6 +41,9 @@
     }
 ?>
 
+
+
+
 <?php
     $fetch = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
     $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
@@ -54,20 +57,12 @@
         header('Location: '.$_SERVER['PHP_SELF'].'?success');
     }
 ?>
-
-<?php
-    if(isset($_POST['viewprojectsubmit']))
-    {
-        $selectedview = htmlspecialchars($_POST['viewproj']);
-        $del = mysqli_query($conn, "SELECT * FROM `projects` WHERE projname = '$selectedview' AND user_id = $userId");
-        header('Location: ../projectpageadmin/index.php');
-    }
-?>
 <!--  section of the whole page -->
 <section class="header">
     <!--  nav bar begins here -->
     <nav>
-        <!--<div class="title__name">EnzOrg</div>-->
+
+        <div class="project__name"><b>Project Name</b></div>
         <div class="nav-links">
             <ul>
                 <!-- elements of nav bar  -->
@@ -77,6 +72,7 @@
                 <?php echo '<li><a href="../profile/index.php">'.$message.'</a></li>';?>
                 <li><a href="../about/index.php">ABOUT</a></li>
                 <li><a href="#">CONTACT</a></li>
+                <li><a href="../settingsproject/index.php">SETTINGS</a></li>
             </ul>
         </div>
     </nav>
@@ -85,7 +81,7 @@
 <div class="row_project">
     <div class="col_project_entry">    
         <form action="" class="project_form" method="POST" id="">
-            <h1 class="project_title"> Add Project </h1>
+            <h1 class="project_title"> Add Task </h1>
             <!-- project name add here  -->
             <div class="project_input_group">
                 <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
@@ -134,13 +130,13 @@
 
 
     <div class="col_project_list">
-        <h1>Project list</h1>
+        <h1>Task list</h1>
         <div style="height: 300px; overflow: auto">
             <table border="1" width="1000"  height="400" class="project_show_table" >
                 <tr>
-                    <th>Project name</th>
+                    <th>Task name</th>
                     <th>Priority</th>
-                    <th>Tasks</th>
+                    <th>Members</th>
                     <th>Status</th>
                     <th>Due</td>
                 </tr>
@@ -163,7 +159,7 @@
 <div class="row_project_1">
     <div class="col_project_delete">
         <form action="" class="project_form" method="POST" id="">
-            <h1>Delete Project</h1>
+            <h1>Delete Task</h1>
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="delproj" name="delproj" >
@@ -189,10 +185,10 @@
 
     <div class="col_project_veiw">
         <form action="" class="project_form" method="POST" id="">
-            <h1>View Project</h1>
+            <h1>View Task</h1>
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="viewproj" name="viewproj" >
+                    <select class="project_input" id="delproj" name="delproj" >
                         <?php foreach($projects as $values):?>
                             <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
                         <?php endforeach;?>
@@ -202,7 +198,6 @@
             
         </form>
     </div>
-
 </div>
 
 
