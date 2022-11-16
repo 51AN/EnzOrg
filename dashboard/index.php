@@ -35,7 +35,7 @@
 
         if(!empty($projname) && !empty($projdes) && !empty($priority) && !empty($projstatus))
         {
-            $query = mysqli_query($conn, "INSERT INTO `projects` (`projname`, `projdescription`, `priority`, `projstatus`, `tasks`, `due`, `user_id`) VALUES ('$projname', '$projdes', '$priority', '$projstatus', '1', '$due', '$userId')");
+            $query = mysqli_query($conn, "INSERT INTO `projects` (`projname`, `projdescription`, `priority`, `projstatus`, `due`, `user_id`) VALUES ('$projname', '$projdes', '$priority', '$projstatus', '$due', '$userId')");
             header('Location: '.$_SERVER['PHP_SELF'].'?success');
         }  
     }
@@ -152,7 +152,14 @@
                     <tr align="center">
                         <td><?php echo $project['projname']?></td>
                         <td><?php echo $project['priority']?></td>
-                        <td><?php echo $project['tasks']?></td>
+                        <td>
+                        <?php
+                            $id = $project['proj_id'];
+                            $fetchTasks = mysqli_query($conn, "SELECT COUNT(taskID) AS totaltask FROM tasks WHERE projID = $id");
+                            $taskcount = mysqli_fetch_assoc($fetchTasks);
+                            echo $taskcount['totaltask'];
+                        ?>
+                        </td>
                         <td><?php echo $project['projstatus']?></td>
                         <td><?php echo $project['due']?></td>
     
