@@ -91,20 +91,20 @@
          <span class="tooltip">Dashboard</span>
       </li>
       <li>
-       <a href="#">
+       <a href="../profile/index.php">
          <i class='bx bx-user' ></i>
-         <span class="links_name">User</span>
+         <span class="links_name">My Profile</span>
        </a>
-       <span class="tooltip">User</span>
+       <span class="tooltip">My Profile</span>
      </li>
      <li>
        <a href="#">
-         <i class='bx bx-chat' ></i>
-         <span class="links_name">Messages</span>
+         <i class='bx bx-task' ></i>
+         <span class="links_name">My Tasks</span>
        </a>
-       <span class="tooltip">Messages</span>
+       <span class="tooltip">My Tasks</span>
      </li>
-     <li>
+     <!-- <li>
        <a href="#">
          <i class='bx bx-pie-chart-alt-2' ></i>
          <span class="links_name">Analytics</span>
@@ -124,20 +124,20 @@
          <span class="links_name">Order</span>
        </a>
        <span class="tooltip">Order</span>
+     </li> -->
+     <li>
+       <a href="#">
+         <i class='bx bx-support'></i>
+         <span class="links_name">Help & Support</span>
+       </a>
+       <span class="tooltip">Help & Support</span>
      </li>
      <li>
        <a href="#">
-         <i class='bx bx-heart' ></i>
-         <span class="links_name">Saved</span>
+         <i class='bx bxs-contact'></i>
+         <span class="links_name">Contact</span>
        </a>
-       <span class="tooltip">Saved</span>
-     </li>
-     <li>
-       <a href="#">
-         <i class='bx bx-cog' ></i>
-         <span class="links_name">Setting</span>
-       </a>
-       <span class="tooltip">Setting</span>
+       <span class="tooltip">Contact</span>
      </li>
      
     </ul>
