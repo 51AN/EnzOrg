@@ -17,28 +17,57 @@
 
     if(isset($_POST['submit'])){
         $username = $_POST['username'];
-        $password = md5($_POST['password']);
+        $password = $_POST['password'];
         $conn = new mysqli('localhost','root','','spl');
 
         if($conn -> connect_error){
             die('Connection Failed : ' .$conn->connect_error);
         }
         else{
-            $query = $conn->query("SELECT * FROM users WHERE `username` = '$username' AND `password` = '$password';");
-
-            if($query->num_rows > 0)
-            {
-                $row = mysqli_fetch_assoc($query);
-                $_SESSION['username'] = $username;
-                $_SESSION['user_id'] = $row['id'];
-                header('location: ../Homepage/index.php');
-            }    
-            else
-                $error = 'Invalid username/password!';
-            //echo "Login successful!";
-            $conn -> close();
-    
+            $sql ="SELECT * FROM users WHERE `username` = ? LIMIT 1";
+            $stmt = mysqli_stmt_init($conn);
+            if(!mysqli_stmt_prepare($stmt,$sql)){
+                echo "There was an in preparing";
+                exit();
+            }
+            else{
+                mysqli_stmt_bind_param($stmt,"s",$username);
+                mysqli_stmt_execute($stmt);
+                $result = mysqli_stmt_get_result($stmt);
+                if(!$row=mysqli_fetch_assoc($result)){
+                    $error = 'Invalid username!';
+                }
+                else{
+                    if(password_verify($password,$row['password'])){
+                        $_SESSION['username'] = $username;
+                        $_SESSION['user_id'] = $row['id'];
+                        header('location: ../Homepage/index.php');
+                    }
+                    else{
+                        $error = 'Invalid password!';
+                    }
+                }
+                $conn -> close();
+            }
         }
+        // else{
+        //     $query = $conn->query("SELECT * FROM users WHERE `username` = ? LIMIT 1");
+        //     if($query->num_rows > 0)
+        //     {
+        //         $row = mysqli_fetch_assoc($query);
+        //         echo $row['password'];
+        //         if(password_verify($password,$row['password'])){
+        //         $_SESSION['username'] = $username;
+        //         $_SESSION['user_id'] = $row['id'];
+        //         header('location: ../Homepage/index.php');
+        //         }
+        //     }    
+        //     else
+        //         $error = 'Invalid username/password!';
+        //     //echo "Login successful!";
+        //     $conn -> close();
+    
+        // }
 
     }
 ?>

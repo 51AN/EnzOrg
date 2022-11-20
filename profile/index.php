@@ -26,22 +26,31 @@
       mysqli_query($conn, "UPDATE `users` SET username = '$username', email = '$email' WHERE id = '$user_id'") or die('query failed');
       
       $old_pass = $_POST['old_pass'];
-      $update_pass = md5($_POST['update_pass']);
+      $update_pass = $_POST['update_pass'];
       $temp_pass = $_POST['new_pass'];
-      $new_pass = md5($_POST['new_pass']);
-      $confirm_pass = md5($_POST['confirm_pass']);
+      $new_pass = password_hash($_POST['new_pass'],PASSWORD_DEFAULT);
+      $temp_pass2 = $_POST['confirm_pass'];
+      $confirm_pass = password_hash($_POST['confirm_pass'],PASSWORD_DEFAULT);
    
-      if(!empty($update_pass) || !empty($new_pass) || !empty($confirm_pass)){
-         if($update_pass != $old_pass){
-            $message[] = 'old password not matched!';
-         }elseif($new_pass != $confirm_pass){
-            $message[] = 'confirm password not matched!';
+      if(!empty($update_pass) && !empty($temp_pass) && !empty($temp_pass2)){
+         if(!password_verify($update_pass,$old_pass)){
+            $message[] = 'Old password did not match!';
+         }elseif($temp_pass != $temp_pass2){
+            $message[] = 'Confirm passwords do not matched!';
          }else if(strlen($temp_pass) < 8 || ctype_upper($temp_pass) || ctype_lower($temp_pass)){
-            $message[] = "Password must be atleast 8 character long and contain uppercase and lowercase";
+            $message[] = 'Password must be atleast 8 character long and contain uppercase and lowercase';
          }else{
-            mysqli_query($conn, "UPDATE `users` SET password = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
-            $message[] = 'password updated successfully!';
+            mysqli_query($conn, "UPDATE `users` SET password = '$new_pass' WHERE id = '$user_id'") or die('query failed');
+            $message[] = 'Password updated successfully!';
          }
+      }
+      else if(empty($update_pass) && !empty($temp_pass) && !empty($temp_pass2))
+      {
+         $message[] = 'Old password field cannot be empty!';
+      }
+      else if(!empty($update_pass)&& (empty($new_pass) && !empty($confirm_pass)))
+      {
+         $message[] = 'Password fields cannot be empty!';
       }
 
       $image = $_FILES['update_image']['name'];
@@ -211,7 +220,7 @@
             <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
          </div>
          <div class="inputBox">
-            <input type="hidden" name="old_pass" value="<?php echo $fetch['password']; ?>">
+            <input type="hidden" name="old_pass" value='<?php echo $fetch['password'];?>'>
             <span>Old Password :</span>
             <input type="password" name="update_pass" placeholder="enter previous password" class="box">
             <span>New Password :</span>

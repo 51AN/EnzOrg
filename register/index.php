@@ -41,7 +41,7 @@
                 // $SQL="INSERT INTO `users`(`username`, `email`, `password`) VALUES ('$username','$email','$password')";
                 // $result=mysqli_query($conn,$SQL);
                 $stmt = $conn->prepare("insert into users(username,email,password,image) values(?,?,?,?)");
-                $stmt ->bind_param("ssss",$username, $email, md5($password), $image);
+                $stmt ->bind_param("ssss",$username, $email, password_hash($password,PASSWORD_DEFAULT), $image);
                 $stmt -> execute();
                 header('location: ../login/index.php');
                 $stmt -> close();

@@ -58,7 +58,7 @@ if(!mysqli_stmt_prepare($stmt,$sql)){
                             exit();
                         }else{
                             // $newPasswordHash = password_hash($password,PASSWORD_DEFAULT);
-                            mysqli_stmt_bind_param($stmt,"ss",md5($password), $tokenEmail);
+                            mysqli_stmt_bind_param($stmt,"ss",password_hash($password,PASSWORD_DEFAULT), $tokenEmail);
                             mysqli_stmt_execute($stmt);
 
                             $sql ="DELETE FROM passwordreset WHERE passwordResetEmail=?";
