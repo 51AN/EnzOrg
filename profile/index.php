@@ -23,7 +23,24 @@
       $username = $_POST['update_name'];
       $email = $_POST['update_email'];
 
-      mysqli_query($conn, "UPDATE `users` SET username = '$username', email = '$email' WHERE id = '$user_id'") or die('query failed');
+      // mysqli_query($conn, "UPDATE `users` SET username = '$username', email = '$email' WHERE id = '$user_id'") or die('query failed');
+      if($conn -> connect_error){
+         die('Connection Failed : ' .$conn->connect_error);
+      }
+      else{
+         $sql ="UPDATE `users` SET username = ?, email = ? WHERE id = '$user_id'";
+         $stmt = mysqli_stmt_init($conn);
+         if(!mysqli_stmt_prepare($stmt,$sql)){
+             echo "There was an error preparing";
+             exit();
+         }
+         else{
+             mysqli_stmt_bind_param($stmt,"ss",$username,$email);
+             mysqli_stmt_execute($stmt);
+             $result = mysqli_stmt_get_result($stmt);
+         }
+      }
+ 
       
       $old_pass = $_POST['old_pass'];
       $update_pass = $_POST['update_pass'];
@@ -40,8 +57,23 @@
          }else if(strlen($temp_pass) < 8 || ctype_upper($temp_pass) || ctype_lower($temp_pass)){
             $message[] = 'Password must be atleast 8 character long and contain uppercase and lowercase';
          }else{
-            mysqli_query($conn, "UPDATE `users` SET password = '$new_pass' WHERE id = '$user_id'") or die('query failed');
-            $message[] = 'Password updated successfully!';
+            // mysqli_query($conn, "UPDATE `users` SET password = '$new_pass' WHERE id = '$user_id'") or die('query failed');
+            if($conn -> connect_error){
+               die('Connection Failed : ' .$conn->connect_error);
+            }
+            else{
+               $sql ="UPDATE `users` SET password = ? WHERE id = '$user_id'";
+               $stmt = mysqli_stmt_init($conn);
+               if(!mysqli_stmt_prepare($stmt,$sql)){
+                   echo "There was an error preparing";
+                   exit();
+               }
+               else{
+                   mysqli_stmt_bind_param($stmt,"s",$new_pass);
+                   mysqli_stmt_execute($stmt);
+                   $message[] = 'Password updated successfully!';
+               }
+            }
          }
       }
       else if(empty($update_pass) && !empty($temp_pass) && !empty($temp_pass2))
