@@ -179,7 +179,7 @@
 <div class="row_project">
     <div class="col_project_entry">    
         <form action="" class="project_form" method="POST" id="">
-            <h1 class="project_title"> Add Task </h1>
+            <h1 class="project_title"> Update Task </h1>
             <!-- project name add here  -->
             <div class="project_input_group">
                 <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
@@ -217,7 +217,7 @@
                 <h2>Add?</h2>
                 <p>Do you want to add this project?</p>
                 <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+                    <button type="submit" class="project_button" name="">Confirm</button>
                 </div>
                     <button type="button" class="project_button" onclick="closePopupAdd()">Cancel</button>
                 
@@ -272,7 +272,7 @@
                 <h2>Delete?</h2>
                 <p>Are you sure about deleting this project?</p>
                 <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="deleteprojectsubmit">Confirm</button>
+                    <button type="submit" class="project_button" name="">Confirm</button>
                 </div>
                     <button type="button" class="project_button" onclick="closePopup()">Cancel</button>
                 

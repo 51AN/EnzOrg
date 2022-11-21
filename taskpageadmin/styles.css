@@ -37,6 +37,7 @@ nav img{
 
 .task__name{
     font-size: 25px;
+    padding-left: 60px;
 }
 .nav-links{
     flex: 1;
