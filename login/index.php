@@ -87,6 +87,34 @@
                     echo'<p>Your password has been reset.</p>';
                 }
             }
+            if(isset($_GET["user_create"]))
+            {
+                if($_GET["user_create"]=="success"){
+                    echo'<p>Check your email for email verification.</p>';
+                }
+            }
+            if(isset($_GET["token"]))
+            {
+                if(isset($_GET["create_user"])){
+                    $conn = new mysqli('localhost','root','','spl');
+                    if($conn -> connect_error){
+                        die('Connection Failed : ' .$conn->connect_error);
+                    }
+                    else{
+                        $user_name = $_GET["create_user"];
+                        $stmt = $conn->prepare("update users set is_verified = 1 where token=? and username = ?");
+                        $stmt ->bind_param("ss",$_GET["token"],$user_name);
+                        $stmt -> execute();
+                        if(mysqli_affected_rows($conn)<=0)
+                            echo'<p>There was an error while creating your account and the link is now Invalid. Try to create your account again!</p>';
+                        else{
+                            echo'<p>Your accout has been registered! You may now log in.</p>';
+                        }
+                        $stmt -> close();
+                        $conn -> close();
+                    }
+                }
+            }
             ?>
             <p class="form__text">
                 <a href="../forgotpassword/index.php" class="form__link" class="form__link">Forgot your password?</a>
