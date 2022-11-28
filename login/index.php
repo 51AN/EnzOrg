@@ -37,11 +37,20 @@
                 if(!$row=mysqli_fetch_assoc($result)){
                     $error = 'Invalid username!';
                 }
-                else{
-                    if(password_verify($password,$row['password'])){
-                        $_SESSION['username'] = $username;
-                        $_SESSION['user_id'] = $row['id'];
-                        header('location: ../Homepage/index.php');
+                else
+                {
+                    if(password_verify($password,$row['password']))
+                    {
+                        if($row['is_verified']==1)
+                        {
+                            $_SESSION['username'] = $username;
+                            $_SESSION['user_id'] = $row['id'];
+                            header('location: ../Homepage/index.php');
+                        }
+                        else
+                        {
+                            $error = 'Account is not verified!';
+                        }
                     }
                     else{
                         $error = 'Invalid password!';
@@ -76,6 +85,29 @@
             {
                 if($_GET["newpassword"]=="passwordUpdated"){
                     echo'<p>Your password has been reset.</p>';
+                }
+            }
+            if(isset($_GET["user_create"]))
+            {
+                if($_GET["user_create"]=="success"){
+                    echo'<p>Check your email for email verification.</p>';
+                }
+            }
+            if(isset($_GET["token"]))
+            {
+                $conn = new mysqli('localhost','root','','spl');
+                if(isset($_GET["create_user"])){
+                    if($conn -> connect_error){
+                        die('Connection Failed : ' .$conn->connect_error);
+                    }
+                    else{
+                        $user_name = $_GET["create_user"];
+                        $stmt = $conn->prepare("update users set is_verified = 1 where username=?");
+                        $stmt ->bind_param("s",$user_name);
+                        $stmt -> execute();
+                        $stmt -> close();
+                        $conn -> close();
+                        echo'<p>Your accout has been registered! You may now log in.</p>';}
                 }
             }
             ?>

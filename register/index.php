@@ -12,53 +12,28 @@
 
 <?php
     $username = $email = $passError = $passError1 = $emailError = $userError = $password = $confirmPassword = '';
-
-    if(isset($_POST['submit'])){
-        $username = $_POST['username'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $confirmPassword = $_POST['confirmPass'];
-        $image = '';
-
-        $conn = new mysqli('localhost','root','','spl');
-        $query = $conn->query("SELECT * FROM users WHERE `username` = '$username';");
-
-
-        if($password != $confirmPassword)
-            $passError = "Passwords don't match";
-        if(!filter_var($email, FILTER_VALIDATE_EMAIL))
-            $emailError = "Invalid Email";
-        if($query->num_rows > 0)
-            $userError = "username already exists";
-        if(strlen($password) < 8 || ctype_upper($password) || ctype_lower($password))
-            $passError1 = "Password must be atleast 8 character long and contain uppercase and lowercase";
-        if(empty($passError) && empty($emailError) && empty($userError) && empty($passError1))
-        {
-            if($conn -> connect_error){
-                die('Connection Failed : ' .$conn->connect_error);
-            }
-            else{
-                // $SQL="INSERT INTO `users`(`username`, `email`, `password`) VALUES ('$username','$email','$password')";
-                // $result=mysqli_query($conn,$SQL);
-                $stmt = $conn->prepare("insert into users(username,email,password,image) values(?,?,?,?)");
-                $stmt ->bind_param("ssss",$username, $email, password_hash($password,PASSWORD_DEFAULT), $image);
-                $stmt -> execute();
-                header('location: ../login/index.php');
-                $stmt -> close();
-                $conn -> close();
-            } 
-        }
+    if(isset($_GET['userError'])){
+        $userError =  $_GET['userError'];
+    }
+    if(isset($_GET['emailError'])){
+        $emailError =  $_GET['emailError'];
     }
 
-?>
+    if(isset($_GET['passError'])){
+        $passError =  $_GET['passError'];
+    }
 
+    if(isset($_GET['passError1'])){
+        $passError1 =  $_GET['passError1'];
+    }
+?>
 <body>
     
     <div class="container">
 
 
         <!--Registration form-->
-        <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" class="form" id="createAccount">
+        <form action="create-account.inc.php" method="POST" class="form" id="createAccount">
             <h1 class="form__title">Create Account</h1>
             <div class="form__message form__message--error"></div>
             <div class="form__input-group">
