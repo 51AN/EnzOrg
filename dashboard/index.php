@@ -285,7 +285,7 @@
                         <?php endforeach;?>
                     </select>
             </div>
-            <button class="project_button" type="button" onclick="openPopup()"> DELETE </button>
+            <button class="project_button_delete" type="button" onclick="openPopup()"> DELETE </button>
             <div class="popup_delete"  id="popup_delete">
                 <img src="./images/cross.png">
                 <h2>Delete?</h2>
@@ -293,7 +293,7 @@
                 <div class="popup_button_space">
                     <button type="submit" class="project_button" name="deleteprojectsubmit">Confirm</button>
                 </div>
-                    <button type="button" class="project_button" onclick="closePopup()">Cancel</button>
+                    <button type="button" class="project_button_delete" onclick="closePopup()">Cancel</button>
                 
             </div>
         </form>
