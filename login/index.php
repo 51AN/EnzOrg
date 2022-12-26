@@ -2,7 +2,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Login / Sign Up Form</title>
+    <title>Login Form</title>
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="./src/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,11 +37,20 @@
                 if(!$row=mysqli_fetch_assoc($result)){
                     $error = 'Invalid username!';
                 }
-                else{
-                    if(password_verify($password,$row['password'])){
-                        $_SESSION['username'] = $username;
-                        $_SESSION['user_id'] = $row['id'];
-                        header('location: ../Homepage/index.php');
+                else
+                {
+                    if(password_verify($password,$row['password']))
+                    {
+                        if($row['is_verified']==1)
+                        {
+                            $_SESSION['username'] = $username;
+                            $_SESSION['user_id'] = $row['id'];
+                            header('location: ../Homepage/index.php');
+                        }
+                        else
+                        {
+                            $error = 'Account is not verified!';
+                        }
                     }
                     else{
                         $error = 'Invalid password!';
@@ -61,11 +70,11 @@
             <h1 class="form__title">Login</h1>
             <div class="form__message form__message--error"></div>
             <div class="form__input-group">
-                <input type="text" id="username" class="form__input" autofocus placeholder="Username or email" name="username" required>
+                <input type="text" id="username" class="form__input" autofocus placeholder="Enter Username" name="username" required>
                 <div class="form__input-error-message"></div>
             </div>
             <div class="form__input-group">
-                <input type="password" id="password" class="form__input" autofocus placeholder="Password" name="password" required>
+                <input type="password" id="password" class="form__input" autofocus placeholder="Enter Password" name="password" required>
                 <div class="form__input-error-message">
                     <?php echo $error ? $error : null; ?>
                 </div>
@@ -76,6 +85,34 @@
             {
                 if($_GET["newpassword"]=="passwordUpdated"){
                     echo'<p>Your password has been reset.</p>';
+                }
+            }
+            if(isset($_GET["user_create"]))
+            {
+                if($_GET["user_create"]=="success"){
+                    echo'<p>Check your email for email verification.</p>';
+                }
+            }
+            if(isset($_GET["token"]))
+            {
+                if(isset($_GET["create_user"])){
+                    $conn = new mysqli('localhost','root','','spl');
+                    if($conn -> connect_error){
+                        die('Connection Failed : ' .$conn->connect_error);
+                    }
+                    else{
+                        $user_name = $_GET["create_user"];
+                        $stmt = $conn->prepare("update users set is_verified = 1 where token=? and username = ?");
+                        $stmt ->bind_param("ss",$_GET["token"],$user_name);
+                        $stmt -> execute();
+                        if(mysqli_affected_rows($conn)<=0)
+                            echo'<p>There was an error while creating your account and the link is now Invalid. Try to create your account again!</p>';
+                        else{
+                            echo'<p>Your accout has been registered! You may now log in.</p>';
+                        }
+                        $stmt -> close();
+                        $conn -> close();
+                    }
                 }
             }
             ?>
