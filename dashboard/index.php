@@ -30,8 +30,10 @@
     {
         $projname = htmlspecialchars($_POST['projectname']);
         $projdes = htmlspecialchars($_POST['description']);
-        $priority = $_POST['priority'];
-        $projstatus = $_POST['status'];
+        if(isset($_POST['priority']))
+            $priority = $_POST['priority'];
+        if(isset($_POST['status']))
+            $projstatus = $_POST['status'];
         $due = $_POST['duetime'];
 
         if(!empty($projname) && !empty($projdes) && !empty($priority) && !empty($projstatus))
@@ -173,7 +175,7 @@
 
     <!--  nav bar begins here -->
     <nav>
-        <!--<div class="title__name">EnzOrg</div>-->
+        <!-- <div class="title__name">Dash Board</div> -->
         <div class="nav-links">
             <ul>
                 <!-- elements of nav bar  -->
@@ -194,16 +196,16 @@
             <h1 class="project_title"> Add Project </h1>
             <!-- project name add here  -->
             <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
+                <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname" required>
 
             </div>
             <!--  project description add here -->
             <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" require>
+                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" required>
             </div>
             <div class="project_input_group">
                 <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                <select class="project_input" id="priority" name="priority">
+                <select class="project_input" id="priority" name="priority" required>
                     <option disabled selected hidden>Priority</option>
                     <option >Low</option>
                     <option >Medium</option>
@@ -212,7 +214,7 @@
             </div>
             <div class="project_input_group">
                 <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
-                <select class="project_input" id="status" name="status">
+                <select class="project_input" id="status" name="status" required>
                     <option disabled selected hidden>Status</option>
                     <option>Completed</option>
                     <option>In Progress</option>
@@ -221,7 +223,7 @@
             </div>
             <!-- project due date -->
             <div class="project_input_group">
-                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
+                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" required>
             </div>
             <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
             <div class="popup_add"  id="popup_add">
@@ -231,7 +233,7 @@
                 <div class="popup_button_space">
                     <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
                 </div>
-                    <button type="button" class="project_button" onclick="closePopupAdd()">Cancel</button>
+                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
                 
             </div>
 
@@ -274,6 +276,38 @@
     </div>
 </div>
 <div class="row_project_1">
+
+    <div class="col_project_veiw">
+        <form action="" class="project_form" method="POST" id="">
+            <h1>View Project</h1>
+            <div class="project_input_group">
+                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                    <select class="project_input" id="viewproj" name="viewproj" >
+                        <?php foreach($projects as $values):?>
+                            <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
+                        <?php endforeach;?>
+                    </select>
+            </div>
+            <button class="project_button" type="submit" name="viewprojectsubmit"> VIEW </button>
+            
+        </form>
+    </div>
+    <div class="col_project_veiw_assigned">
+        <form action="" class="project_form" method="POST" id="">
+            <h1>Assigned Project</h1>
+            <div class="project_input_group">
+                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                    <select class="project_input" id="viewproj" name="viewproj" >
+                        <?php foreach($projects as $values):?>
+                            <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
+                        <?php endforeach;?>
+                    </select>
+            </div>
+            <button class="project_button" type="submit" name="viewprojectsubmit"> VIEW </button>
+            
+        </form>
+    </div>
+
     <div class="col_project_delete">
         <form action="" class="project_form" method="POST" id="">
             <h1>Delete Project</h1>
@@ -300,21 +334,7 @@
 
     </div>
 
-    <div class="col_project_veiw">
-        <form action="" class="project_form" method="POST" id="">
-            <h1>View Project</h1>
-            <div class="project_input_group">
-                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="viewproj" name="viewproj" >
-                        <?php foreach($projects as $values):?>
-                            <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
-                        <?php endforeach;?>
-                    </select>
-            </div>
-            <button class="project_button" type="submit" name="viewprojectsubmit"> VIEW </button>
-            
-        </form>
-    </div>
+    
 
 </div>
 

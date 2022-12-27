@@ -6,7 +6,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Profile</title>
+    <title>Settings</title>
     <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="./styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,24 +81,7 @@
    ?>
 
    <form action="" method="POST" enctype="multipart/form-data">
-      <div class="image">
-      <?php
-      if(empty($fetch['image']))
-      {
-         echo '<img src="images/profile.jpg">';
-      }
-      else
-      {
-         echo '<img src = "upload/'.$fetch['image'].'">';
-      }
-      if(isset($message)){
-         foreach($message as $message){
-            echo '<div class="message">'.$message.'</div>';
-         }
-      }
-            
-      ?> 
-      </div>
+      
 
       
       <div class="flex">

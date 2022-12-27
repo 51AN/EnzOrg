@@ -122,6 +122,30 @@ nav img{
     transform: scale(0.98);
 }
 
+
+
+.project_button_delete {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ffffff;
+  border: none;
+  border-radius: var(--border-radius);
+  outline: none;
+  cursor: pointer;
+  background: #b80101;
+  height: 70%;
+}
+
+.project_button_delete:hover {
+  background: #990101;
+}
+
+.project_button_delete:active {
+  transform: scale(0.98);
+}
+
 .popup_delete{
     width: 400px;
     background: #ffffff;
@@ -203,7 +227,8 @@ nav img{
 
 
 .project_show_table{
-    table-layout: fixed;
+    table-layout: auto;
+    border-collapse: collapse;
 }
 
 .project_show_table td{
@@ -215,6 +240,15 @@ nav img{
     height: 30px;
     overflow: hidden;
 }
+.project_show_table tr:nth-child(even){
+  background-color: #dddddd;
+}
+
+.project_show_table tr:hover{
+  background-color : #009579;
+  color: white;
+}
+
 
 
 

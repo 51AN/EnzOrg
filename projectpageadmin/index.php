@@ -37,7 +37,18 @@
         if(!empty($taskname) && !empty($taskdes) && !empty($priority) && !empty($taskstatus))
         {
             $query = mysqli_query($conn, "INSERT INTO `tasks` (`taskName`, `taskDes`, `priority`, `status`, `members`, `due`, `projID`) VALUES ('$taskname', '$taskdes', '$priority', '$taskstatus', '1', '$due', '$projId')");
-            header('Location: '.$_SERVER['PHP_SELF'].'?success');
+            $name = $message;
+            $fetch = mysqli_query($conn,"select id from users where username = '$name';");
+            $row=mysqli_fetch_assoc($fetch);
+            $userID = $row['id'];
+            echo $userID;
+            $fetch =mysqli_query($conn, "select taskID from tasks where taskName = '$taskname' and projID = '$projId';");
+            $row=mysqli_fetch_assoc($fetch);
+            $taskID = $row['taskID'];
+            echo $taskID;
+            echo$projId;
+            $query = mysqli_query($conn, "INSERT INTO `taskmembers` (`userID`, `taskID`) VALUES ($userID, $taskID)");
+            header('Location: '.$_SERVER['PHP_SELF'].'?success'); 
         }  
     }
 ?>
@@ -233,7 +244,7 @@
                 <div class="popup_button_space">
                     <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
                 </div>
-                    <button type="button" class="project_button" onclick="closePopupAdd()">Cancel</button>
+                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
                 
             </div>
 
@@ -269,32 +280,33 @@
     </div>
 </div>
 <div class="row_project_1">
-    <div class="col_project_delete">
+    <div class="col_add_member">
         <form action="" class="project_form" method="POST" id="">
-            <h1>Delete Task</h1>
+            <h1>Add Members</h1>
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="deltask" name="deltask" >
+                    <input type="text" class="project_input" autofocus placeholder="Search Users" id="search_users" name="search_users">
+                    
+            </div>
+            <button class="project_button" type="submit" name="viewtasksubmit"> ADD </button>
+            
+        </form>
+    </div>
+    <div class="col_remove_member">
+        <form action="" class="project_form" method="POST" id="">
+            <h1>Remove Members</h1>
+            <div class="project_input_group">
+                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                    <select class="project_input" id="viewtask" name="viewtask" >
                         <?php foreach($tasks as $values):?>
                             <option value="<?php echo $values['taskName'];?>"><?php echo $values['taskName'];?></option>
                         <?php endforeach;?>
                     </select>
             </div>
-            <button class="project_button" type="button" onclick="openPopup()"> DELETE </button>
-            <div class="popup_delete"  id="popup_delete">
-                <img src="./images/cross.png">
-                <h2>Delete?</h2>
-                <p>Are you sure about deleting this project?</p>
-                <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="deletetasksubmit">Confirm</button>
-                </div>
-                    <button type="button" class="project_button" onclick="closePopup()">Cancel</button>
-                
-            </div>
+            <button class="project_button" type="submit" name="viewtasksubmit"> REMOVE </button>
+            
         </form>
-
     </div>
-
     <div class="col_project_veiw">
         <form action="" class="project_form" method="POST" id="">
             <h1>View Task</h1>
@@ -310,6 +322,33 @@
             
         </form>
     </div>
+    <div class="col_project_delete">
+        <form action="" class="project_form" method="POST" id="">
+            <h1>Delete Task</h1>
+            <div class="project_input_group">
+                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                    <select class="project_input" id="deltask" name="deltask" >
+                        <?php foreach($tasks as $values):?>
+                            <option value="<?php echo $values['taskName'];?>"><?php echo $values['taskName'];?></option>
+                        <?php endforeach;?>
+                    </select>
+            </div>
+            <button class="project_button_delete" type="button" onclick="openPopup()"> DELETE </button>
+            <div class="popup_delete"  id="popup_delete">
+                <img src="./images/cross.png">
+                <h2>Delete?</h2>
+                <p>Are you sure about deleting this project?</p>
+                <div class="popup_button_space">
+                    <button type="submit" class="project_button" name="deletetasksubmit">Confirm</button>
+                </div>
+                    <button type="button" class="project_button_delete" onclick="closePopup()">Cancel</button>
+                
+            </div>
+        </form>
+
+    </div>
+
+    
 </div>
 
 
