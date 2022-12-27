@@ -60,7 +60,7 @@
 <section class="header">
     <!--  nav bar begins here -->
     <nav>
-    <div class="task__name"><b>Task Name</b></div>
+    <div class="task__name"><b><?php echo $_SESSION['projectName'] ?></b></div>
         <!--<div class="title__name">EnzOrg</div>-->
         <div class="nav-links">
             <ul>
