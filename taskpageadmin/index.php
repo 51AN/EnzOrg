@@ -178,6 +178,104 @@
         </div>
     </nav>
 
+  <div class="row_project">
+    <div class="col_member_add">
+    <form action="" class="project_form" method="POST" id="">
+      <h1 class="project_title"> Add Members to task </h1>
+            <div class="project_input_group">
+                <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
+            </div>
+            <!--  project description add here -->
+            <div class="project_input_group">
+                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" require>
+            </div>
+            <div class="project_input_group">
+                <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                <select class="project_input" id="priority" name="priority">
+                    <option disabled selected hidden>Priority</option>
+                    <option >Low</option>
+                    <option >Medium</option>
+                    <option >High</option>
+                </select>
+            </div>
+            <div class="project_input_group">
+                <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
+                <select class="project_input" id="status" name="status">
+                    <option disabled selected hidden>Status</option>
+                    <option>Completed</option>
+                    <option>In Progress</option>
+                    <option>Future</option>
+                </select>
+            </div>
+            <!-- project due date -->
+            <div class="project_input_group">
+                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
+            </div>
+            <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
+            <div class="popup_add"  id="popup_add">
+                <img src="./images/question.png">
+                <h2>Add?</h2>
+                <p>Do you want to add this project?</p>
+                <div class="popup_button_space">
+                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+                </div>
+                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
+                
+            </div>
+    </form>
+    </div>
+
+    <div class="task_update">
+    <form action="" class="project_form" method="POST" id="">
+      <h1 class="project_title"> Update Task </h1>
+            <div class="project_input_group">
+                <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
+            </div>
+            <!--  project description add here -->
+            <div class="project_input_group">
+                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" require>
+            </div>
+            <div class="project_input_group">
+                <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                <select class="project_input" id="priority" name="priority">
+                    <option disabled selected hidden>Priority</option>
+                    <option >Low</option>
+                    <option >Medium</option>
+                    <option >High</option>
+                </select>
+            </div>
+            <div class="project_input_group">
+                <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
+                <select class="project_input" id="status" name="status">
+                    <option disabled selected hidden>Status</option>
+                    <option>Completed</option>
+                    <option>In Progress</option>
+                    <option>Future</option>
+                </select>
+            </div>
+            <!-- project due date -->
+            <div class="project_input_group">
+                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
+            </div>
+            <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
+            <div class="popup_add"  id="popup_add">
+                <img src="./images/question.png">
+                <h2>Add?</h2>
+                <p>Do you want to add this project?</p>
+                <div class="popup_button_space">
+                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+                </div>
+                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
+                
+            </div>
+    </form>
+    </div>
+
+
+
+
+  </div>
+
 
 </section>
 

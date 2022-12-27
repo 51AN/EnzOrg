@@ -22,7 +22,10 @@ html{
 
 
 }
-
+.title__name{
+    font-size: 25px;
+    padding-left: 60px;
+}
 nav{
     display: flex;
     padding: 2% 6%;
@@ -219,24 +222,32 @@ nav img{
 }
 
 
+.col_project_list{
+  
+}
+
 
 
 
 
 .project_show_table{
-    table-layout: fixed;
+    table-layout: auto;
     border-collapse: collapse;
 }
 
 .project_show_table td{
     height: 20px;
-    overflow: hidden;
+    overflow: fixed;
 }
 
 .project_show_table th{
     height: 30px;
-    overflow: hidden;
+    overflow: fixed;
+    background-color: #007f67;
+    color: white;
+    
 }
+
 
 .project_show_table tr:nth-child(even){
   background-color: #dddddd;
