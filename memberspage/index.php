@@ -33,14 +33,19 @@
         if(!empty($user_name))
         {
             $fetchuser = mysqli_query($conn, "SELECT * FROM users WHERE `username` = '$user_name'");
-            $user = mysqli_fetch_assoc($fetchuser);
-            $userID = $user['id'];
-            $check = mysqli_query($conn, "SELECT * FROM projmembers WHERE projID = $projID AND userID = $userID");
+            if(mysqli_num_rows($fetchuser) > 0)
+            {
+              $user = mysqli_fetch_assoc($fetchuser);
+              $userID = $user['id'];
+              $check = mysqli_query($conn, "SELECT * FROM projmembers WHERE projID = $projID AND userID = $userID");
 
-            if(mysqli_num_rows($check) > 0)
-                $errorMsg = 'The user is already a member.';
-            if($user_name == $message)
-                $errorMsg = "You can't add yourself to your project.";
+              if(mysqli_num_rows($check) > 0)
+                  $errorMsg = 'The user is already a member.';
+              if($user_name == $message)
+                  $errorMsg = "You can't add yourself to your project.";
+            }
+            else
+              $errorMsg = "User doesn't exist.";
 
             if(!$errorMsg)
             {
