@@ -326,6 +326,7 @@
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="viewproj" name="viewproj" >
+                            <option value="none" selected disabled hidden>Select a project</option>
                         <?php foreach($myProjList as $values):?>
                             <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
                         <?php endforeach;?>
@@ -341,6 +342,7 @@
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="viewAssignedProj" name="viewAssignedProj" >
+                            <option value="none" selected disabled hidden>Select a project</option>
                         <?php foreach($assignedProjs as $values):?>
                             <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
                         <?php endforeach;?>
@@ -357,6 +359,7 @@
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="delproj" name="delproj" >
+                            <option value="none" selected disabled hidden>Select a project</option>
                         <?php foreach($myProjList as $values):?>
                             <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
                         <?php endforeach;?>
