@@ -15,7 +15,6 @@
 
 
 <body>
-
 <?php
     session_start();
     $message = '';
@@ -31,21 +30,37 @@
     {
         $projname = htmlspecialchars($_POST['projectname']);
         $projdes = htmlspecialchars($_POST['description']);
-        $priority = $_POST['priority'];
-        $projstatus = $_POST['status'];
+        if(isset($_POST['priority']))
+            $priority = $_POST['priority'];
+        if(isset($_POST['status']))
+            $projstatus = $_POST['status'];
         $due = $_POST['duetime'];
 
         if(!empty($projname) && !empty($projdes) && !empty($priority) && !empty($projstatus))
         {
-            $query = mysqli_query($conn, "INSERT INTO `projects` (`projname`, `projdescription`, `priority`, `projstatus`, `tasks`, `due`, `user_id`) VALUES ('$projname', '$projdes', '$priority', '$projstatus', '1', '$due', '$userId')");
+            $query = mysqli_query($conn, "INSERT INTO `projects` (`projname`, `projdescription`, `priority`, `projstatus`, `due`, `user_id`) VALUES ('$projname', '$projdes', '$priority', '$projstatus', '$due', '$userId')");
             header('Location: '.$_SERVER['PHP_SELF'].'?success');
         }  
     }
 ?>
 
 <?php
-    $fetch = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
+    $sql = "SELECT * FROM projects WHERE user_id = $userId UNION 
+            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+            FROm projects INNER JOIN projmembers
+            ON projects.proj_id = projmembers.projID
+            WHERE projmembers.userID = $userId)";
+    $fetch = mysqli_query($conn, $sql);
     $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
+
+    $fetchMyProjList = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
+    $myProjList = mysqli_fetch_all($fetchMyProjList, MYSQLI_ASSOC);
+
+    $fetchAssignedProjs = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                            FROm projects INNER JOIN projmembers
+                                            ON projects.proj_id = projmembers.projID
+                                            WHERE projmembers.userID = $userId");
+    $assignedProjs = mysqli_fetch_all($fetchAssignedProjs, MYSQLI_ASSOC);
 ?>
 
 <?php
@@ -57,11 +72,43 @@
     }
 ?>
 
+<?php
+    if(isset($_POST['viewprojectsubmit']))
+    {
+        $selectedview = htmlspecialchars($_POST['viewproj']);
+        $view = mysqli_query($conn, "SELECT * FROM `projects` WHERE projname = '$selectedview' AND user_id = $userId");
+        $row = mysqli_fetch_assoc($view);
+        $_SESSION['projectName'] = $row['projname'];
+        $_SESSION['projectID'] = $row['proj_id'];
+        header('Location: ../projectpageadmin/index.php');
+    }
+?>
+
+<?php
+    if(isset($_POST['viewassignedprojectsubmit']))
+    {
+        $selectedAPview = htmlspecialchars($_POST['viewAssignedProj']);
+        $viewAssignedProjects = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                                    FROm projects INNER JOIN projmembers
+                                                    ON projects.proj_id = projmembers.projID
+                                                    WHERE projmembers.userID = $userId");
+        while($rowAP = mysqli_fetch_assoc($viewAssignedProjects))
+        {
+            if($rowAP['projname'] == $selectedAPview)
+            {
+                $_SESSION['projectName'] = $rowAP['projname'];
+                $_SESSION['projectID'] = $rowAP['proj_id'];
+                header('Location: ../taskpagemember/index.php');
+                break;
+            }
+        }
+    }
+?>
 <!--  section of the whole page -->
 <section class="header">
 
-     <!-- side nav bar begin here -->
-     <div class="sidebar">
+    <!-- side nav bar begin here -->
+    <div class="sidebar">
     <div class="logo-details">
       <!-- <i class='bx bxl-c-plus-plus icon'></i> -->
         <div class="logo_name">EnzOrg</div>
@@ -74,7 +121,7 @@
          <span class="tooltip">Search</span>
       </li> -->
       <li>
-        <a href="../dashboard/index.php">
+        <a href="#">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Dashboard</span>
         </a>
@@ -160,10 +207,11 @@
 
 
 
+
     <!--  nav bar begins here -->
     <nav>
     <div class="task__name"><b><?php echo $_SESSION['taskName'] ?></b></div>
-        <!--<div class="title__name">EnzOrg</div>-->
+        <!-- <div class="title__name">Dash Board</div> -->
         <div class="nav-links">
             <ul>
                 <!-- elements of nav bar  -->
@@ -178,106 +226,149 @@
         </div>
     </nav>
 
-  <div class="row_project">
-    <div class="col_member_add">
-    <form action="" class="project_form" method="POST" id="">
-      <h1 class="project_title"> Add Members to task </h1>
-            <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
-            </div>
-            <!--  project description add here -->
-            <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" require>
-            </div>
-            <div class="project_input_group">
-                <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                <select class="project_input" id="priority" name="priority">
-                    <option disabled selected hidden>Priority</option>
-                    <option >Low</option>
-                    <option >Medium</option>
-                    <option >High</option>
-                </select>
-            </div>
-            <div class="project_input_group">
-                <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
-                <select class="project_input" id="status" name="status">
-                    <option disabled selected hidden>Status</option>
-                    <option>Completed</option>
-                    <option>In Progress</option>
-                    <option>Future</option>
-                </select>
-            </div>
-            <!-- project due date -->
-            <div class="project_input_group">
-                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
-            </div>
-            <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
-            <div class="popup_add"  id="popup_add">
-                <img src="./images/question.png">
-                <h2>Add?</h2>
-                <p>Do you want to add this project?</p>
-                <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+    <!-- task entry form here  -->
+<div class="row_project">
+
+    <div class="col_member_operations">
+        <div class="row_member_entry">
+            <form action="" class="project_form" method="POST" id="">
+                    <h1 class="project_title"> Add Member </h1>
+                    <!-- project name add here  -->
+                    <div class="project_input_group">
+                        <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname" required>
+
+                    </div>
+                    <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
+                    <div class="popup_add"  id="popup_add">
+                        <img src="./images/question.png">
+                        <h2>Add?</h2>
+                        <p>Do you want to add this project?</p>
+                        <div class="popup_button_space">
+                            <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+                        </div>
+                            <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
+                        
+                    </div>
+                </form>
+        </div>
+        <div class="row_member_delete">
+            <form action="" class="project_form" method="POST" id="">
+                <h1>Remove Member</h1>
+                <div class="project_input_group">
+                        <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
+                        <select class="project_input" id="delproj" name="delproj" >
+                            <?php foreach($myProjList as $values):?>
+                                <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
+                            <?php endforeach;?>
+                        </select>
                 </div>
-                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
-                
-            </div>
-    </form>
+                <button class="project_button_delete" type="button" onclick="openPopup()"> Remove </button>
+                <div class="popup_delete"  id="popup_delete">
+                    <img src="./images/cross.png">
+                    <h2>Delete?</h2>
+                    <p>Are you sure about deleting this project?</p>
+                    <div class="popup_button_space">
+                        <button type="submit" class="project_button" name="deleteprojectsubmit">Confirm</button>
+                    </div>
+                        <button type="button" class="project_button_delete" onclick="closePopup()">Cancel</button>
+                    
+                </div>
+            </form>
+        </div>
     </div>
 
-    <div class="task_update">
-    <form action="" class="project_form" method="POST" id="">
-      <h1 class="project_title"> Update Task </h1>
-            <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname">
-            </div>
-            <!--  project description add here -->
-            <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" require>
-            </div>
-            <div class="project_input_group">
-                <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                <select class="project_input" id="priority" name="priority">
-                    <option disabled selected hidden>Priority</option>
-                    <option >Low</option>
-                    <option >Medium</option>
-                    <option >High</option>
-                </select>
-            </div>
-            <div class="project_input_group">
-                <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
-                <select class="project_input" id="status" name="status">
-                    <option disabled selected hidden>Status</option>
-                    <option>Completed</option>
-                    <option>In Progress</option>
-                    <option>Future</option>
-                </select>
-            </div>
-            <!-- project due date -->
-            <div class="project_input_group">
-                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
-            </div>
-            <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
-            <div class="popup_add"  id="popup_add">
-                <img src="./images/question.png">
-                <h2>Add?</h2>
-                <p>Do you want to add this project?</p>
-                <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
-                </div>
-                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
-                
-            </div>
-    </form>
+    <div class="col_member_list">
+    <h1>Assigned Members</h1>
+        <div style="height: 300px; overflow: auto">
+            <table border="1" width="990"  height="400" class="project_show_table" >
+                <tr>
+                    <th>Project name</th>
+                    <th>Priority</th>
+                    <th>Tasks</th>
+                    <th>Status</th>
+                    <th>Due</th>
+                    <th>Role</th>
+                </tr>
+            
+                <?php foreach($projects as $project):?>
+                    <tr align="center">
+                        <td><?php echo $project['projname']?></td>
+                        <td><?php echo $project['priority']?></td>
+                        <td>
+                        <?php
+                            $id = $project['proj_id'];
+                            $fetchTasks = mysqli_query($conn, "SELECT COUNT(taskID) AS totaltask FROM tasks WHERE projID = $id");
+                            $taskcount = mysqli_fetch_assoc($fetchTasks);
+                            echo $taskcount['totaltask'];
+                        ?>
+                        </td>
+                        <td><?php echo $project['projstatus']?></td>
+                        <td><?php echo $project['due']?></td>
+                        <td>
+                        <?php 
+                            $admin = $project['user_id'];
+                            if($admin == $userId)
+                                echo 'Admin';
+                            else
+                                echo 'Member';
+                        ?>
+                        </td>
+                    </tr>
+                <?php endforeach;?>
+            </table>
+        </div>
     </div>
 
 
+    
+    
 
+</div>
 
-  </div>
 
 
 </section>
 
+
+
+    
+<script>
+
+
+let popupOpen = document.getElementById("popup_add");
+
+function openPopupAdd(){
+    popupOpen.classList.add("open-popup-add");
+}
+function closePopupAdd(){
+    popupOpen.classList.remove("open-popup-add");
+}
+
+
+
+let popup = document.getElementById("popup_delete");
+
+function openPopup(){
+    popup.classList.add("open-popup");
+}
+function closePopup(){
+    popup.classList.remove("open-popup");
+}
+
+
+
+
+
+</script>
+
+
+
 </body>
+
+
+
+
+
+
+
 </html>

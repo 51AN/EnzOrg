@@ -243,22 +243,22 @@
       
       <div class="flex">
          <div class="inputBox">
-            <span>Username :</span>
+            <span>Username </span>
             <!-- put values here from database -->
             <input type="text" name="update_name" value="<?php echo $fetch['username'];?>" class="box">
-            <span>Your Email :</span>
+            <span>Your Email </span>
             <input type="email" name="update_email" value="<?php echo $fetch['email'];?>" class="box">
-            <span>Update Your Profile Picture :</span>
+            <span>Update Your Profile Picture </span>
             <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
          </div>
          <div class="inputBox">
             <input type="hidden" name="old_pass" value='<?php echo $fetch['password'];?>'>
-            <span>Old Password :</span>
-            <input type="password" name="update_pass" placeholder="enter previous password" class="box">
-            <span>New Password :</span>
-            <input type="password" name="new_pass" placeholder="enter new password" class="box">
-            <span>Confirm Password :</span>
-            <input type="password" name="confirm_pass" placeholder="confirm new password" class="box">
+            <span>Old Password </span>
+            <input type="password" name="update_pass" placeholder="Enter previous password" class="box">
+            <span>New Password </span>
+            <input type="password" name="new_pass" placeholder="Enter new password" class="box">
+            <span>Confirm Password </span>
+            <input type="password" name="confirm_pass" placeholder="Confirm new password" class="box">
          </div>
       </div>
       <div class="buttons">
