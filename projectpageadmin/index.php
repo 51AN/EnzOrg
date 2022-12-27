@@ -37,20 +37,8 @@
         if(!empty($taskname) && !empty($taskdes) && !empty($priority) && !empty($taskstatus))
         {
             $query = mysqli_query($conn, "INSERT INTO `tasks` (`taskName`, `taskDes`, `priority`, `status`, `members`, `due`, `projID`) VALUES ('$taskname', '$taskdes', '$priority', '$taskstatus', '1', '$due', '$projId')");
-            $name = $message;
-            $fetch = mysqli_query($conn,"select id from users where username = '$name';");
-            $row=mysqli_fetch_assoc($fetch);
-            $userID = $row['id'];
-            echo $userID;
-            $fetch =mysqli_query($conn, "select taskID from tasks where taskName = '$taskname' and projID = '$projId';");
-            $row=mysqli_fetch_assoc($fetch);
-            $taskID = $row['taskID'];
-            echo $taskID;
-            echo$projId;
-            $query = mysqli_query($conn, "INSERT INTO `taskmembers` (`userID`, `taskID`) VALUES ($userID, $taskID)");
             header('Location: '.$_SERVER['PHP_SELF'].'?success');
         }  
-        
     }
 ?>
 
