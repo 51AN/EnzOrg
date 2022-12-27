@@ -50,6 +50,7 @@
             $query = mysqli_query($conn, "INSERT INTO `taskmembers` (`userID`, `taskID`) VALUES ($userID, $taskID)");
             header('Location: '.$_SERVER['PHP_SELF'].'?success'); 
         }  
+        
     }
 ?>
 
