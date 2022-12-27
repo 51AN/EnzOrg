@@ -243,6 +243,9 @@ nav img{
 .project_show_table th{
     height: 30px;
     overflow: fixed;
+    background-color: #007f67;
+    color: white;
+    
 }
 
 

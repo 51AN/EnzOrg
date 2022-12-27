@@ -239,6 +239,8 @@ nav img{
 .project_show_table th{
     height: 30px;
     overflow: hidden;
+    background-color: #007f67;
+    color: white;
 }
 .project_show_table tr:nth-child(even){
   background-color: #dddddd;
