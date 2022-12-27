@@ -45,8 +45,22 @@
 ?>
 
 <?php
-    $fetch = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
+    $sql = "SELECT * FROM projects WHERE user_id = $userId UNION 
+            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+            FROm projects INNER JOIN projmembers
+            ON projects.proj_id = projmembers.projID
+            WHERE projmembers.userID = $userId)";
+    $fetch = mysqli_query($conn, $sql);
     $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
+
+    $fetchMyProjList = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
+    $myProjList = mysqli_fetch_all($fetchMyProjList, MYSQLI_ASSOC);
+
+    $fetchAssignedProjs = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                            FROm projects INNER JOIN projmembers
+                                            ON projects.proj_id = projmembers.projID
+                                            WHERE projmembers.userID = $userId");
+    $assignedProjs = mysqli_fetch_all($fetchAssignedProjs, MYSQLI_ASSOC);
 ?>
 
 <?php
@@ -67,6 +81,27 @@
         $_SESSION['projectName'] = $row['projname'];
         $_SESSION['projectID'] = $row['proj_id'];
         header('Location: ../projectpageadmin/index.php');
+    }
+?>
+
+<?php
+    if(isset($_POST['viewassignedprojectsubmit']))
+    {
+        $selectedAPview = htmlspecialchars($_POST['viewAssignedProj']);
+        $viewAssignedProjects = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                                    FROm projects INNER JOIN projmembers
+                                                    ON projects.proj_id = projmembers.projID
+                                                    WHERE projmembers.userID = $userId");
+        while($rowAP = mysqli_fetch_assoc($viewAssignedProjects))
+        {
+            if($rowAP['projname'] == $selectedAPview)
+            {
+                $_SESSION['projectName'] = $rowAP['projname'];
+                $_SESSION['projectID'] = $rowAP['proj_id'];
+                header('Location: ../taskpagemember/index.php');
+                break;
+            }
+        }
     }
 ?>
 <!--  section of the whole page -->
@@ -250,7 +285,8 @@
                     <th>Priority</th>
                     <th>Tasks</th>
                     <th>Status</th>
-                    <th>Due</td>
+                    <th>Due</th>
+                    <th>Role</th>
                 </tr>
             
                 <?php foreach($projects as $project):?>
@@ -267,8 +303,15 @@
                         </td>
                         <td><?php echo $project['projstatus']?></td>
                         <td><?php echo $project['due']?></td>
-    
-                        
+                        <td>
+                        <?php 
+                            $admin = $project['user_id'];
+                            if($admin == $userId)
+                                echo 'Admin';
+                            else
+                                echo 'Member';
+                        ?>
+                        </td>
                     </tr>
                 <?php endforeach;?>
             </table>
@@ -283,7 +326,7 @@
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="viewproj" name="viewproj" >
-                        <?php foreach($projects as $values):?>
+                        <?php foreach($myProjList as $values):?>
                             <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
                         <?php endforeach;?>
                     </select>
@@ -297,13 +340,13 @@
             <h1>Assigned Project</h1>
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="viewproj" name="viewproj" >
-                        <?php foreach($projects as $values):?>
+                    <select class="project_input" id="viewAssignedProj" name="viewAssignedProj" >
+                        <?php foreach($assignedProjs as $values):?>
                             <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
                         <?php endforeach;?>
                     </select>
             </div>
-            <button class="project_button" type="submit" name="viewprojectsubmit"> VIEW </button>
+            <button class="project_button" type="submit" name="viewassignedprojectsubmit"> VIEW </button>
             
         </form>
     </div>
@@ -314,7 +357,7 @@
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="delproj" name="delproj" >
-                        <?php foreach($projects as $values):?>
+                        <?php foreach($myProjList as $values):?>
                             <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
                         <?php endforeach;?>
                     </select>
