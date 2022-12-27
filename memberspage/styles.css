@@ -71,7 +71,7 @@ nav img{
 .row_project{
     margin-top: 5%;
     display: flex;
-    justify-content: space-between;
+    justify-content: left;
     
     margin-left: 10%;
     margin-right: 10%;
@@ -152,7 +152,12 @@ nav img{
 }
 
 
-
+.row_member_delete{
+  padding-top: 40px;
+}
+.col_member_operations{
+  padding-right: 10px;
+}
 
 
 .popup_delete{

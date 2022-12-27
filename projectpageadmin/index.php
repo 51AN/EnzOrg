@@ -196,6 +196,7 @@
                 <?php echo '<li><a href="../profile/index.php">'.$message.'</a></li>';?>
                 <li><a href="../about/index.php">ABOUT</a></li>
                 <li><a href="#">CONTACT</a></li>
+                <li><a href="../memberspage/index.php">MEMBERS</a></li>
                 <li><a href="../settingsproject/index.php">SETTINGS</a></li>
             </ul>
         </div>
@@ -281,33 +282,7 @@
     </div>
 </div>
 <div class="row_project_1">
-    <div class="col_add_member">
-        <form action="" class="project_form" method="POST" id="">
-            <h1>Add Members</h1>
-            <div class="project_input_group">
-                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <input type="text" class="project_input" autofocus placeholder="Search Users" id="search_users" name="search_users">
-                    
-            </div>
-            <button class="project_button" type="submit" name="viewtasksubmit"> ADD </button>
-            
-        </form>
-    </div>
-    <div class="col_remove_member">
-        <form action="" class="project_form" method="POST" id="">
-            <h1>Remove Members</h1>
-            <div class="project_input_group">
-                    <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                    <select class="project_input" id="viewtask" name="viewtask" >
-                        <?php foreach($tasks as $values):?>
-                            <option value="<?php echo $values['taskName'];?>"><?php echo $values['taskName'];?></option>
-                        <?php endforeach;?>
-                    </select>
-            </div>
-            <button class="project_button" type="submit" name="viewtasksubmit"> REMOVE </button>
-            
-        </form>
-    </div>
+    
     <div class="col_project_veiw">
         <form action="" class="project_form" method="POST" id="">
             <h1>View Task</h1>

@@ -80,12 +80,17 @@ nav img{
     margin-right: 10%;
 }
 .row_project_1{
-    margin-top: 5%;
+
+    margin-top: 3%;
     display: flex;
-    justify-content: space-between;
+    justify-content:right;
     
     margin-left: 10%;
     margin-right: 10%;
+}
+
+.col_project_delete{
+  padding-left: 30px;
 }
 
 .project_input {
@@ -250,6 +255,7 @@ nav img{
   background-color : #009579;
   color: white;
 }
+
 
 
 

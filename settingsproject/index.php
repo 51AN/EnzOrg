@@ -179,7 +179,7 @@
 
     <!--  nav bar begins here -->
     <nav>
-        <!-- <div class="title__name">Dash Board</div> -->
+      <!-- <div class="project__name"><b><?php echo $_SESSION['projectName'] ?></b></div> -->
         <div class="nav-links">
             <ul>
                 <!-- elements of nav bar  -->
@@ -211,22 +211,21 @@
       
       <div class="flex">
          <div class="inputBox">
-            <span>Update Project Name :</span>
+            <span>Update Project Name </span>
             <!-- put values here from database -->
             <input type="text" name="update_name" value="<?php echo $fetch['username'];?>" class="box">
-            <span>Update Project Description :</span>
-            <input type="email" name="update_email" value="<?php echo $fetch['email'];?>" class="box">
+            <span>Update Project Description </span>
+            <input type="text" name="update_email" value="<?php echo $fetch['email'];?>" class="box">
             <span>Update Priority :</span>
-            <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
+            <input type="text" name="update_image" value="" class="box">
          </div>
          <div class="inputBox">
             <input type="hidden" name="old_pass" value="<?php echo $fetch['password']; ?>">
-            <span>Update Status :</span>
+            <span>Update Status </span>
             <input type="password" name="update_pass" class="box">
-            <span>Update Due Date :</span>
+            <span>Update Due Date </span>
             <input type="password" name="new_pass"  class="box">
-            <span>Confirm Password :</span>
-            <input type="password" name="confirm_pass"  class="box">
+            
          </div>
       </div>
       <div class="buttons">

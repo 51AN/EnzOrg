@@ -54,7 +54,7 @@ html{
  }
  
  .update-profile form .flex .inputBox{
-    width: 40%;
+    width: 45%;
  }
  
  .update-profile form .flex .inputBox span{
@@ -62,6 +62,7 @@ html{
     display: block;
     margin-top: 15px;
     font-size: 17px;
+    font-weight: bold;
     color:var(--white);
  }
  
@@ -86,6 +87,7 @@ html{
    background: #eeeeee;
    transition: background 0.2s, border-color 0.2s;
  }
+ 
 
 
  .btn {
