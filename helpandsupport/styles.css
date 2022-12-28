@@ -1,0 +1,246 @@
+*{
+    margin: 0;
+    padding: 0;    
+    font-family: 'Poppins', sans-serif;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+
+.header{
+    min-height: 100vh;
+    width: 100%;
+    background-image: url(../bg.jpg);
+    background-position: center;
+    background-size: cover;
+    position: relative;
+
+
+}
+
+.title__name{
+    font-size: 30px;
+    color: rgb(0, 0, 0);
+}
+
+
+
+nav{
+    display: flex;
+    padding: 2% 6%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav img{
+    width: 150px;
+
+}
+.nav-links{
+    flex: 1;
+    text-align: right;
+}
+
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+.nav-links ul li a{
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 15px;
+
+}
+
+.nav-links ul li::after{
+    content: '';
+    width: 0%;
+    height: 2px;
+    background:#009579;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+.nav-links ul li:hover::after{
+    width: 100%;
+
+}
+.text-box{
+    width: 90%;
+    color: rgb(0, 0, 0);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    text-align: center;
+
+}
+.text-box h1{
+    font-size:60px;
+    color: transparent;
+    -webkit-text-stroke: 1px rgb(0, 0, 0);
+    background: url(images/back.png);
+    background-clip: unset;
+    -webkit-background-clip: text;
+    background-position: 0 0;
+    animation: back 20s linear infinite;
+
+}
+@keyframes back{
+    100%{
+        background-position: 2000px 0;
+    }
+}
+
+.text-box p{
+    margin: 10px 0 40px;
+    font-size: 14px;
+    color: rgb(0, 0, 0);
+}
+.start--btn{
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
+    padding: 12px 34px;
+    font-size: 13px;
+    justify-content: center;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+
+.start--btn:hover{
+    border: 1px solid #009579;
+    background: #009579;
+    transition: 1s;
+}
+
+
+/* support Section */
+.support{
+    /* width: 100%;
+    padding: 78px 0px; */
+    position: relative;
+    min-height: 10vh;
+    padding: 50px 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-size: cover;
+}
+.container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+.supportForm
+{
+    width: 40%;
+    padding: 40px;
+    background: rgba(255,255,255,0.7);
+}
+.supportForm h2{
+    font-size: 30px;
+    color: #333;
+    font-weight: 500;
+}
+.supportForm .inputBox{
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
+}
+.supportForm .inputBox input,
+.supportForm .inputBox textarea{
+    width: 100%;
+    padding: 5px 0;
+    font-size: 16px;
+    margin: 10px 0;
+    border: none;
+    border-bottom: 2px solid #333;
+    outline: none;
+    resize: none;
+}
+.supportForm .inputBox span{
+    position: absolute;
+    left: 0;
+    padding: 5px 0;
+    font-size: 16px;
+    margin: 10px 0;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #666;
+}
+.supportForm .inputBox input:focus ~ span,
+.contactForm .inputBox input:valid ~ span,
+.supportForm .inputBox textarea:focus ~ span,
+.contactForm .inputBox textarea:valid ~ span
+{
+    color: #009579;
+    font-size: 12px;
+    transform: translateY(-20px);
+}
+.supportForm .inputBox button[type ="submit"]
+{
+    width: 150px;
+    display: inline-block;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
+    padding: 12px 34px;
+    font-size: 13px;
+    flex-direction: center;
+    justify-content: center;
+    background: transparent;
+    position: center;
+    cursor: pointer;
+}
+.supportForm .inputBox button[type ="submit"]:hover
+{
+    border: 1px solid #009579;
+    background: #009579;
+    transition: 1s;
+}
+.support img{
+    height: auto;
+    width: 550px;
+    padding: 20px;
+}
+.support-text{
+    width: 550px;
+}
+.main{
+    width: 1130px;
+    max-width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.support-text h1{
+    font-size: 50px;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+.support-text h5{
+    font-size: 25px;
+    text-transform: capitalize;
+    margin-bottom: 25px;
+    letter-spacing: 2px;
+}
+.support span{
+    color:#009579;
+}
+.support-text p{
+    letter-spacing: 1px;
+    line-height: 28px;
+    font-size: 18px;
+    margin-bottom: 45px;
+}

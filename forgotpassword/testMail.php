@@ -48,7 +48,6 @@ function send_mail($recipient,$subject,$message)
     }
     else
     {
-        echo"Email sent successfully. ";
         return true;
     }
 }
