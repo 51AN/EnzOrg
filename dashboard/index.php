@@ -285,7 +285,7 @@
     <div class="col_project_list">
         <h1>Project list</h1>
         <div style="height: 300px; overflow: auto">
-            <table border="1" width="1000"  height="400" class="project_show_table" >
+            <table border="0" width="1000"  height="400" class="project_show_table" >
                 <tr>
                     <th>Project name</th>
                     <th>Priority</th>
@@ -297,7 +297,7 @@
                 </tr>
             
                 <?php foreach($projects as $project):?>
-                    <tr align="center">
+                    <tr>
                         <td><?php echo $project['projname']?></td>
                         <td><?php echo $project['priority']?></td>
                         <td>
@@ -310,14 +310,26 @@
                         </td>
                         <td><?php echo $project['projstatus']?></td>
                         <td>
-                            <?php
-                                $percent = 0;
-                                $fetchCompletedTasks = mysqli_query($conn, "SELECT COUNT(taskID) AS totalCtask FROM tasks WHERE projID = $id AND tasks.status = 'Completed'");
-                                $completedtaskcount = mysqli_fetch_assoc($fetchCompletedTasks);
-                                if($completedtaskcount['totalCtask'] != 0 && $taskcount['totaltask'] != 0)
-                                    $percent = ($completedtaskcount['totalCtask']/$taskcount['totaltask'])*100;
-                                echo number_format((float)$percent, 2, '.', '');
-                            ?>
+                            <div class="progress_bar_container"> 
+                                <div class="progress_bar" style="width:<?php
+                            $percent = 0;
+                            $fetchCompletedTasks = mysqli_query($conn, "SELECT COUNT(taskID) AS totalCtask FROM tasks WHERE projID = $id AND tasks.status = 'Completed'");
+                            $completedtaskcount = mysqli_fetch_assoc($fetchCompletedTasks);
+                            if($completedtaskcount['totalCtask'] != 0 && $taskcount['totaltask'] != 0)
+                                $percent = ($completedtaskcount['totalCtask']/$taskcount['totaltask'])*100;
+                                echo $percent.'%';
+                            ?>"><?php
+                            $percent = 0;
+                            $fetchCompletedTasks = mysqli_query($conn, "SELECT COUNT(taskID) AS totalCtask FROM tasks WHERE projID = $id AND tasks.status = 'Completed'");
+                            $completedtaskcount = mysqli_fetch_assoc($fetchCompletedTasks);
+                            if($completedtaskcount['totalCtask'] != 0 && $taskcount['totaltask'] != 0)
+                                $percent = ($completedtaskcount['totalCtask']/$taskcount['totaltask'])*100;
+                                echo number_format((float)$percent,0,'.','').'%';
+                            
+                            ?></div>
+                            </div>
+                        
+                            
                         </td>
                         <td><?php echo $project['due']?></td>
                         <td>

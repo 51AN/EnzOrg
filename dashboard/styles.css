@@ -229,18 +229,44 @@ nav img{
 }
 
 
+.progress_bar_container{
+  
+}
 
+.progress_bar{
+  
+  
+    border: 1px solid black;
+    border-width: 1px;
+    background-color:#009579;
+    color: black;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    margin-left: 10px;
+
+
+
+}
+
+.project_show_table tr .progress_bar_container .progress_bar :hover{
+    background-color: #fff;
+    color: black;
+}
 
 
 
 .project_show_table{
     table-layout: auto;
-    border-collapse: collapse;
+  
+    border-spacing: 0;
 }
 
 .project_show_table td{
     height: 20px;
     overflow: fixed;
+    text-align: center;
 }
 
 .project_show_table th{
