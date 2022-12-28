@@ -75,31 +75,37 @@
 <?php
     if(isset($_POST['viewprojectsubmit']))
     {
-        $selectedview = htmlspecialchars($_POST['viewproj']);
-        $view = mysqli_query($conn, "SELECT * FROM `projects` WHERE projname = '$selectedview' AND user_id = $userId");
-        $row = mysqli_fetch_assoc($view);
-        $_SESSION['projectName'] = $row['projname'];
-        $_SESSION['projectID'] = $row['proj_id'];
-        header('Location: ../projectpageadmin/index.php');
+        if(isset($_POST['viewproj']))
+        {
+            $selectedview = htmlspecialchars($_POST['viewproj']);
+            $view = mysqli_query($conn, "SELECT * FROM `projects` WHERE projname = '$selectedview' AND user_id = $userId");
+            $row = mysqli_fetch_assoc($view);
+            $_SESSION['projectName'] = $row['projname'];
+            $_SESSION['projectID'] = $row['proj_id'];
+            header('Location: ../projectpageadmin/index.php');
+        }
     }
 ?>
 
 <?php
     if(isset($_POST['viewassignedprojectsubmit']))
     {
-        $selectedAPview = htmlspecialchars($_POST['viewAssignedProj']);
-        $viewAssignedProjects = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
-                                                    FROm projects INNER JOIN projmembers
-                                                    ON projects.proj_id = projmembers.projID
-                                                    WHERE projmembers.userID = $userId");
-        while($rowAP = mysqli_fetch_assoc($viewAssignedProjects))
+        if(isset($_POST['viewAssignedProj']))
         {
-            if($rowAP['projname'] == $selectedAPview)
+            $selectedAPview = htmlspecialchars($_POST['viewAssignedProj']);
+            $viewAssignedProjects = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                                        FROm projects INNER JOIN projmembers
+                                                        ON projects.proj_id = projmembers.projID
+                                                        WHERE projmembers.userID = $userId");
+            while($rowAP = mysqli_fetch_assoc($viewAssignedProjects))
             {
-                $_SESSION['projectName'] = $rowAP['projname'];
-                $_SESSION['projectID'] = $rowAP['proj_id'];
-                header('Location: ../taskpagemember/index.php');
-                break;
+                if($rowAP['projname'] == $selectedAPview)
+                {
+                    $_SESSION['projectName'] = $rowAP['projname'];
+                    $_SESSION['projectID'] = $rowAP['proj_id'];
+                    header('Location: ../taskpagemember/index.php');
+                    break;
+                }
             }
         }
     }

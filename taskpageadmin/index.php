@@ -24,86 +24,66 @@
 ?>
 
 <?php
-    $projname = $projdes = $priority = $projstatus = $due = '';
-    $userId = $_SESSION['user_id'];
-    if(isset($_POST['addprojectsubmit']))
+    $user_name = $userID = $errorMsg = '';
+    $taskID = $_SESSION['taskID'];
+    if(isset($_POST['addusersubmit']))
     {
-        $projname = htmlspecialchars($_POST['projectname']);
-        $projdes = htmlspecialchars($_POST['description']);
-        if(isset($_POST['priority']))
-            $priority = $_POST['priority'];
-        if(isset($_POST['status']))
-            $projstatus = $_POST['status'];
-        $due = $_POST['duetime'];
-
-        if(!empty($projname) && !empty($projdes) && !empty($priority) && !empty($projstatus))
+        $user_name = htmlspecialchars($_POST['username']);
+        if(!empty($user_name))
         {
-            $query = mysqli_query($conn, "INSERT INTO `projects` (`projname`, `projdescription`, `priority`, `projstatus`, `due`, `user_id`) VALUES ('$projname', '$projdes', '$priority', '$projstatus', '$due', '$userId')");
-            header('Location: '.$_SERVER['PHP_SELF'].'?success');
+            $fetchuser = mysqli_query($conn, "SELECT * FROM users WHERE `username` = '$user_name'");
+            if(mysqli_num_rows($fetchuser) > 0)
+            {
+              $user = mysqli_fetch_assoc($fetchuser);
+              $userID = $user['id'];
+              $check = mysqli_query($conn, "SELECT * FROM taskmembers WHERE taskID = $taskID AND userID = $userID");
+
+              if(mysqli_num_rows($check) > 0)
+                  $errorMsg = 'The user is already a member.';
+              if($user_name == $message)
+                  $errorMsg = "You can't add yourself to your task.";
+            }
+            else
+              $errorMsg = "User doesn't exist.";
+
+            if(!$errorMsg)
+            {
+                $query = mysqli_query($conn, "INSERT INTO `taskmembers`(`userID`, `taskID`) VALUES ('$userID','$taskID')");
+                header('Location: '.$_SERVER['PHP_SELF'].'?success');
+            }
         }  
     }
 ?>
 
 <?php
-    $sql = "SELECT * FROM projects WHERE user_id = $userId UNION 
-            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
-            FROm projects INNER JOIN projmembers
-            ON projects.proj_id = projmembers.projID
-            WHERE projmembers.userID = $userId)";
+    $projID = $_SESSION['projectID'];
+    $sql = "SELECT * FROM users INNER JOIN taskmembers 
+            ON users.id = taskmembers.userID
+            WHERE taskmembers.taskID = $taskID";
+
+    $sqlproj ="SELECT * FROM users INNER JOIN projmembers 
+                ON users.id = projmembers.userID
+                WHERE projmembers.projID = $projID";
+
     $fetch = mysqli_query($conn, $sql);
-    $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
+    $members = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 
-    $fetchMyProjList = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
-    $myProjList = mysqli_fetch_all($fetchMyProjList, MYSQLI_ASSOC);
-
-    $fetchAssignedProjs = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
-                                            FROm projects INNER JOIN projmembers
-                                            ON projects.proj_id = projmembers.projID
-                                            WHERE projmembers.userID = $userId");
-    $assignedProjs = mysqli_fetch_all($fetchAssignedProjs, MYSQLI_ASSOC);
+    $fetchprojmems = mysqli_query($conn, $sqlproj);
+    $projmembers = mysqli_fetch_all($fetchprojmems, MYSQLI_ASSOC);
 ?>
 
 <?php
-    if(isset($_POST['deleteprojectsubmit']))
+    if(isset($_POST['deleteusersubmit']))
     {
-        $selected = htmlspecialchars($_POST['delproj']);
-        $del = mysqli_query($conn, "DELETE FROM `projects` WHERE projname = '$selected' AND user_id = $userId");
+        $selected = htmlspecialchars($_POST['deluser']);
+        $fetchuserdlt = mysqli_query($conn, "SELECT * FROM users WHERE `username` = '$selected'");
+        $userdlt = mysqli_fetch_assoc($fetchuserdlt);
+        $dltuserID = $userdlt['id'];
+        $del = mysqli_query($conn, "DELETE FROM `taskmembers` WHERE userID = $dltuserID");
         header('Location: '.$_SERVER['PHP_SELF'].'?success');
     }
 ?>
 
-<?php
-    if(isset($_POST['viewprojectsubmit']))
-    {
-        $selectedview = htmlspecialchars($_POST['viewproj']);
-        $view = mysqli_query($conn, "SELECT * FROM `projects` WHERE projname = '$selectedview' AND user_id = $userId");
-        $row = mysqli_fetch_assoc($view);
-        $_SESSION['projectName'] = $row['projname'];
-        $_SESSION['projectID'] = $row['proj_id'];
-        header('Location: ../projectpageadmin/index.php');
-    }
-?>
-
-<?php
-    if(isset($_POST['viewassignedprojectsubmit']))
-    {
-        $selectedAPview = htmlspecialchars($_POST['viewAssignedProj']);
-        $viewAssignedProjects = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
-                                                    FROm projects INNER JOIN projmembers
-                                                    ON projects.proj_id = projmembers.projID
-                                                    WHERE projmembers.userID = $userId");
-        while($rowAP = mysqli_fetch_assoc($viewAssignedProjects))
-        {
-            if($rowAP['projname'] == $selectedAPview)
-            {
-                $_SESSION['projectName'] = $rowAP['projname'];
-                $_SESSION['projectID'] = $rowAP['proj_id'];
-                header('Location: ../taskpagemember/index.php');
-                break;
-            }
-        }
-    }
-?>
 <!--  section of the whole page -->
 <section class="header">
 
@@ -235,16 +215,20 @@
                     <h1 class="project_title"> Add Member </h1>
                     <!-- project name add here  -->
                     <div class="project_input_group">
-                        <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname" required>
+                        <select class="project_input" id="username" name="username" >
+                            <?php foreach($projmembers as $values):?>
+                                <option value="<?php echo $values['username'];?>"><?php echo $values['username'];?></option>
+                            <?php endforeach;?>
+                        </select>
 
                     </div>
                     <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
                     <div class="popup_add"  id="popup_add">
                         <img src="./images/question.png">
                         <h2>Add?</h2>
-                        <p>Do you want to add this project?</p>
+                        <p>Do you want to add this user?</p>
                         <div class="popup_button_space">
-                            <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+                            <button type="submit" class="project_button" name="addusersubmit">Confirm</button>
                         </div>
                             <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
                         
@@ -256,19 +240,19 @@
                 <h1>Remove Member</h1>
                 <div class="project_input_group">
                         <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                        <select class="project_input" id="delproj" name="delproj" >
-                            <?php foreach($myProjList as $values):?>
-                                <option value="<?php echo $values['projname'];?>"><?php echo $values['projname'];?></option>
+                        <select class="project_input" id="deluser" name="deluser" >
+                            <?php foreach($members as $values):?>
+                                <option value="<?php echo $values['username'];?>"><?php echo $values['username'];?></option>
                             <?php endforeach;?>
                         </select>
                 </div>
                 <button class="project_button_delete" type="button" onclick="openPopup()"> Remove </button>
                 <div class="popup_delete"  id="popup_delete">
                     <img src="./images/cross.png">
-                    <h2>Delete?</h2>
-                    <p>Are you sure about deleting this project?</p>
+                    <h2>Remove?</h2>
+                    <p>Are you sure about removing this user?</p>
                     <div class="popup_button_space">
-                        <button type="submit" class="project_button" name="deleteprojectsubmit">Confirm</button>
+                        <button type="submit" class="project_button" name="deleteusersubmit">Confirm</button>
                     </div>
                         <button type="button" class="project_button_delete" onclick="closePopup()">Cancel</button>
                     
@@ -282,37 +266,14 @@
         <div style="height: 300px; overflow: auto">
             <table border="1" width="990"  height="400" class="project_show_table" >
                 <tr>
-                    <th>Project name</th>
-                    <th>Priority</th>
-                    <th>Tasks</th>
-                    <th>Status</th>
-                    <th>Due</th>
-                    <th>Role</th>
+                    <th>Name</th>
+                    <th>Email</th>
                 </tr>
             
-                <?php foreach($projects as $project):?>
+                <?php foreach($members as $member):?>
                     <tr align="center">
-                        <td><?php echo $project['projname']?></td>
-                        <td><?php echo $project['priority']?></td>
-                        <td>
-                        <?php
-                            $id = $project['proj_id'];
-                            $fetchTasks = mysqli_query($conn, "SELECT COUNT(taskID) AS totaltask FROM tasks WHERE projID = $id");
-                            $taskcount = mysqli_fetch_assoc($fetchTasks);
-                            echo $taskcount['totaltask'];
-                        ?>
-                        </td>
-                        <td><?php echo $project['projstatus']?></td>
-                        <td><?php echo $project['due']?></td>
-                        <td>
-                        <?php 
-                            $admin = $project['user_id'];
-                            if($admin == $userId)
-                                echo 'Admin';
-                            else
-                                echo 'Member';
-                        ?>
-                        </td>
+                        <td><?php echo $member['username']?></td>
+                        <td><?php echo $member['email']?></td>
                     </tr>
                 <?php endforeach;?>
             </table>
