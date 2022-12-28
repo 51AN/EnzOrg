@@ -40,7 +40,7 @@ if (isset($_SESSION['username']))
                 <div class="main">
                     
                     <div class="contact-text">
-                        <h1> Contact<span> US</span></h1>
+                        <h1> Contact <span>  US</span></h1>
                     </div>
                 </div>
                 <div class="container">
@@ -73,14 +73,7 @@ if (isset($_SESSION['username']))
                                 <p>Mobile: 01533074149</p>
                             </div>
                         </div>
-                        <div class="box">
-                            <!-- <div class="icon"><i class="fa fa-cog" aria-hidden="true"></i></div> -->
-                            <div class="icon"><i class="fa fa-user-secret" aria-hidden="true"></i></div>
-                            <div class="text">
-                                <h1>Md. Saidul Islam</h1>
-                                <p>Supervisor</p>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
             </section>

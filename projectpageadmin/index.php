@@ -119,7 +119,7 @@
        <span class="tooltip">My Profile</span>
      </li>
      <li>
-       <a href="#">
+       <a href="../mytasks/index.php">
          <i class='bx bx-task' ></i>
          <span class="links_name">My Tasks</span>
        </a>
@@ -147,14 +147,14 @@
        <span class="tooltip">Order</span>
      </li> -->
      <li>
-       <a href="#">
+       <a href="../helpandsupport/index.php">
          <i class='bx bx-support'></i>
          <span class="links_name">Help & Support</span>
        </a>
        <span class="tooltip">Help & Support</span>
      </li>
      <li>
-       <a href="#">
+       <a href="../contact/index.php">
          <i class='bx bxs-contact'></i>
          <span class="links_name">Contact</span>
        </a>

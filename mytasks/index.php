@@ -113,7 +113,7 @@
        <span class="tooltip">My Profile</span>
      </li>
      <li>
-       <a href="#">
+       <a href="../mytasks/index.php">
          <i class='bx bx-task' ></i>
          <span class="links_name">My Tasks</span>
        </a>
@@ -141,14 +141,14 @@
        <span class="tooltip">Order</span>
      </li> -->
      <li>
-       <a href="#">
+       <a href="../helpandsupport/index.php">
          <i class='bx bx-support'></i>
          <span class="links_name">Help & Support</span>
        </a>
        <span class="tooltip">Help & Support</span>
      </li>
      <li>
-       <a href="#">
+       <a href="../contact/index.php">
          <i class='bx bxs-contact'></i>
          <span class="links_name">Contact</span>
        </a>
@@ -194,55 +194,17 @@
                 <!-- Write profile name here -->
                 <?php echo '<li><a href="../profile/index.php">'.$message.'</a></li>';?>
                 <li><a href="../about/index.php">ABOUT</a></li>
-                <li><a href="#">CONTACT</a></li>
+                <li><a href="../contact/index.php">CONTACT</a></li>
             </ul>
         </div>
     </nav>
 
     <!-- task entry form here  -->
 <div class="row_project">
-    <div class="col_task_update">    
-        <form action="" class="project_form" method="POST" id="">
-            <h1 class="task_title"> Update Task </h1>
-            <!-- project name add here  -->
-            
-            <div class="project_input_group">
-                <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                <select class="project_input" id="task_name" name="task_name" >
-                    <option disabled selected hidden>Select Task</option>
-                    <option >Low</option>
-                    <option >Medium</option>
-                    <option >High</option>
-                </select>
-            </div>
-            <div class="project_input_group">
-                <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
-                <select class="project_input" id="status" name="status">
-                    <option disabled selected hidden>Status</option>
-                    <option>Completed</option>
-                    <option>In Progress</option>
-                    <option>Future</option>
-                </select>
-            </div>
-            <button class="project_button" type="button" onclick="openPopupAdd()"> UPDATE </button>
-            <div class="popup_add"  id="popup_add">
-                <img src="./images/question.png">
-                <h2>Update?</h2>
-                <p>Do you want to Update this project?</p>
-                <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
-                </div>
-                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
-                
-            </div>
-
-        </form>
-    </div>
-
 
     <div class="col_project_list">
         <h1>Task list</h1>
-        <div style="height: 300px; overflow: auto">
+        <div style="height: 500px; overflow: auto">
             <table border="1" width="1000"  height="400" class="project_show_table" >
                 <tr>
                     <th>Task name</th>

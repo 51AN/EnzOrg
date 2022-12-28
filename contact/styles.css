@@ -126,7 +126,7 @@ nav img{
     width: 100%;
     position: relative;
     min-height: 10vh;
-    padding: 50px 200px;
+    padding: 5px 130px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -181,7 +181,8 @@ nav img{
 .contact img{
     height: auto;
     width: 550px;
-    padding: 20px;
+    padding: 5px;
+
 }
 .contact-text{
     width: 550px;
@@ -192,7 +193,7 @@ nav img{
     text-align: center;
 }
 .contact .main h1{
-    font-weight: 300;
+    font-weight: bold;
     color: #000000;
 }
 .contact .content p{

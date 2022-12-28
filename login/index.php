@@ -84,13 +84,13 @@
             if(isset($_GET["newpassword"]))
             {
                 if($_GET["newpassword"]=="passwordUpdated"){
-                    echo'<p>Your password has been reset.</p>';
+                    echo'<p class="form_email_verify">Your password has been reset.</p>';
                 }
             }
             if(isset($_GET["user_create"]))
             {
                 if($_GET["user_create"]=="success"){
-                    echo'<p>Check your email for email verification.</p>';
+                    echo'<p class="form_email_verify">Check your email for email verification.</p>';
                 }
             }
             if(isset($_GET["token"]))
@@ -106,9 +106,9 @@
                         $stmt ->bind_param("ss",$_GET["token"],$user_name);
                         $stmt -> execute();
                         if(mysqli_affected_rows($conn)<=0)
-                            echo'<p>There was an error while creating your account and the link is now Invalid. Try to create your account again!</p>';
+                            echo'<p class="form_email_unverify">There was an error while creating your account and the link is now Invalid. Try to create your account again!</p>';
                         else{
-                            echo'<p>Your accout has been registered! You may now log in.</p>';
+                            echo'<p class="form_email_verify">Your accout has been registered! You may now log in.</p>';
                         }
                         $stmt -> close();
                         $conn -> close();

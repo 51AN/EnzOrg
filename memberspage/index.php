@@ -135,14 +135,14 @@
        <span class="tooltip">Order</span>
      </li> -->
      <li>
-       <a href="#">
+       <a href="../helpandsupport/index.php">
          <i class='bx bx-support'></i>
          <span class="links_name">Help & Support</span>
        </a>
        <span class="tooltip">Help & Support</span>
      </li>
      <li>
-       <a href="#">
+       <a href="../contact/index.php">
          <i class='bx bxs-contact'></i>
          <span class="links_name">Contact</span>
        </a>
@@ -191,7 +191,7 @@
                 <!-- Write profile name here -->
                 <?php echo '<li><a href="../profile/index.php">'.$message.'</a></li>';?>
                 <li><a href="../about/index.php">ABOUT</a></li>
-                <li><a href="#">CONTACT</a></li>
+                <li><a href="../contact/index.php">CONTACT</a></li>
             </ul>
         </div>
     </nav>

@@ -132,3 +132,15 @@ body {
 .form__link:hover {
     text-decoration:underline;
 }
+
+.form_email_verify{
+    color:#007f67;
+    text-align: center;
+    font-size: 15px;
+}
+
+.form_email_unverify{
+    color:crimson;
+    text-align: center;
+    font-size: 14px;
+}

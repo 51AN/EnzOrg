@@ -28,7 +28,7 @@
                     <li><a href="<?php echo $message ? '../Homepage/logout.php' : '../login/index.php';?>"><?php echo $message ? 'LOG OUT' : 'LOG IN';?></a></li>
                     <li><a href="<?php echo !$message ? '../register/index.php' : '../profile/index.php';?>"><?php echo $message ? $message : 'SIGN UP';?></a></li>
                     <li><a href="../about/index.php">ABOUT</a></li>
-                    <li><a href="#">CONTACT</a></li>
+                    <li><a href="../contact/index.php">CONTACT</a></li>
                 </ul>
             </div>
         </nav>
