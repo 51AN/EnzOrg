@@ -264,7 +264,20 @@
                     <tr align="center">
                         <td><?php echo $member['username']?></td>
                         <td><?php echo $member['email']?></td>
-                        <td>1/10</td>
+                        <td>
+                          <?php
+                            $total = $completed = 0;
+                            $memid = $member['id'];
+                            $fetchTasks = mysqli_query($conn, "SELECT COUNT(taskID) AS totaltask FROM taskmembers WHERE userID = $memid");
+                            $totaltaskcount = mysqli_fetch_assoc($fetchTasks);
+                            $fetchCompletedTasks = mysqli_query($conn, "SELECT COUNT(taskmembers.taskID) AS totalCtask FROM taskmembers
+                                                                        INNER JOIN tasks
+                                                                        ON taskmembers.taskID = tasks.taskID
+                                                                        WHERE userID = $memid AND tasks.status = 'Completed'");
+                            $completedtaskcount = mysqli_fetch_assoc($fetchCompletedTasks);
+                            echo $completedtaskcount['totalCtask'].'/'.$totaltaskcount['totaltask'];
+                          ?>
+                        </td>
                     </tr>
                 <?php endforeach;?>
             </table>
