@@ -56,7 +56,10 @@ html{
  .update-profile form .flex .inputBox{
     width: 45%;
  }
- 
+ .error_message_proname{
+   text-align: left;
+   color: crimson;
+ }
  .update-profile form .flex .inputBox span{
     text-align: left;
     display: block;

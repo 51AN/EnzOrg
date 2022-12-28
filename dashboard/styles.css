@@ -17,15 +17,13 @@ html{
     background-position: center;
     background-size: cover;
     position: relative;
-
-    
-
-
 }
+
 .title__name{
     font-size: 25px;
     padding-left: 60px;
 }
+
 nav{
     display: flex;
     padding: 2% 6%;
@@ -87,11 +85,11 @@ nav img{
 
 
 .col_project_veiw{
-  padding-right: 20px;
+  padding-right: 2%;
 }
 
 .col_project_veiw_assigned{
-  padding-right: 20px;
+  padding-right: 2%;
 }
 
 .project_input {

@@ -190,7 +190,7 @@
 
     <!--  nav bar begins here -->
     <nav>
-    <div class="task__name"><b><?php echo $_SESSION['taskName'] ?></b></div>
+    <div class="task__name"><b>Task -> <?php echo $_SESSION['taskName'] ?></b></div>
         <!-- <div class="title__name">Dash Board</div> -->
         <div class="nav-links">
             <ul>

@@ -122,6 +122,9 @@
             <p class="form__text">
                 <a class="form__link" href="../register/index.php" id="linkCreateAccount">Don't have an account? Create account</a>
             </p>
+            <p class="form__text">
+                <a class="form__link" href="../Homepage/index.php" id="linkHomepage">Go back to Homepage</a>
+            </p>
         </form>
     
     </div>

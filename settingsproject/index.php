@@ -47,36 +47,40 @@
           else
           {
             $updateProjName = mysqli_query($conn, "UPDATE `projects` SET `projname`='$name' WHERE proj_id = $projectID");
+            $_SESSION['projectName'] = $name;
             header('Location: '.$_SERVER['PHP_SELF'].'?success');
           }
         }
+        
       }
+      if(!$errmsg){
+        if($description)
+        {
+          $updateProjDes = mysqli_query($conn, "UPDATE `projects` SET `projdescription`='$description' WHERE proj_id = $projectID");
+          header('Location: '.$_SERVER['PHP_SELF'].'?success');
+        }
 
-      if($description)
-      {
-        $updateProjDes = mysqli_query($conn, "UPDATE `projects` SET `projdescription`='$description' WHERE proj_id = $projectID");
-        header('Location: '.$_SERVER['PHP_SELF'].'?success');
-      }
+        if(isset($_POST['priority']))
+        {
+          $priority = $_POST['priority'];
+          $updateProjName = mysqli_query($conn, "UPDATE `projects` SET `priority`='$priority' WHERE proj_id = $projectID");
+          header('Location: '.$_SERVER['PHP_SELF'].'?success');
+        }
 
-      if(isset($_POST['priority']))
-      {
-        $priority = $_POST['priority'];
-        $updateProjName = mysqli_query($conn, "UPDATE `projects` SET `priority`='$priority' WHERE proj_id = $projectID");
-        header('Location: '.$_SERVER['PHP_SELF'].'?success');
-      }
+        if(isset($_POST['status']))
+        {
+          $status = $_POST['status'];
+          $updateProjStatus = mysqli_query($conn, "UPDATE `projects` SET `projstatus`='$status' WHERE proj_id = $projectID");
+          header('Location: '.$_SERVER['PHP_SELF'].'?success');
+        }
 
-      if(isset($_POST['status']))
-      {
-        $status = $_POST['status'];
-        $updateProjStatus = mysqli_query($conn, "UPDATE `projects` SET `projstatus`='$status' WHERE proj_id = $projectID");
-        header('Location: '.$_SERVER['PHP_SELF'].'?success');
+        if($date)
+        {
+          $updateDate = mysqli_query($conn, "UPDATE `projects` SET `due`='$date' WHERE proj_id = $projectID");
+          header('Location: '.$_SERVER['PHP_SELF'].'?success');
+        }
       }
-
-      if($date)
-      {
-        $updateDate = mysqli_query($conn, "UPDATE `projects` SET `due`='$date' WHERE proj_id = $projectID");
-        header('Location: '.$_SERVER['PHP_SELF'].'?success');
-      }
+      
    }
 ?>
 
@@ -96,7 +100,7 @@
          <span class="tooltip">Search</span>
       </li> -->
       <li>
-        <a href="#">
+        <a href="../dashboard/index.php">
           <i class='bx bx-grid-alt'></i>
           <span class="links_name">Dashboard</span>
         </a>
@@ -221,7 +225,7 @@
             <span>Update Project Name </span>
             <!-- put values here from database -->
             <input type="text" name="update_name" value="<?php echo $fetch['projname'];?>" class="box">
-            <p><?php echo $errmsg?$errmsg:null; ?></p>
+            <p class="error_message_proname"><?php echo $errmsg?$errmsg:null; ?></p>
             <span>Update Project Description </span>
             <input type="text" name="update_des" value="<?php echo $fetch['projdescription'];?>" class="box">
             <span>Update Priority :</span>

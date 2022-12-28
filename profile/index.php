@@ -138,7 +138,7 @@
        <span class="tooltip">My Profile</span>
      </li>
      <li>
-       <a href="#">
+       <a href="../dashboard/index.php">
          <i class='bx bx-task' ></i>
          <span class="links_name">My Tasks</span>
        </a>

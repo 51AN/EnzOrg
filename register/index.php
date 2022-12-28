@@ -69,6 +69,9 @@
             <p class="form__text">
                 <a class="form__link" href="../login/index.php" id="linkLogin">Already have an account? Sign in</a>
             </p>
+            <p class="form__text">
+                <a class="form__link" href="../Homepage/index.php" id="linkHomepage">Go back to Homepage</a>
+            </p>
         </form>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>

@@ -34,7 +34,7 @@
         </nav>
 
     <div class="text-box">
-        <h1>Organize your Life with EnzOrg</h1>
+        <h1>Organize Your Life with EnzOrg</h1>
         <p> A powerful project management tool to get you involved with your everyday tasks<br>
         </p>
         <a href="<?php echo $message ? '../dashboard/index.php' : '../login/index.php';?>" class="start--btn">Get Started</a>
