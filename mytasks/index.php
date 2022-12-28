@@ -18,70 +18,23 @@
 <?php
     session_start();
     $message = '';
+    $id = $_SESSION['user_id'];
 
     if(isset($_SESSION['username']))
         $message = $_SESSION['username'];
 ?>
 
 <?php
-    $taskname = $taskdes = $priority = $taskstatus = $due = '';
-    $projId = $_SESSION['projectID'];
-    if(isset($_POST['addprojectsubmit']))
-    {
-        $taskname = htmlspecialchars($_POST['taskname']);
-        $taskdes = htmlspecialchars($_POST['description']);
-        $priority = $_POST['priority'];
-        $taskstatus = $_POST['status'];
-        $due = $_POST['duetime'];
-
-        if(!empty($taskname) && !empty($taskdes) && !empty($priority) && !empty($taskstatus))
-        {
-            $query = mysqli_query($conn, "INSERT INTO `tasks` (`taskName`, `taskDes`, `priority`, `status`, `members`, `due`, `projID`) VALUES ('$taskname', '$taskdes', '$priority', '$taskstatus', '1', '$due', '$projId')");
-            $name = $message;
-            $fetch = mysqli_query($conn,"select id from users where username = '$name';");
-            $row=mysqli_fetch_assoc($fetch);
-            $userID = $row['id'];
-            echo $userID;
-            $fetch =mysqli_query($conn, "select taskID from tasks where taskName = '$taskname' and projID = '$projId';");
-            $row=mysqli_fetch_assoc($fetch);
-            $taskID = $row['taskID'];
-            echo $taskID;
-            echo$projId;
-            $query = mysqli_query($conn, "INSERT INTO `taskmembers` (`userID`, `taskID`) VALUES ($userID, $taskID)");
-            header('Location: '.$_SERVER['PHP_SELF'].'?success'); 
-        }  
-        
-    }
-?>
-
-
-
-
-<?php
-    $fetch = mysqli_query($conn, "SELECT * FROM tasks WHERE projID = $projId");
+    $query = "SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, tasks.status, tasks.due
+              FROM projmembers INNER JOIN projects
+              ON projmembers.projID = projects.proj_id INNER JOIN tasks
+              ON projects.proj_id = tasks.projID INNER JOIN taskmembers
+              ON tasks.taskID = taskmembers.taskID
+              WHERE projmembers.userID = $id";
+    $fetch = mysqli_query($conn, $query);
     $tasks = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
 
-<?php
-    if(isset($_POST['deletetasksubmit']))
-    {
-        $selected = htmlspecialchars($_POST['deltask']);
-        $del = mysqli_query($conn, "DELETE FROM `tasks` WHERE taskName = '$selected' AND projID = $projId");
-        header('Location: '.$_SERVER['PHP_SELF'].'?success');
-    }
-?>
-
-<?php
-    if(isset($_POST['viewtasksubmit']))
-    {
-        $selectedview = htmlspecialchars($_POST['viewtask']);
-        $view = mysqli_query($conn, "SELECT * FROM `tasks` WHERE taskName = '$selectedview' AND projID = $projId");
-        $row = mysqli_fetch_assoc($view);
-        $_SESSION['taskName'] = $row['taskName'];
-        $_SESSION['taskID'] = $row['taskID'];
-        header('Location: ../taskpageadmin/index.php');
-    }
-?>
 <!--  section of the whole page -->
 <section class="header">
 
@@ -209,19 +162,18 @@
                 <tr>
                     <th>Task name</th>
                     <th>Priority</th>
-                    <th>Members</th>
                     <th>Status</th>
-                    <th>Due</td>
+                    <th>Due</th>
+                    <th>Project</th>
                 </tr>
             
                 <?php foreach($tasks as $task):?>
                     <tr align="center">
                         <td><?php echo $task['taskName']?></td>
                         <td><?php echo $task['priority']?></td>
-                        <td><?php echo $task['members']?></td>
                         <td><?php echo $task['status']?></td>
                         <td><?php echo $task['due']?></td>
-    
+                        <td><?php echo $task['projname']?></td>
                         
                     </tr>
                 <?php endforeach;?>
