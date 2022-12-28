@@ -45,11 +45,22 @@
 ?>
 
 <?php
-    $sql = "SELECT * FROM projects WHERE user_id = $userId UNION 
-            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
-            FROm projects INNER JOIN projmembers
-            ON projects.proj_id = projmembers.projID
-            WHERE projmembers.userID = $userId)";
+    $sql = "
+    (SELECT * FROM projects WHERE user_id = $userId and priority = 'High' UNION 
+    (
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'High'
+    ))
+    UNION
+    (SELECT * FROM projects WHERE user_id = $userId and priority = 'Medium' UNION 
+    (
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'Medium'
+    ))
+    UNION
+    (SELECT * FROM projects WHERE user_id = $userId and priority = 'Low' UNION 
+    (
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'Low'
+    ))
+    ";
     $fetch = mysqli_query($conn, $sql);
     $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 
