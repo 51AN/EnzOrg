@@ -24,63 +24,48 @@
 ?>
 
 <?php
-    $taskname = $taskdes = $priority = $taskstatus = $due = '';
-    $projId = $_SESSION['projectID'];
-    if(isset($_POST['addprojectsubmit']))
+    $userId = $_SESSION['user_id'];
+    if(isset($_POST['update']))
     {
-        $taskname = htmlspecialchars($_POST['taskname']);
-        $taskdes = htmlspecialchars($_POST['description']);
-        $priority = $_POST['priority'];
-        $taskstatus = $_POST['status'];
-        $due = $_POST['duetime'];
-
-        if(!empty($taskname) && !empty($taskdes) && !empty($priority) && !empty($taskstatus))
+        if(isset($_POST['task_name']))
         {
-            $query = mysqli_query($conn, "INSERT INTO `tasks` (`taskName`, `taskDes`, `priority`, `status`, `members`, `due`, `projID`) VALUES ('$taskname', '$taskdes', '$priority', '$taskstatus', '1', '$due', '$projId')");
-            $name = $message;
-            $fetch = mysqli_query($conn,"select id from users where username = '$name';");
-            $row=mysqli_fetch_assoc($fetch);
-            $userID = $row['id'];
-            echo $userID;
-            $fetch =mysqli_query($conn, "select taskID from tasks where taskName = '$taskname' and projID = '$projId';");
-            $row=mysqli_fetch_assoc($fetch);
-            $taskID = $row['taskID'];
-            echo $taskID;
-            echo$projId;
-            $query = mysqli_query($conn, "INSERT INTO `taskmembers` (`userID`, `taskID`) VALUES ($userID, $taskID)");
-            header('Location: '.$_SERVER['PHP_SELF'].'?success'); 
-        }  
-        
+            $selectedtask = htmlspecialchars($_POST['task_name']);
+            $selectedStatus = htmlspecialchars($_POST['status']);
+            $viewAssignedTasks = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, `status`, `due`, `projID` 
+                                                        FROm tasks INNER JOIN taskmembers
+                                                        ON tasks.taskID = taskmembers.taskID
+                                                        WHERE taskmembers.userID = $userId");
+            while($rowAT = mysqli_fetch_assoc($viewAssignedTasks))
+            {
+                if($rowAT['taskName'] == $selectedtask)
+                {
+                    $tId = $rowAT['taskID'];
+                    $updateSql = "UPDATE `tasks` SET `status`='$selectedStatus' WHERE taskID = $tId";
+                    $executeUpdate = mysqli_query($conn, $updateSql); 
+                    header('Location: '.$_SERVER['PHP_SELF'].'?success');
+                    break;
+                }
+            }
+        }
     }
 ?>
 
-
-
-
 <?php
-    $fetch = mysqli_query($conn, "SELECT * FROM tasks WHERE projID = $projId");
+    $fetch = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, `status`, `due`, `projID` 
+                                  FROm tasks INNER JOIN taskmembers
+                                  ON tasks.taskID = taskmembers.taskID
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'High'
+                                  UNION
+                                  SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, `status`, `due`, `projID` 
+                                  FROm tasks INNER JOIN taskmembers
+                                  ON tasks.taskID = taskmembers.taskID
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Medium'
+                                  UNION
+                                  SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, `status`, `due`, `projID` 
+                                  FROm tasks INNER JOIN taskmembers
+                                  ON tasks.taskID = taskmembers.taskID
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Low'");
     $tasks = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
-?>
-
-<?php
-    if(isset($_POST['deletetasksubmit']))
-    {
-        $selected = htmlspecialchars($_POST['deltask']);
-        $del = mysqli_query($conn, "DELETE FROM `tasks` WHERE taskName = '$selected' AND projID = $projId");
-        header('Location: '.$_SERVER['PHP_SELF'].'?success');
-    }
-?>
-
-<?php
-    if(isset($_POST['viewtasksubmit']))
-    {
-        $selectedview = htmlspecialchars($_POST['viewtask']);
-        $view = mysqli_query($conn, "SELECT * FROM `tasks` WHERE taskName = '$selectedview' AND projID = $projId");
-        $row = mysqli_fetch_assoc($view);
-        $_SESSION['taskName'] = $row['taskName'];
-        $_SESSION['taskID'] = $row['taskID'];
-        header('Location: ../taskpageadmin/index.php');
-    }
 ?>
 <!--  section of the whole page -->
 <section class="header">
@@ -210,9 +195,9 @@
                 <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                 <select class="project_input" id="task_name" name="task_name" >
                     <option disabled selected hidden>Select Task</option>
-                    <option >Low</option>
-                    <option >Medium</option>
-                    <option >High</option>
+                    <?php foreach($tasks as $values):?>
+                            <option value="<?php echo $values['taskName'];?>"><?php echo $values['taskName'];?></option>
+                    <?php endforeach;?>
                 </select>
             </div>
             <div class="project_input_group">
@@ -221,16 +206,15 @@
                     <option disabled selected hidden>Status</option>
                     <option>Completed</option>
                     <option>In Progress</option>
-                    <option>Future</option>
                 </select>
             </div>
-            <button class="project_button" type="button" onclick="openPopupAdd()"> UPDATE </button>
+            <button class="project_button" type="button" name="update" onclick="openPopupAdd()"> UPDATE </button>
             <div class="popup_add"  id="popup_add">
                 <img src="./images/question.png">
                 <h2>Update?</h2>
-                <p>Do you want to Update this project?</p>
+                <p>Do you want to Update this task's status?</p>
                 <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+                    <button type="submit" class="project_button" name="update">Confirm</button>
                 </div>
                     <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
                 
@@ -256,7 +240,14 @@
                     <tr align="center">
                         <td><?php echo $task['taskName']?></td>
                         <td><?php echo $task['priority']?></td>
-                        <td><?php echo $task['members']?></td>
+                        <td>
+                        <?php
+                            $id = $task['taskID'];
+                            $fetchmembers = mysqli_query($conn, "SELECT COUNT(taskID) AS totalmember FROM taskmembers WHERE taskID = $id");
+                            $membercount = mysqli_fetch_assoc($fetchmembers);
+                            echo $membercount['totalmember'];
+                        ?>
+                        </td>
                         <td><?php echo $task['status']?></td>
                         <td><?php echo $task['due']?></td>
     

@@ -15,65 +15,71 @@
 <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
-<?php
-   session_start();
-   $user_id = $_SESSION['user_id'];
-   if(isset($_POST['update_profile']))
-   {
-      $username = $_POST['update_name'];
-      $email = $_POST['update_email'];
-
-      mysqli_query($conn, "UPDATE `users` SET username = '$username', email = '$email' WHERE id = '$user_id'") or die('query failed');
-      
-      $old_pass = $_POST['old_pass'];
-      $update_pass = md5($_POST['update_pass']);
-      $temp_pass = $_POST['new_pass'];
-      $new_pass = md5($_POST['new_pass']);
-      $confirm_pass = md5($_POST['confirm_pass']);
-   
-      if(!empty($update_pass) || !empty($new_pass) || !empty($confirm_pass)){
-         if($update_pass != $old_pass){
-            $message[] = 'old password not matched!';
-         }elseif($new_pass != $confirm_pass){
-            $message[] = 'confirm password not matched!';
-         }else if(strlen($temp_pass) < 8 || ctype_upper($temp_pass) || ctype_lower($temp_pass)){
-            $message[] = "Password must be atleast 8 character long and contain uppercase and lowercase";
-         }else{
-            mysqli_query($conn, "UPDATE `users` SET password = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
-            $message[] = 'password updated successfully!';
-         }
-      }
-
-      $image = $_FILES['update_image']['name'];
-      $imageSize = $_FILES['update_image']['size'];
-      $imageTempName = $_FILES['update_image']['tmp_name'];
-      $imageFolder = 'upload/'. $image;
-   
-      if(!empty($image))
-      {
-         if($imageSize > 2000000)
-            $message[] = "Image is too large";
-         else
-         {
-            $imageUpdateQuery = mysqli_query($conn, "UPDATE users SET image = '$image' WHERE id = '$user_id'") or die("query failed");
-         
-            if($imageUpdateQuery)
-            {
-               move_uploaded_file($imageTempName, $imageFolder);
-            }
-            $message[] = "Image updated successfully";   
-         }
-      }
-   }
-?>
-
 <body>
 <?php
+    session_start();
     $message = '';
 
     if(isset($_SESSION['username']))
         $message = $_SESSION['username'];
 ?>
+
+<?php
+   $user_id = $_SESSION['user_id'];
+   $projectID = $_SESSION['projectID'];
+   $projectName = $_SESSION['projectName'];
+   $name = $description = $priority = $status = $date = $errmsg = $msg = '';
+   if(isset($_POST['update_project']))
+   {
+      $name = htmlspecialchars($_POST['update_name']);
+      $description = htmlspecialchars($_POST['update_des']);
+      $date = $_POST['new_date'];
+
+      if($name)
+      {
+        if($name != $projectName)
+        {
+          $fetchProj = mysqli_query($conn, "SELECT * FROM projects WHERE projname = '$name' AND user_id = $user_id");
+          if(mysqli_num_rows($fetchProj) > 0)
+          {
+            $errmsg = "This project already exists.";
+          }
+          else
+          {
+            $updateProjName = mysqli_query($conn, "UPDATE `projects` SET `projname`='$name' WHERE proj_id = $projectID");
+            header('Location: '.$_SERVER['PHP_SELF'].'?success');
+          }
+        }
+      }
+
+      if($description)
+      {
+        $updateProjDes = mysqli_query($conn, "UPDATE `projects` SET `projdescription`='$description' WHERE proj_id = $projectID");
+        header('Location: '.$_SERVER['PHP_SELF'].'?success');
+      }
+
+      if(isset($_POST['priority']))
+      {
+        $priority = $_POST['priority'];
+        $updateProjName = mysqli_query($conn, "UPDATE `projects` SET `priority`='$priority' WHERE proj_id = $projectID");
+        header('Location: '.$_SERVER['PHP_SELF'].'?success');
+      }
+
+      if(isset($_POST['status']))
+      {
+        $status = $_POST['status'];
+        $updateProjStatus = mysqli_query($conn, "UPDATE `projects` SET `projstatus`='$status' WHERE proj_id = $projectID");
+        header('Location: '.$_SERVER['PHP_SELF'].'?success');
+      }
+
+      if($date)
+      {
+        $updateDate = mysqli_query($conn, "UPDATE `projects` SET `due`='$date' WHERE proj_id = $projectID");
+        header('Location: '.$_SERVER['PHP_SELF'].'?success');
+      }
+   }
+?>
+
 <section class="container">
    
     <!-- side nav bar begin here -->
@@ -195,10 +201,11 @@
 
 <div class="update-profile">
 <!-- php code user information -->
+<p><?php echo $msg?$msg:null; ?></p>
 
    <?php
 
-      $select = mysqli_query($conn, "SELECT * FROM USERS WHERE id = '$user_id'") or die('query failed');
+      $select = mysqli_query($conn, "SELECT * FROM projects WHERE proj_id = '$projectID'") or die('query failed');
       if(mysqli_num_rows($select) > 0)
       {
          $fetch = mysqli_fetch_assoc($select);
@@ -213,23 +220,33 @@
          <div class="inputBox">
             <span>Update Project Name </span>
             <!-- put values here from database -->
-            <input type="text" name="update_name" value="<?php echo $fetch['username'];?>" class="box">
+            <input type="text" name="update_name" value="<?php echo $fetch['projname'];?>" class="box">
+            <p><?php echo $errmsg?$errmsg:null; ?></p>
             <span>Update Project Description </span>
-            <input type="text" name="update_email" value="<?php echo $fetch['email'];?>" class="box">
+            <input type="text" name="update_des" value="<?php echo $fetch['projdescription'];?>" class="box">
             <span>Update Priority :</span>
-            <input type="text" name="update_image" value="" class="box">
+            <select class="box" id="priority" name="priority">
+                    <option disabled selected hidden><?php echo $fetch['priority']; ?></option>
+                    <option >Low</option>
+                    <option >Medium</option>
+                    <option >High</option>
+            </select>
          </div>
          <div class="inputBox">
-            <input type="hidden" name="old_pass" value="<?php echo $fetch['password']; ?>">
             <span>Update Status </span>
-            <input type="password" name="update_pass" class="box">
+            <select class="box" id="status" name="status">
+                    <option disabled selected hidden><?php echo $fetch['projstatus']; ?></option>
+                    <option>Completed</option>
+                    <option>In Progress</option>
+                    <option>Future</option>
+            </select>
             <span>Update Due Date </span>
-            <input type="password" name="new_pass"  class="box">
+            <input type="date" name="new_date"  class="box" value="<?php echo $fetch['due'];?>">
             
          </div>
       </div>
       <div class="buttons">
-         <input type="submit" value="Update Project" name="update_profile" class="btn">
+         <input type="submit" value="Update Project" name="update_project" class="btn">
       </div>
       <div class="buttons">
       <a href="../projectpageadmin/index.php"><input type="button" value="Go Back" name="go_back" class="btn"></a>
