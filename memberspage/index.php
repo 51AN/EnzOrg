@@ -203,13 +203,14 @@
         <div class="row_member_entry">
             <form action="" class="project_form" method="POST" id="">
                     <h1 class="project_title"> Add Member </h1>
-                    <!-- showing errors -->
-                    <p><?php echo $errorMsg?$errorMsg:null;?></p>
+                    
                     <!-- project name add here  -->
                     <div class="project_input_group">
                         <input type="text" class="project_input" autofocus placeholder="username" id="username" name="username" required>
 
                     </div>
+                    <!-- showing errors -->
+                    <p class="error_message"><?php echo $errorMsg?$errorMsg:null;?></p>
                     <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
                     <div class="popup_add"  id="popup_add">
                         <img src="./images/question.png">
