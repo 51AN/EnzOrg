@@ -30,24 +30,26 @@
     {
         $taskname = htmlspecialchars($_POST['taskname']);
         $taskdes = htmlspecialchars($_POST['description']);
-        $priority = $_POST['priority'];
-        $taskstatus = $_POST['status'];
+        if(isset($_POST['priority']))
+            $priority = $_POST['priority'];
+        if(isset($_POST['status']))
+            $taskstatus = $_POST['status'];
         $due = $_POST['duetime'];
 
         if(!empty($taskname) && !empty($taskdes) && !empty($priority) && !empty($taskstatus))
         {
-            $query = mysqli_query($conn, "INSERT INTO `tasks` (`taskName`, `taskDes`, `priority`, `status`, `members`, `due`, `projID`) VALUES ('$taskname', '$taskdes', '$priority', '$taskstatus', '1', '$due', '$projId')");
-            $name = $message;
-            $fetch = mysqli_query($conn,"select id from users where username = '$name';");
-            $row=mysqli_fetch_assoc($fetch);
-            $userID = $row['id'];
-            echo $userID;
-            $fetch =mysqli_query($conn, "select taskID from tasks where taskName = '$taskname' and projID = '$projId';");
-            $row=mysqli_fetch_assoc($fetch);
-            $taskID = $row['taskID'];
-            echo $taskID;
-            echo$projId;
-            $query = mysqli_query($conn, "INSERT INTO `taskmembers` (`userID`, `taskID`) VALUES ($userID, $taskID)");
+            $query = mysqli_query($conn, "INSERT INTO `tasks` (`taskName`, `taskDes`, `priority`, `status`, `due`, `projID`) VALUES ('$taskname', '$taskdes', '$priority', '$taskstatus', '$due', '$projId')");
+            // $name = $message;
+            // $fetch = mysqli_query($conn,"select id from users where username = '$name';");
+            // $row=mysqli_fetch_assoc($fetch);
+            // $userID = $row['id'];
+            // echo $userID;
+            // $fetch =mysqli_query($conn, "select taskID from tasks where taskName = '$taskname' and projID = '$projId';");
+            // $row=mysqli_fetch_assoc($fetch);
+            // $taskID = $row['taskID'];
+            // echo $taskID;
+            // echo$projId;
+            // $query = mysqli_query($conn, "INSERT INTO `taskmembers` (`userID`, `taskID`) VALUES ($userID, $taskID)");
             header('Location: '.$_SERVER['PHP_SELF'].'?success'); 
         }  
         
@@ -58,7 +60,11 @@
 
 
 <?php
-    $fetch = mysqli_query($conn, "SELECT * FROM tasks WHERE projID = $projId");
+    $fetch = mysqli_query($conn, "SELECT * FROM tasks WHERE projID = $projId AND priority = 'High'
+                                    UNION
+                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'Medium'
+                                    UNION
+                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'Low'");
     $tasks = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
 
@@ -209,16 +215,16 @@
             <h1 class="project_title"> Add Task </h1>
             <!-- project name add here  -->
             <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Task Name" id="taskname" name="taskname">
+                <input type="text" class="project_input" autofocus placeholder="Task Name" id="taskname" name="taskname" required>
 
             </div>
             <!--  project description add here -->
             <div class="project_input_group">
-                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" require>
+                <input type="text" class="project_input" autofocus placeholder="Description" id="description" name="description" required>
             </div>
             <div class="project_input_group">
                 <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
-                <select class="project_input" id="priority" name="priority" >
+                <select class="project_input" id="priority" name="priority" required>
                     <option disabled selected hidden>Priority</option>
                     <option >Low</option>
                     <option >Medium</option>
@@ -227,7 +233,7 @@
             </div>
             <div class="project_input_group">
                 <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
-                <select class="project_input" id="status" name="status">
+                <select class="project_input" id="status" name="status" required>
                     <option disabled selected hidden>Status</option>
                     <option>Completed</option>
                     <option>In Progress</option>
@@ -236,13 +242,13 @@
             </div>
             <!-- project due date -->
             <div class="project_input_group">
-                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" require>
+                <input type="date" class="project_input" autofocus placeholder="Due Date" id="duetime" name="duetime" required>
             </div>
             <button class="project_button" type="button" onclick="openPopupAdd()"> ADD </button>
             <div class="popup_add"  id="popup_add">
                 <img src="./images/question.png">
                 <h2>Add?</h2>
-                <p>Do you want to add this project?</p>
+                <p>Do you want to add this task?</p>
                 <div class="popup_button_space">
                     <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
                 </div>
@@ -270,7 +276,14 @@
                     <tr align="center">
                         <td><?php echo $task['taskName']?></td>
                         <td><?php echo $task['priority']?></td>
-                        <td><?php echo $task['members']?></td>
+                        <td>
+                        <?php
+                            $id = $task['taskID'];
+                            $fetchmembers = mysqli_query($conn, "SELECT COUNT(taskID) AS totalmember FROM taskmembers WHERE taskID = $id");
+                            $membercount = mysqli_fetch_assoc($fetchmembers);
+                            echo $membercount['totalmember'];
+                        ?>
+                        </td>
                         <td><?php echo $task['status']?></td>
                         <td><?php echo $task['due']?></td>
     
@@ -313,7 +326,7 @@
             <div class="popup_delete"  id="popup_delete">
                 <img src="./images/cross.png">
                 <h2>Delete?</h2>
-                <p>Are you sure about deleting this project?</p>
+                <p>Are you sure about deleting this task?</p>
                 <div class="popup_button_space">
                     <button type="submit" class="project_button" name="deletetasksubmit">Confirm</button>
                 </div>
