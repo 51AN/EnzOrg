@@ -48,7 +48,10 @@
 
             if(!$errorMsg)
             {
-                $query = mysqli_query($conn, "INSERT INTO `taskmembers`(`userID`, `taskID`) VALUES ('$userID','$taskID')");
+                $taskstat = mysqli_query($conn, "SELECT tasks.status FROM tasks WHERE taskID = $taskID");
+                $stat = mysqli_fetch_assoc($taskstat);
+                $taskstatus = $stat['status'];
+                $query = mysqli_query($conn, "INSERT INTO `taskmembers`(`userID`, `taskID`, `status`) VALUES ('$userID','$taskID', '$taskstatus')");
                 header('Location: '.$_SERVER['PHP_SELF'].'?success');
             }
         }  
