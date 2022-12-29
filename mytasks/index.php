@@ -25,7 +25,7 @@
 ?>
 
 <?php
-    $query = "SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, tasks.status, tasks.due
+    $query = "SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, taskmembers.status, tasks.due
               FROM projmembers INNER JOIN projects
               ON projmembers.projID = projects.proj_id INNER JOIN tasks
               ON projects.proj_id = tasks.projID INNER JOIN taskmembers

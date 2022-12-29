@@ -31,7 +31,7 @@
         {
             $selectedtask = htmlspecialchars($_POST['task_name']);
             $selectedStatus = htmlspecialchars($_POST['status']);
-            $viewAssignedTasks = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, `status`, `due`, `projID` 
+            $viewAssignedTasks = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                                         FROm tasks INNER JOIN taskmembers
                                                         ON tasks.taskID = taskmembers.taskID
                                                         WHERE taskmembers.userID = $userId");
@@ -40,8 +40,25 @@
                 if($rowAT['taskName'] == $selectedtask)
                 {
                     $tId = $rowAT['taskID'];
-                    $updateSql = "UPDATE `tasks` SET `status`='$selectedStatus' WHERE taskID = $tId";
+                    $updateSql = "UPDATE `taskmembers` SET `status`='$selectedStatus' WHERE taskID = $tId AND userID = $userId";
                     $executeUpdate = mysqli_query($conn, $updateSql); 
+                    $tuser = mysqli_query($conn, "SELECT COUNT(userID) AS totaluser FROM taskmembers WHERE taskID = $tId");
+                    $ttluser = mysqli_fetch_assoc($tuser);
+                    $totaluser = $ttluser['totaluser'];
+                    $tuserC = mysqli_query($conn, "SELECT COUNT(userID) AS totaluserC FROM taskmembers WHERE taskID = $tId AND taskmembers.status = 'Completed'");
+                    $ttluserC = mysqli_fetch_assoc($tuserC);
+                    $totaluserC = $ttluserC['totaluserC'];  
+
+                    if($totaluser == $totaluserC)
+                    {
+                      $updateSqltasks = "UPDATE `tasks` SET `status`='$selectedStatus' WHERE taskID = $tId";
+                      $executeUpdatee = mysqli_query($conn, $updateSqltasks); 
+                    }
+                    else
+                    {
+                      $updateSqltasks = "UPDATE `tasks` SET `status`='In progress' WHERE taskID = $tId";
+                      $executeUpdatee = mysqli_query($conn, $updateSqltasks); 
+                    }
                     header('Location: '.$_SERVER['PHP_SELF'].'?success');
                     break;
                 }
@@ -51,17 +68,17 @@
 ?>
 
 <?php
-    $fetch = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, `status`, `due`, `projID` 
+    $fetch = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
                                   WHERE taskmembers.userID = $userId AND tasks.priority = 'High'
                                   UNION
-                                  SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, `status`, `due`, `projID` 
+                                  SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
                                   WHERE taskmembers.userID = $userId AND tasks.priority = 'Medium'
                                   UNION
-                                  SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, `status`, `due`, `projID` 
+                                  SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
                                   WHERE taskmembers.userID = $userId AND tasks.priority = 'Low'");

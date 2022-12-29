@@ -62,7 +62,7 @@ if (isset($_POST['update_task_button'])) {
         {
           $status = $_POST['status'];
           $updateTaskStatus = mysqli_query($conn, "UPDATE `tasks` SET `status`='$status' WHERE taskID = $taskID");
-          header('Location: '.$_SERVER['PHP_SELF'].'?success');
+          $updateTaskStatusMT = mysqli_query($conn, "UPDATE `taskmembers` SET `status`='$status' WHERE taskID = $taskID");
         }
 
         if($due)
