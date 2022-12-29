@@ -64,7 +64,7 @@ if(isset($_POST['submit'])){
                 </div>
                 <div class = "container">
                 <div class ="supportForm">
-                <h4>Please leave us a message.</h4> 
+                <h4>For any type of query, please leave us a message.</h4> 
                 <h4>A support agent will reach out within 1-2 business days.</h4>  
                             <form method="POST">
                                 <div class="inputBox">
