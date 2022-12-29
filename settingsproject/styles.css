@@ -187,7 +187,24 @@ nav img{
    width: 100%;
 }
 
-
+.update-profile-form{
+  margin-top: 50px;
+  box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
+  border-radius: 10px;
+}
+.project__name{
+  font-size: 25px;
+  padding-left: 60px;
+  transform: translateX(-200%);
+opacity: 0;
+animation: slide-in-anim .65s ease-out forwards;
+}
+@keyframes slide-in-anim {
+100% {
+  opacity: 1;
+  transform: translateX(-0%);
+}
+}
 
 /* sidebar from here */
 .sidebar{
@@ -196,7 +213,7 @@ nav img{
    top: 0;
    height: 100%;
    width: 50px;
-   background: #009579;
+   background-image: linear-gradient(to right, #007f67, #009579);
    padding: 6px 14px;
    z-index: 99;
    transition: all 0.5s ease;
@@ -240,6 +257,10 @@ nav img{
  .sidebar.open .logo-details #btn{
    text-align: right;
  }
+ .sidebar li.go_back{
+  margin-top: 300px;
+}
+
  .sidebar i{
    color: #fff;
    height: 60px;

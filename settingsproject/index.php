@@ -155,6 +155,13 @@
        </a>
        <span class="tooltip">Contact</span>
      </li>
+     <li class="go_back">
+       <a href="../projectpageadmin/index.php">
+         <i class='bx bx-arrow-back'></i>
+         <span class="links_name">Go Back</span>
+       </a>
+       <span class="tooltip">Go Back</span>
+     </li>
      
     </ul>
   </div>
@@ -189,6 +196,7 @@
 
     <!--  nav bar begins here -->
     <nav>
+    <div class="project__name"><b><?php echo $_SESSION['projectName'] ?> -> Settings</b></div>
       <!-- <div class="project__name"><b><?php echo $_SESSION['projectName'] ?></b></div> -->
         <div class="nav-links">
             <ul>
@@ -215,8 +223,8 @@
          $fetch = mysqli_fetch_assoc($select);
       }
    ?>
-
-   <form action="" method="POST" enctype="multipart/form-data">
+<div class="update-profile-form">
+   <form action="" method="POST" enctype="multipart/form-data" class="update_form">
       
 
       
@@ -252,11 +260,9 @@
       <div class="buttons">
          <input type="submit" value="Update Project" name="update_project" class="btn">
       </div>
-      <div class="buttons">
-      <a href="../projectpageadmin/index.php"><input type="button" value="Go Back" name="go_back" class="btn"></a>
-      </div>
+      
    </form>
-
+    </div>
 </div>
 </section>
 

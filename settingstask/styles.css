@@ -27,6 +27,11 @@ html{
     padding:20px;
     font-family: 'Poppins', sans-serif;
  }
+ .update-profile-form{
+  margin-top: 50px;
+  box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
+  border-radius: 10px;
+}
  
  .update-profile form{
     padding:20px;
@@ -137,6 +142,20 @@ html{
    transition: background 0.2s, border-color 0.2s;
 }
 
+.task__name{
+  font-size: 25px;
+  padding-left: 60px;
+  transform: translateX(-200%);
+opacity: 0;
+animation: slide-in-anim .65s ease-out forwards;
+}
+@keyframes slide-in-anim {
+100% {
+  opacity: 1;
+  transform: translateX(-0%);
+}
+}
+
 
 .title__name{
    font-size: 25px;
@@ -193,7 +212,7 @@ nav img{
    top: 0;
    height: 100%;
    width: 50px;
-   background: #009579;
+   background-image: linear-gradient(to right, #007f67, #009579);
    padding: 6px 14px;
    z-index: 99;
    transition: all 0.5s ease;
@@ -254,6 +273,9 @@ nav img{
    margin: 8px 0;
    list-style: none;
  }
+ .sidebar li.go_back{
+  margin-top: 300px;
+}
  .sidebar li .tooltip{
    position: absolute;
    top: -20px;

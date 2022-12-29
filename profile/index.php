@@ -51,11 +51,11 @@
    
       if(!empty($update_pass) && !empty($temp_pass) && !empty($temp_pass2)){
          if(!password_verify($update_pass,$old_pass)){
-            $message[] = 'Old password did not match!';
+            $errormessage[] = 'Old password did not match!';
          }elseif($temp_pass != $temp_pass2){
-            $message[] = 'Confirm passwords do not matched!';
+            $errormessage[] = 'Confirm passwords do not matched!';
          }else if(strlen($temp_pass) < 8 || ctype_upper($temp_pass) || ctype_lower($temp_pass)){
-            $message[] = 'Password must be atleast 8 character long and contain uppercase and lowercase';
+            $errormessage[] = 'Password must be atleast 8 character long and contain uppercase and lowercase';
          }else{
             // mysqli_query($conn, "UPDATE `users` SET password = '$new_pass' WHERE id = '$user_id'") or die('query failed');
             if($conn -> connect_error){
@@ -78,11 +78,11 @@
       }
       else if(empty($update_pass) && !empty($temp_pass) && !empty($temp_pass2))
       {
-         $message[] = 'Old password field cannot be empty!';
+         $errormessage[] = 'Old password field cannot be empty!';
       }
       else if(!empty($update_pass)&& (empty($new_pass) && !empty($confirm_pass)))
       {
-         $message[] = 'Password fields cannot be empty!';
+         $errormessage[] = 'Password fields cannot be empty!';
       }
 
       $image = $_FILES['update_image']['name'];
@@ -93,7 +93,7 @@
       if(!empty($image))
       {
          if($imageSize > 2000000)
-            $message[] = "Image is too large";
+            $errormessage[] = "Image is too large";
          else
          {
             $imageUpdateQuery = mysqli_query($conn, "UPDATE users SET image = '$image' WHERE id = '$user_id'") or die("query failed");
@@ -109,6 +109,13 @@
 ?>
 
 <body>
+<?php
+    $username_message = '';
+    $userId = $_SESSION['user_id'];
+
+    if(isset($_SESSION['username']))
+        $username_message = $_SESSION['username'];
+?>
 <section class="container">
     <!-- side nav bar begin here -->
     <div class="sidebar">
@@ -179,7 +186,13 @@
        </a>
        <span class="tooltip">Contact</span>
      </li>
-     
+     <li class="go_back">
+       <a href="../homepage/index.php">
+         <i class='bx bx-arrow-back'></i>
+         <span class="links_name">Go To Home</span>
+       </a>
+       <span class="tooltip">Go To Home</span>
+     </li>
      
     </ul>
   </div>
@@ -208,6 +221,7 @@
    }
   }
   </script>
+ <!--  nav bar begins here -->
 
 <div class="update-profile">
 <!-- php code user information -->
@@ -220,7 +234,7 @@
          $fetch = mysqli_fetch_assoc($select);
       }
    ?>
-
+<div class="box_shadow_profile">
    <form action="" method="POST" enctype="multipart/form-data">
       <div class="image">
       <?php
@@ -234,9 +248,15 @@
       }
       if(isset($message)){
          foreach($message as $message){
-            echo '<div class="message">'.$message.'</div>';
+            echo '<div class="image_message">'.$message.'</div>';
          }
       }
+      if(isset($errormessage)){
+         foreach($errormessage as $errormessage){
+            echo '<div class="error_message">'.$errormessage.'</div>';
+         }
+      }
+      
             
       ?> 
       </div>
@@ -265,10 +285,9 @@
       <div class="buttons">
          <input type="submit" value="Update Profile" name="update_profile" class="btn">
       </div>
-      <div class="buttons">
-      <a href="../Homepage/index.php"><input type="button" value="Go Back" name="go_back" class="btn"></a>
-      </div>
+      
    </form>
+   </div>
 
 </div>
 </section>

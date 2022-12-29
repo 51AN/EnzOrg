@@ -152,6 +152,14 @@ if (isset($_POST['update_task_button'])) {
           </a>
           <span class="tooltip">Contact</span>
         </li>
+        <li class="go_back">
+       <a href="../taskpageadmin/index.php">
+         <i class='bx bx-arrow-back'></i>
+         <span class="links_name">Go Back</span>
+       </a>
+       <span class="tooltip">Go Back</span>
+     </li>
+     
 
       </ul>
     </div>
@@ -186,6 +194,7 @@ if (isset($_POST['update_task_button'])) {
 
     <!--  nav bar begins here -->
     <nav>
+    <div class="task__name"><b><?php echo $_SESSION['taskName'] ?> -> Settings</b></div>
       <!-- <div class="project__name"><b><?php echo $_SESSION['projectName'] ?></b></div> -->
       <div class="nav-links">
         <ul>
@@ -210,7 +219,7 @@ if (isset($_POST['update_task_button'])) {
         $fetch = mysqli_fetch_assoc($select);
       }
       ?>
-
+    <div class="update-profile-form">
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="flex">
           <div class="inputBox">
@@ -242,10 +251,9 @@ if (isset($_POST['update_task_button'])) {
         <div class="buttons">
           <input type="submit" value="Update Task" name="update_task_button" class="btn">
         </div>
-        <div class="buttons">
-          <a href="../taskpageadmin/index.php"><input type="button" value="Go Back" name="go_back" class="btn"></a>
-        </div>
+        
       </form>
+    </div>
 
     </div>
   </section>
