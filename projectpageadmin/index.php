@@ -60,11 +60,17 @@
 
 
 <?php
-    $fetch = mysqli_query($conn, "SELECT * FROM tasks WHERE projID = $projId AND priority = 'High'
+    $fetch = mysqli_query($conn, "SELECT * FROM tasks WHERE projID = $projId AND priority = 'High' and status != 'Completed'
                                     UNION
-                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'Medium'
+                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'Medium' and status != 'Completed'
                                     UNION
-                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'Low'");
+                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'Low' and status != 'Completed'
+                                    UNION
+                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'High' and status = 'Completed'
+                                    UNION
+                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'Medium' and status = 'Completed'
+                                    UNION
+                                    SELECT * FROM tasks WHERE projID = $projId AND priority = 'Low' and status = 'Completed'");
     $tasks = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
 

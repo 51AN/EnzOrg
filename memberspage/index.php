@@ -277,10 +277,9 @@
                           <?php
                             $total = $completed = 0;
                             $memid = $member['id'];
-                            $fetchTasks = mysqli_query($conn, "SELECT COUNT(taskID) AS totaltask FROM taskmembers WHERE userID = $memid");
+                            $fetchTasks = mysqli_query($conn, "SELECT COUNT(taskmembers.taskID) AS totaltask FROM taskmembers INNER JOIN tasks ON taskmembers.taskID =tasks.taskID WHERE userID = $memid and tasks.projID=$projID");
                             $totaltaskcount = mysqli_fetch_assoc($fetchTasks);
-                            $fetchCompletedTasks = mysqli_query($conn, "SELECT COUNT(taskmembers.taskID) AS totalCtask FROM taskmembers
-                                                                        WHERE userID = $memid AND taskmembers.status = 'Completed'");
+                            $fetchCompletedTasks = mysqli_query($conn, "SELECT COUNT(taskmembers.taskID) AS totalCtask FROM taskmembers INNER JOIN tasks ON taskmembers.taskID = tasks.taskID WHERE userID = $memid and tasks.projID=$projID AND taskmembers.status = 'Completed'");
                             $completedtaskcount = mysqli_fetch_assoc($fetchCompletedTasks);
                             echo $completedtaskcount['totalCtask'].'/'.$totaltaskcount['totaltask'];
                           ?>

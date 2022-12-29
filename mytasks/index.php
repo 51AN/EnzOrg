@@ -19,18 +19,55 @@
     session_start();
     $message = '';
     $id = $_SESSION['user_id'];
+    $projectID = $_SESSION['projectID'];
 
     if(isset($_SESSION['username']))
         $message = $_SESSION['username'];
 ?>
 
 <?php
-    $query = "SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, taskmembers.status, tasks.due
+    $query = "(SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, taskmembers.status, tasks.due
               FROM projmembers INNER JOIN projects
               ON projmembers.projID = projects.proj_id INNER JOIN tasks
               ON projects.proj_id = tasks.projID INNER JOIN taskmembers
               ON tasks.taskID = taskmembers.taskID
-              WHERE projmembers.userID = $id";
+              WHERE projmembers.userID = $id AND taskmembers.userID = $id AND tasks.priority = 'High' and tasks.status != 'Completed')
+              UNION
+              (SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, taskmembers.status, tasks.due
+              FROM projmembers INNER JOIN projects
+              ON projmembers.projID = projects.proj_id INNER JOIN tasks
+              ON projects.proj_id = tasks.projID INNER JOIN taskmembers
+              ON tasks.taskID = taskmembers.taskID
+              WHERE projmembers.userID = $id AND taskmembers.userID = $id AND tasks.priority = 'Medium' and tasks.status != 'Completed')
+              UNION
+              (SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, taskmembers.status, tasks.due
+              FROM projmembers INNER JOIN projects
+              ON projmembers.projID = projects.proj_id INNER JOIN tasks
+              ON projects.proj_id = tasks.projID INNER JOIN taskmembers
+              ON tasks.taskID = taskmembers.taskID
+              WHERE projmembers.userID = $id AND taskmembers.userID = $id AND tasks.priority = 'Low' and tasks.status != 'Completed')
+              UNION
+              (SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, taskmembers.status, tasks.due
+              FROM projmembers INNER JOIN projects
+              ON projmembers.projID = projects.proj_id INNER JOIN tasks
+              ON projects.proj_id = tasks.projID INNER JOIN taskmembers
+              ON tasks.taskID = taskmembers.taskID
+              WHERE projmembers.userID = $id AND taskmembers.userID = $id AND tasks.priority = 'High' and tasks.status = 'Completed')
+              UNION
+              (SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, taskmembers.status, tasks.due
+              FROM projmembers INNER JOIN projects
+              ON projmembers.projID = projects.proj_id INNER JOIN tasks
+              ON projects.proj_id = tasks.projID INNER JOIN taskmembers
+              ON tasks.taskID = taskmembers.taskID
+              WHERE projmembers.userID = $id AND taskmembers.userID = $id AND tasks.priority = 'Medium' and tasks.status = 'Completed')
+              UNION
+              (SELECT DiSTINCT projects.projname, tasks.taskName, tasks.priority, taskmembers.status, tasks.due
+              FROM projmembers INNER JOIN projects
+              ON projmembers.projID = projects.proj_id INNER JOIN tasks
+              ON projects.proj_id = tasks.projID INNER JOIN taskmembers
+              ON tasks.taskID = taskmembers.taskID
+              WHERE projmembers.userID = $id AND taskmembers.userID = $id AND tasks.priority = 'Low' and tasks.status = 'Completed')
+              ";
     $fetch = mysqli_query($conn, $query);
     $tasks = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
