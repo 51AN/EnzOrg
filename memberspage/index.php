@@ -225,9 +225,9 @@
                         <h2>Add?</h2>
                         <p>Do you want to add this user?</p>
                         <div class="popup_button_space">
-                            <button type="submit" class="project_button" name="addusersubmit">Confirm</button>
+                            <button type="submit" class="project_button_popup" name="addusersubmit">Confirm</button>
                         </div>
-                            <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
+                            <button type="button" class="project_button_delete_popup" onclick="closePopupAdd()">Cancel</button>
                         
                     </div>
                 </form>
@@ -250,9 +250,9 @@
                     <h2>Remove?</h2>
                     <p>Are you sure about removing this user?</p>
                     <div class="popup_button_space">
-                        <button type="submit" class="project_button" name="deleteusersubmit">Confirm</button>
+                        <button type="submit" class="project_button_popup" name="deleteusersubmit">Confirm</button>
                     </div>
-                        <button type="button" class="project_button_delete" onclick="closePopup()">Cancel</button>
+                        <button type="button" class="project_button_delete_popup" onclick="closePopup()">Cancel</button>
                     
                 </div>
             </form>

@@ -99,7 +99,7 @@ nav img{
 .project_input {
     display: block;
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.81rem;
     box-sizing: border-box;
     border-radius: var(--border-radius);
     border: 1px solid #dddddd;
@@ -109,29 +109,6 @@ nav img{
 }
 
 .project_button {
-    width: 100%;
-    padding: 1rem 2rem;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #ffffff;
-    border: none;
-    border-radius: var(--border-radius);
-    outline: none;
-    cursor: pointer;
-    background: #009579;
-    height: 70%;
-}
-
-.project_button:hover {
-    background: #007f67;
-}
-
-.project_button:active {
-    transform: scale(0.98);
-}
-
-
-.project_button_delete {
   width: 100%;
   padding: 1rem 2rem;
   font-weight: bold;
@@ -139,23 +116,95 @@ nav img{
   color: #ffffff;
   border: none;
   border-radius: var(--border-radius);
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
   outline: none;
   cursor: pointer;
-  background: #b80101;
+  background: #009579;
   height: 70%;
 }
 
-.project_button_delete:hover {
-  background: #990101;
+.project_button:hover {
+  background: #007f67;
 }
 
-.project_button_delete:active {
+.project_button:active {
   transform: scale(0.98);
 }
 
 
+.project_button_delete {
+width: 100%;
+padding: 1rem 2rem;
+font-weight: bold;
+font-size: 1.1rem;
+color: #ffffff;
+border: none;
+border-bottom-right-radius: 8px;
+border-bottom-left-radius: 8px;
+outline: none;
+cursor: pointer;
+background: #b80101;
+height: 70%;
+}
+
+.project_button_delete:hover {
+background: #990101;
+}
+
+.project_button_delete:active {
+transform: scale(0.98);
+}
+
+.project_button_popup {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  background: #009579;
+  height: 70%;
+}
+
+.project_button:hover {
+  background: #007f67;
+}
+
+.project_button:active {
+  transform: scale(0.98);
+}
+
+
+.project_button_delete_popup {
+width: 100%;
+padding: 1rem 2rem;
+font-weight: bold;
+font-size: 1.1rem;
+color: #ffffff;
+border: none;
+border-radius: 8px;
+outline: none;
+cursor: pointer;
+background: #b80101;
+height: 70%;
+}
+
+.project_button_delete:hover {
+background: #990101;
+}
+
+.project_button_delete:active {
+transform: scale(0.98);
+}
+
+
+
 .row_member_delete{
-  padding-top: 40px;
+  padding-top: 50px;
 
 }
 .row_member_delete h1{
@@ -251,6 +300,8 @@ nav img{
 
 .table_div{
   box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 .project_show_table tr:last-of-type{
   border-bottom: 1px solid #007f67;

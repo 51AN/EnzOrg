@@ -294,6 +294,8 @@ transform: scale(0.98);
 
 .table_div{
   box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 .project_show_table tr:last-of-type{
   border-bottom: 1px solid #007f67;
