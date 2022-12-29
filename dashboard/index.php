@@ -193,6 +193,14 @@
        </a>
        <span class="tooltip">Contact</span>
      </li>
+
+     <li class="go_back">
+       <a href="../homepage/index.php">
+         <i class='bx bx-arrow-back'></i>
+         <span class="links_name">Go Back</span>
+       </a>
+       <span class="tooltip">Go Back</span>
+     </li>
      
     </ul>
   </div>

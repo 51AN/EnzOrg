@@ -296,6 +296,9 @@ nav img{
   background-color : #009579;
   color: white;
 }
+.project_show_table tr:last-of-type{
+  border-bottom: 2px solid #007f67;
+}
 
 
 
@@ -393,6 +396,11 @@ nav img{
   .sidebar.open li .tooltip{
     display: none;
   }
+
+ 
+
+
+
   .sidebar input{
     font-size: 15px;
     color: #FFF;
@@ -475,6 +483,9 @@ nav img{
     transition: all 0.5s ease;
     overflow: hidden;
   }
+
+  
+
   .sidebar.open li.profile{
     width: 250px;
   }

@@ -157,8 +157,8 @@
 
     <div class="col_project_list">
         <h1>Task list</h1>
-        <div style="height: 500px; overflow: auto">
-            <table border="0" width="1000"  height="400" class="project_show_table" >
+        <div style="height: 500px; overflow: auto" class="table_div">
+            <table border="0" width="1000"  height="" class="project_show_table" >
                 <tr>
                     <th>Task name</th>
                     <th>Priority</th>
