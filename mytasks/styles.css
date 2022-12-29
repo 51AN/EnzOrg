@@ -237,6 +237,7 @@ nav img{
 .project_show_table{
     table-layout: auto;
     border-collapse: collapse;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .project_show_table td{
@@ -258,6 +259,11 @@ nav img{
   background-color : #009579;
   color: white;
 }
+
+.project_show_table tr:last-of-type{
+  border-bottom: 2px solid #007f67;
+}
+
 
 
 

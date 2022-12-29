@@ -22,6 +22,8 @@ html{
 .title__name{
     font-size: 25px;
     padding-left: 60px;
+    font-weight: bold;
+    
 }
 
 nav{
@@ -60,6 +62,7 @@ nav img{
     background:#009579;
     display: block;
     margin: auto;
+
     transition: 0.5s;
 }
 .nav-links ul li:hover::after{
@@ -83,7 +86,9 @@ nav img{
 }
 
 
-
+.project_form{
+  box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.10);
+}
 .col_project_veiw{
   padding-right: 2%;
 }
@@ -230,6 +235,7 @@ nav img{
 
 
 .progress_bar_container{
+
   
 }
 
@@ -238,13 +244,16 @@ nav img{
   
     border: 1px solid black;
     border-width: 1px;
-    background-color:#009579;
+    background-color:#01a553;
     color: black;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     margin-left: 10px;
+
+    
+  box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
 
 
 
@@ -256,11 +265,12 @@ nav img{
 }
 
 
-
+.table_div{
+  box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
+}
 .project_show_table{
     table-layout: auto;
     border-collapse: collapse;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .project_show_table td{

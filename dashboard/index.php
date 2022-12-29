@@ -227,7 +227,7 @@
 
     <!--  nav bar begins here -->
     <nav>
-        <!-- <div class="title__name">Dash Board</div> -->
+        <div class="title__name">Dash Board</div>
         <div class="nav-links">
             <ul>
                 <!-- elements of nav bar  -->
@@ -243,9 +243,10 @@
 
     <!-- task entry form here  -->
 <div class="row_project">
-    <div class="col_project_entry">    
+    <div class="col_project_entry"> 
+    <h1 class="project_title"> Add Project </h1>   
         <form action="" class="project_form" method="POST" id="">
-            <h1 class="project_title"> Add Project </h1>
+            
             <!-- project name add here  -->
             <div class="project_input_group">
                 <input type="text" class="project_input" autofocus placeholder="Project Name" id="projectname" name="projectname" required>
@@ -295,7 +296,7 @@
 
     <div class="col_project_list">
         <h1>Project list</h1>
-        <div style="height: 300px; overflow: auto">
+        <div style="height: 300px; overflow: auto" class="table_div">
             <table border="0" width="1000"  height="" class="project_show_table" >
                 <tr>
                     <th>Project name</th>
@@ -361,8 +362,9 @@
 <div class="row_project_1">
 
     <div class="col_project_veiw">
+    <h1>View Admin Project</h1>
         <form action="" class="project_form" method="POST" id="">
-            <h1>View Admin Project</h1>
+            
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="viewproj" name="viewproj" >
@@ -377,8 +379,9 @@
         </form>
     </div>
     <div class="col_project_veiw_assigned">
+    <h1>View Assigned Project</h1>
         <form action="" class="project_form" method="POST" id="">
-            <h1>View Assigned Project</h1>
+            
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="viewAssignedProj" name="viewAssignedProj" >
@@ -394,8 +397,9 @@
     </div>
 
     <div class="col_project_delete">
+    <h1>Delete Project</h1>
         <form action="" class="project_form" method="POST" id="">
-            <h1>Delete Project</h1>
+            
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="delproj" name="delproj" >
