@@ -98,7 +98,7 @@ html{
    font-size: 1.1rem;
    color: #ffffff;
    border: none;
-   border-radius: var(--border-radius);
+   border-radius: 8px;
    outline: none;
    cursor: pointer;
    background: #009579;
@@ -107,11 +107,11 @@ html{
    margin-top: 5px;
 }
 
-.form__button:hover {
+.btn:hover {
    background: #007f67;
 }
 
-.form__button:active {
+.btn:active {
    transform: scale(0.98);
 }
  
@@ -134,7 +134,7 @@ html{
    top: 0;
    height: 100%;
    width: 78px;
-   background: #009579;
+   background-image: linear-gradient(to right, #007f67, #009579);
    padding: 6px 14px;
    z-index: 99;
    transition: all 0.5s ease;
@@ -268,6 +268,9 @@ html{
  .sidebar li a:hover{
    background: #FFF;
  }
+ .sidebar li.go_back{
+  margin-top: 300px;
+}
  .sidebar li a .links_name{
    color: #fff;
    font-size: 15px;

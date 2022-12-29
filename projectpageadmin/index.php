@@ -160,6 +160,13 @@
        </a>
        <span class="tooltip">Contact</span>
      </li>
+     <li class="go_back">
+       <a href="../dashboard/index.php">
+         <i class='bx bx-arrow-back'></i>
+         <span class="links_name">Go Back</span>
+       </a>
+       <span class="tooltip">Go Back</span>
+     </li>
      
     </ul>
   </div>
@@ -210,9 +217,9 @@
 
     <!-- task entry form here  -->
 <div class="row_project">
-    <div class="col_project_entry">    
+    <div class="col_project_entry">   
+    <h1 class="project_title"> Add Task </h1> 
         <form action="" class="project_form" method="POST" id="">
-            <h1 class="project_title"> Add Task </h1>
             <!-- project name add here  -->
             <div class="project_input_group">
                 <input type="text" class="project_input" autofocus placeholder="Task Name" id="taskname" name="taskname" required>
@@ -250,9 +257,9 @@
                 <h2>Add?</h2>
                 <p>Do you want to add this task?</p>
                 <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="addprojectsubmit">Confirm</button>
+                    <button type="submit" class="project_button_popup" name="addprojectsubmit">Confirm</button>
                 </div>
-                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
+                    <button type="button" class="project_button_delete_popup" onclick="closePopupAdd()">Cancel</button>
                 
             </div>
 
@@ -262,7 +269,7 @@
 
     <div class="col_project_list">
         <h1>Task list</h1>
-        <div style="height: 300px; overflow: auto">
+        <div style="height: 300px; overflow: auto" class="table_div">
             <table border="0" width="1000"  height="" class="project_show_table" >
                 <tr>
                     <th>Task name</th>
@@ -297,8 +304,9 @@
 <div class="row_project_1">
     
     <div class="col_project_veiw">
+    <h1>View Task</h1>
         <form action="" class="project_form" method="POST" id="">
-            <h1>View Task</h1>
+            
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="viewtask" name="viewtask" >
@@ -312,8 +320,9 @@
         </form>
     </div>
     <div class="col_project_delete">
+    <h1>Delete Task</h1>
         <form action="" class="project_form" method="POST" id="">
-            <h1>Delete Task</h1>
+            
             <div class="project_input_group">
                     <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                     <select class="project_input" id="deltask" name="deltask" >
@@ -328,9 +337,9 @@
                 <h2>Delete?</h2>
                 <p>Are you sure about deleting this task?</p>
                 <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="deletetasksubmit">Confirm</button>
+                    <button type="submit" class="project_button_popup" name="deletetasksubmit">Confirm</button>
                 </div>
-                    <button type="button" class="project_button_delete" onclick="closePopup()">Cancel</button>
+                    <button type="button" class="project_button_delete_popup" onclick="closePopup()">Cancel</button>
                 
             </div>
         </form>

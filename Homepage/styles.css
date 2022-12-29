@@ -111,6 +111,7 @@ nav img{
     background: transparent;
     position: relative;
     cursor: pointer;
+    border-radius: 6px;
 }
 
 .start--btn:hover{

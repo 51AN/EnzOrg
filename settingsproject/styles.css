@@ -100,7 +100,7 @@ html{
    font-size: 1.1rem;
    color: #ffffff;
    border: none;
-   border-radius: var(--border-radius);
+   border-radius: 8px;
    outline: none;
    cursor: pointer;
    background: #009579;
@@ -109,12 +109,13 @@ html{
    margin-top: 5px;
 }
 
-.form__button:hover {
-   background: #007f67;
+
+.btn:hover {
+  background: #007f67;
 }
 
-.form__button:active {
-   transform: scale(0.98);
+.btn:active {
+  transform: scale(0.98);
 }
  
  @media (max-width:650px){

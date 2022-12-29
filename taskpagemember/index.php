@@ -24,7 +24,6 @@
 ?>
 
 <?php
-  $projID =  $_SESSION["projectID"];
     $userId = $_SESSION['user_id'];
     if(isset($_POST['update']))
     {
@@ -32,10 +31,10 @@
         {
             $selectedtask = htmlspecialchars($_POST['task_name']);
             $selectedStatus = htmlspecialchars($_POST['status']);
-            $viewAssignedTasks = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`
-                                                        FROM tasks INNER JOIN taskmembers
+            $viewAssignedTasks = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
+                                                        FROm tasks INNER JOIN taskmembers
                                                         ON tasks.taskID = taskmembers.taskID
-                                                        WHERE taskmembers.userID = $userId and projID = $projID");
+                                                        WHERE taskmembers.userID = $userId");
             while($rowAT = mysqli_fetch_assoc($viewAssignedTasks))
             {
                 if($rowAT['taskName'] == $selectedtask)
@@ -72,17 +71,17 @@
     $fetch = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
-                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'High' and tasks.projID = $projID
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'High'
                                   UNION
                                   SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
-                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Medium' and tasks.projID = $projID
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Medium'
                                   UNION
                                   SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
-                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Low' and tasks.projID = $projID");
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Low'");
     $tasks = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
 <!--  section of the whole page -->
@@ -157,6 +156,13 @@
        </a>
        <span class="tooltip">Contact</span>
      </li>
+     <li class="go_back">
+       <a href="../dashboard/index.php">
+         <i class='bx bx-arrow-back'></i>
+         <span class="links_name">Go Back</span>
+       </a>
+       <span class="tooltip">Go Back</span>
+     </li>
      
     </ul>
   </div>
@@ -188,7 +194,7 @@
 
     <!--  nav bar begins here -->
     <nav>
-        <div class="project__name"><b><?php echo $_SESSION['projectName'] ?></b></div>
+        <div class="project__name"><b>Project -> <?php echo $_SESSION['projectName'] ?></b></div>
         <div class="nav-links">
             <ul>
                 <!-- elements of nav bar  -->
@@ -204,9 +210,9 @@
 
     <!-- task entry form here  -->
 <div class="row_project">
-    <div class="col_task_update">    
+    <div class="col_task_update"> 
+    <h1 class="task_title"> Update Task </h1>   
         <form action="" class="project_form" method="POST" id="">
-            <h1 class="task_title"> Update Task </h1>
             <!-- project name add here  -->
             
             <div class="project_input_group">
@@ -232,9 +238,9 @@
                 <h2>Update?</h2>
                 <p>Do you want to Update this task's status?</p>
                 <div class="popup_button_space">
-                    <button type="submit" class="project_button" name="update">Confirm</button>
+                    <button type="submit" class="project_button_popup" name="update">Confirm</button>
                 </div>
-                    <button type="button" class="project_button_delete" onclick="closePopupAdd()">Cancel</button>
+                    <button type="button" class="project_button_delete_popup" onclick="closePopupAdd()">Cancel</button>
                 
             </div>
 
@@ -244,8 +250,8 @@
 
     <div class="col_project_list">
         <h1>Task list</h1>
-        <div style="height: 300px; overflow: auto">
-            <table border="0" width="1000"  height="400" class="project_show_table" >
+        <div style="height: 300px; overflow: auto" class="table_div">
+            <table border="0" width="1000"  height="" class="project_show_table" >
                 <tr>
                     <th>Task name</th>
                     <th>Priority</th>

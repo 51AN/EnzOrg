@@ -25,7 +25,17 @@ html{
 .task__name{
   font-size: 25px;
   padding-left: 60px;
+  transform: translateX(-200%);
+	opacity: 0;
+  animation: slide-in-anim .65s ease-out forwards;
 }
+@keyframes slide-in-anim {
+	100% {
+		opacity: 1;
+		transform: translateX(-0%);
+	}
+}
+
 nav{
   display: flex;
   padding: 2% 6%;
@@ -97,7 +107,7 @@ padding-right: 20px;
 .project_input {
   display: block;
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.81rem;
   box-sizing: border-box;
   border-radius: var(--border-radius);
   border: 1px solid #dddddd;
@@ -114,6 +124,8 @@ padding-right: 20px;
   color: #ffffff;
   border: none;
   border-radius: var(--border-radius);
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
   outline: none;
   cursor: pointer;
   background: #009579;
@@ -136,7 +148,53 @@ font-weight: bold;
 font-size: 1.1rem;
 color: #ffffff;
 border: none;
-border-radius: var(--border-radius);
+border-bottom-right-radius: 8px;
+border-bottom-left-radius: 8px;
+outline: none;
+cursor: pointer;
+background: #b80101;
+height: 70%;
+}
+
+.project_button_delete:hover {
+background: #990101;
+}
+
+.project_button_delete:active {
+transform: scale(0.98);
+}
+
+.project_button_popup {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  background: #009579;
+  height: 70%;
+}
+
+.project_button:hover {
+  background: #007f67;
+}
+
+.project_button:active {
+  transform: scale(0.98);
+}
+
+
+.project_button_delete_popup {
+width: 100%;
+padding: 1rem 2rem;
+font-weight: bold;
+font-size: 1.1rem;
+color: #ffffff;
+border: none;
+border-radius: 8px;
 outline: none;
 cursor: pointer;
 background: #b80101;
@@ -153,7 +211,7 @@ transform: scale(0.98);
 
 
 .row_member_delete{
-padding-top: 40px;
+padding-top: 50px;
 }
 .col_member_operations{
 padding-right: 10px;
@@ -237,8 +295,20 @@ padding-right: 10px;
 
 
 
+.col_member_list{
+  margin-left: 10px;
+}
 
+.project_form{
+  box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.10);
+}
 
+.table_div{
+  box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
+}
+.project_show_table tr:last-of-type{
+  border-bottom: 1px solid #007f67;
+}
 
 .project_show_table{
   table-layout: auto;
@@ -270,9 +340,6 @@ background-color : #009579;
 color: white;
 }
 
-.project_show_table tr:last-of-type{
-  border-bottom: 2px solid #007f67;
-}
 
 
 
@@ -283,7 +350,7 @@ color: white;
   top: 0;
   height: 100%;
   width: 78px;
-  background: #009579;
+  background-image: linear-gradient(to right, #007f67, #009579);
   padding: 6px 14px;
   z-index: 99;
   transition: all 0.5s ease;
@@ -386,6 +453,9 @@ color: white;
 .sidebar.open input{
   padding: 0 20px 0 50px;
   width: 100%;
+}
+.sidebar li.go_back{
+  margin-top: 300px;
 }
 .sidebar .bx-search{
   position: absolute;

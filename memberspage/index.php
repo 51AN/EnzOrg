@@ -148,6 +148,13 @@
        </a>
        <span class="tooltip">Contact</span>
      </li>
+     <li class="go_back">
+       <a href="../projectpageadmin/index.php">
+         <i class='bx bx-arrow-back'></i>
+         <span class="links_name">Go Back</span>
+       </a>
+       <span class="tooltip">Go Back</span>
+     </li>
      
     </ul>
   </div>
@@ -201,8 +208,9 @@
 
     <div class="col_member_operations">
         <div class="row_member_entry">
+        <h1 class="project_title"> Add Member </h1>
             <form action="" class="project_form" method="POST" id="">
-                    <h1 class="project_title"> Add Member </h1>
+                    
                     
                     <!-- project name add here  -->
                     <div class="project_input_group">
@@ -225,8 +233,9 @@
                 </form>
         </div>
         <div class="row_member_delete">
+        <h1>Remove Member</h1>
             <form action="" class="project_form" method="POST" id="">
-                <h1>Remove Member</h1>
+                
                 <div class="project_input_group">
                         <!-- <input type="text" class="project_input" autofocus placeholder="Priority" id="priority" name="priority" require> -->
                         <select class="project_input" id="deluser" name="deluser" >
@@ -252,8 +261,8 @@
 
     <div class="col_member_list">
     <h1>Members list</h1>
-        <div style="height: 300px; overflow: auto">
-            <table border="1" width="990"  height="400" class="project_show_table" >
+        <div style="height: 300px; overflow: auto" class="table_div">
+            <table border="0" width="990"  height="" class="project_show_table" >
                 <tr>
                     <th>Name</th>
                     <th>Email</th>

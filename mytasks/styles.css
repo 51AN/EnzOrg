@@ -39,7 +39,16 @@ nav img{
     font-size: 25px;
     padding-left: 60px;
     font-weight: bold;
-}
+    transform: translateX(-200%);
+    opacity: 0;
+    animation: slide-in-anim .65s ease-out forwards;
+  }
+  @keyframes slide-in-anim {
+    100% {
+      opacity: 1;
+      transform: translateX(-0%);
+    }
+  }
 
 .nav-links{
     flex: 1;
@@ -280,7 +289,7 @@ nav img{
     top: 0;
     height: 100%;
     width: 78px;
-    background: #009579;
+    background-image: linear-gradient(to right, #007f67, #009579);
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;

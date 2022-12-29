@@ -127,6 +127,13 @@
        </a>
        <span class="tooltip">Contact</span>
      </li>
+     <li class="go_back">
+       <a href="../dashboard/index.php">
+         <i class='bx bx-arrow-back'></i>
+         <span class="links_name">Go Back</span>
+       </a>
+       <span class="tooltip">Go Back</span>
+     </li>
      
     </ul>
   </div>
@@ -170,7 +177,7 @@
                 <!-- Write profile name here -->
                 <?php echo '<li><a href="../profile/index.php">'.$message.'</a></li>';?>
                 <li><a href="../about/index.php">ABOUT</a></li>
-                <li><a href="#">CONTACT</a></li>
+                <li><a href="../contact/index.php">CONTACT</a></li>
             </ul>
         </div>
     </nav>

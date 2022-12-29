@@ -156,6 +156,10 @@ nav img{
 
 .row_member_delete{
   padding-top: 40px;
+
+}
+.row_member_delete h1{
+  font-size: 22px;
 }
 .col_member_operations{
   padding-right: 10px;
@@ -240,20 +244,33 @@ nav img{
 
 
 
+.project_form{
+  box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.10);
+  
+}
 
-
+.table_div{
+  box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
+}
+.project_show_table tr:last-of-type{
+  border-bottom: 1px solid #007f67;
+}
+.col_member_list{
+  margin-left: 15px;
+}
 .project_show_table{
-    table-layout: auto;
-    border-collapse: collapse;
+  table-layout: auto;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .project_show_table td{
-    height: 20px;
+    height: 50px;
     overflow: fixed;
 }
 
 .project_show_table th{
-    height: 30px;
+    height: 60px;
     overflow: fixed;
     background-color: #007f67;
     color: white;
@@ -279,7 +296,7 @@ nav img{
     top: 0;
     height: 100%;
     width: 78px;
-    background: #009579;
+    background-image: linear-gradient(to right, #007f67, #009579);;
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;
@@ -365,6 +382,9 @@ nav img{
   }
   .sidebar.open li .tooltip{
     display: none;
+  }
+    .sidebar li.go_back{
+    margin-top: 300px;
   }
   .sidebar input{
     font-size: 15px;

@@ -36,8 +36,17 @@ nav img{
 }
 
 .project__name{
-    font-size: 25px;
-    padding-left: 60px;
+  font-size: 25px;
+  padding-left: 60px;
+  transform: translateX(-200%);
+opacity: 0;
+animation: slide-in-anim .65s ease-out forwards;
+}
+@keyframes slide-in-anim {
+100% {
+  opacity: 1;
+  transform: translateX(-0%);
+}
 }
 
 .nav-links{
@@ -98,7 +107,7 @@ nav img{
 .project_input {
     display: block;
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.81rem;
     box-sizing: border-box;
     border-radius: var(--border-radius);
     border: 1px solid #dddddd;
@@ -108,30 +117,6 @@ nav img{
 }
 
 .project_button {
-    width: 100%;
-    padding: 1rem 2rem;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: #ffffff;
-    border: none;
-    border-radius: var(--border-radius);
-    outline: none;
-    cursor: pointer;
-    background: #009579;
-    height: 70%;
-}
-
-.project_button:hover {
-    background: #007f67;
-}
-
-.project_button:active {
-    transform: scale(0.98);
-}
-
-
-
-.project_button_delete {
   width: 100%;
   padding: 1rem 2rem;
   font-weight: bold;
@@ -139,19 +124,92 @@ nav img{
   color: #ffffff;
   border: none;
   border-radius: var(--border-radius);
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
   outline: none;
   cursor: pointer;
-  background: #b80101;
+  background: #009579;
   height: 70%;
 }
 
+.project_button:hover {
+  background: #007f67;
+}
+
+.project_button:active {
+  transform: scale(0.98);
+}
+
+
+.project_button_delete {
+width: 100%;
+padding: 1rem 2rem;
+font-weight: bold;
+font-size: 1.1rem;
+color: #ffffff;
+border: none;
+border-bottom-right-radius: 8px;
+border-bottom-left-radius: 8px;
+outline: none;
+cursor: pointer;
+background: #b80101;
+height: 70%;
+}
+
 .project_button_delete:hover {
-  background: #990101;
+background: #990101;
 }
 
 .project_button_delete:active {
+transform: scale(0.98);
+}
+
+.project_button_popup {
+  width: 100%;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+  cursor: pointer;
+  background: #009579;
+  height: 70%;
+}
+
+.project_button:hover {
+  background: #007f67;
+}
+
+.project_button:active {
   transform: scale(0.98);
 }
+
+
+.project_button_delete_popup {
+width: 100%;
+padding: 1rem 2rem;
+font-weight: bold;
+font-size: 1.1rem;
+color: #ffffff;
+border: none;
+border-radius: 8px;
+outline: none;
+cursor: pointer;
+background: #b80101;
+height: 70%;
+}
+
+.project_button_delete:hover {
+background: #990101;
+}
+
+.project_button_delete:active {
+transform: scale(0.98);
+}
+
+
 
 .popup_delete{
     width: 400px;
@@ -230,24 +288,35 @@ nav img{
 
 
 
+.project_form{
+  box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.10);
+}
 
-
+.table_div{
+  box-shadow:0px 0px 30px 15px rgba(0, 0, 0, 0.10) ;
+}
+.project_show_table tr:last-of-type{
+  border-bottom: 1px solid #007f67;
+}
 
 .project_show_table{
-    table-layout: auto;
-    border-collapse: collapse;
+  table-layout: auto;
+  border-collapse: collapse;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .project_show_table td{
-    height: 20px;
-    overflow: hidden;
+  height: 50px;
+  overflow: fixed;
+  text-align: center;
 }
 
 .project_show_table th{
-    height: 30px;
-    overflow: hidden;
-    background-color: #007f67;
-    color: white;
+  height: 60px;
+  overflow: fixed;
+  background-color: #007f67;
+  color: white;
+  
 }
 .project_show_table tr:nth-child(even){
   background-color: #dddddd;
@@ -269,7 +338,7 @@ nav img{
     top: 0;
     height: 100%;
     width: 78px;
-    background: #009579;
+    background-image: linear-gradient(to right, #007f67, #009579);
     padding: 6px 14px;
     z-index: 99;
     transition: all 0.5s ease;
@@ -355,6 +424,9 @@ nav img{
   }
   .sidebar.open li .tooltip{
     display: none;
+  }
+  .sidebar li.go_back{
+    margin-top: 300px;
   }
   .sidebar input{
     font-size: 15px;
