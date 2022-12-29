@@ -64,13 +64,29 @@
     $fetch = mysqli_query($conn, $sql);
     $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 
-    $fetchMyProjList = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId");
+    $fetchMyProjList = mysqli_query($conn, "SELECT * FROM projects WHERE user_id = $userId and priority ='High'
+                                            UNION 
+                                            SELECT * FROM projects WHERE user_id = $userId and priority ='Medium'
+                                            UNION
+                                            SELECT * FROM projects WHERE user_id = $userId and priority ='Low'
+                                            ");
     $myProjList = mysqli_fetch_all($fetchMyProjList, MYSQLI_ASSOC);
 
-    $fetchAssignedProjs = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+    $fetchAssignedProjs = mysqli_query($conn, "(SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
                                             FROm projects INNER JOIN projmembers
                                             ON projects.proj_id = projmembers.projID
-                                            WHERE projmembers.userID = $userId");
+                                            WHERE projmembers.userID = $userId and priority = 'High') 
+                                            UNION
+                                            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                            FROm projects INNER JOIN projmembers
+                                            ON projects.proj_id = projmembers.projID
+                                            WHERE projmembers.userID = $userId and priority = 'Medium') 
+                                            UNION
+                                            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                            FROm projects INNER JOIN projmembers
+                                            ON projects.proj_id = projmembers.projID
+                                            WHERE projmembers.userID = $userId and priority = 'Low') 
+                                            ");
     $assignedProjs = mysqli_fetch_all($fetchAssignedProjs, MYSQLI_ASSOC);
 ?>
 
@@ -104,10 +120,21 @@
         if(isset($_POST['viewAssignedProj']))
         {
             $selectedAPview = htmlspecialchars($_POST['viewAssignedProj']);
-            $viewAssignedProjects = mysqli_query($conn, "SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
-                                                        FROm projects INNER JOIN projmembers
-                                                        ON projects.proj_id = projmembers.projID
-                                                        WHERE projmembers.userID = $userId");
+            $viewAssignedProjects = mysqli_query($conn, "(SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+            FROm projects INNER JOIN projmembers
+            ON projects.proj_id = projmembers.projID
+            WHERE projmembers.userID = $userId and priority ='High')
+            UNION
+            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+            FROm projects INNER JOIN projmembers
+            ON projects.proj_id = projmembers.projID
+            WHERE projmembers.userID = $userId and priority ='Medium')
+            UNION
+            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+            FROm projects INNER JOIN projmembers
+            ON projects.proj_id = projmembers.projID
+            WHERE projmembers.userID = $userId and priority ='Low')
+            ");
             while($rowAP = mysqli_fetch_assoc($viewAssignedProjects))
             {
                 if($rowAP['projname'] == $selectedAPview)
