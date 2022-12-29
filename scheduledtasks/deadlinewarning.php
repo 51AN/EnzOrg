@@ -19,6 +19,8 @@ while ($row = mysqli_fetch_array($fetch)) {
         $subject = "Deadline warning for the task: " . $row["taskName"] . ".";
         $message="Dear " . $row["username"]. ",\n" . "Please have your task, ". $row["taskName"] . " completed as soon as possible.". $days_left. " days remain till the due date. The task priority has been adjusted accordingly."; 
         send_mail($to,$subject,$message);
+        echo "Sent Mail to".$row["username"].".
+        ";
     }
 }
 ?>
