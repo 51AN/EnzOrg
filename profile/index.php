@@ -268,7 +268,7 @@
             <!-- put values here from database -->
             <input type="text" name="update_name" value="<?php echo $fetch['username'];?>" class="box">
             <span>Your Email </span>
-            <input type="email" name="update_email" value="<?php echo $fetch['email'];?>" class="box">
+            <input type="email" name="update_email" value="<?php echo $fetch['email'];?>" class="box" readonly>
             <span>Update Your Profile Picture </span>
             <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png" class="box">
          </div>
