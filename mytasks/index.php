@@ -19,7 +19,6 @@
     session_start();
     $message = '';
     $id = $_SESSION['user_id'];
-    $projectID = $_SESSION['projectID'];
 
     if(isset($_SESSION['username']))
         $message = $_SESSION['username'];
