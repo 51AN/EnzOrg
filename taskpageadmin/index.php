@@ -264,7 +264,7 @@
     <div class="col_member_list">
     <h1>Assigned Members</h1>
         <div style="height: 300px; overflow: auto">
-            <table border="0" width="990"  height="400" class="project_show_table" >
+            <table border="0" width="990"  height="" class="project_show_table" >
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
