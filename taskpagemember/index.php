@@ -24,6 +24,7 @@
 ?>
 
 <?php
+    $projID =  $_SESSION["projectID"];
     $userId = $_SESSION['user_id'];
     if(isset($_POST['update']))
     {
@@ -34,7 +35,7 @@
             $viewAssignedTasks = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                                         FROm tasks INNER JOIN taskmembers
                                                         ON tasks.taskID = taskmembers.taskID
-                                                        WHERE taskmembers.userID = $userId");
+                                                        WHERE taskmembers.userID = $userId and projID = $projID");
             while($rowAT = mysqli_fetch_assoc($viewAssignedTasks))
             {
                 if($rowAT['taskName'] == $selectedtask)
@@ -71,17 +72,17 @@
     $fetch = mysqli_query($conn, "SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
-                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'High'
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'High' and tasks.projID = $projID
                                   UNION
                                   SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
-                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Medium'
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Medium' and tasks.projID = $projID
                                   UNION
                                   SELECT tasks.taskID, `taskName`, `taskDes`, `priority`, taskmembers.status, `due`, `projID` 
                                   FROm tasks INNER JOIN taskmembers
                                   ON tasks.taskID = taskmembers.taskID
-                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Low'");
+                                  WHERE taskmembers.userID = $userId AND tasks.priority = 'Low' and tasks.projID = $projID");
     $tasks = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 ?>
 <!--  section of the whole page -->

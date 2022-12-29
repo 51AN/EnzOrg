@@ -46,46 +46,82 @@
 
 <?php
     $sql = "
-    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'High') UNION 
+    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'High' and projstatus != 'Completed') UNION 
     (
-        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'High' 
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'High' and projstatus != 'Completed' 
     ))
     UNION
-    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'Medium' ) UNION 
+    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'Medium' and projstatus != 'Completed') UNION 
     (
-        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'Medium' 
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'Medium' and projstatus != 'Completed'
     ))
     UNION
-    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'Low' ) UNION 
+    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'Low' and projstatus != 'Completed') UNION 
     (
-        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'Low' 
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'Low' and projstatus != 'Completed'
+    ))
+    UNION
+    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'High' and projstatus = 'Completed') UNION 
+    (
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'High' and projstatus = 'Completed' 
+    ))
+    UNION
+    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'Medium' and projstatus = 'Completed') UNION 
+    (
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'Medium' and projstatus = 'Completed'
+    ))
+    UNION
+    ((SELECT * FROM projects WHERE user_id = $userId and priority = 'Low' and projstatus = 'Completed') UNION 
+    (
+        SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id FROm projects INNER JOIN projmembers ON projects.proj_id = projmembers.projID WHERE projmembers.userID = $userId and priority = 'Low' and projstatus = 'Completed'
     ))
     ";
     $fetch = mysqli_query($conn, $sql);
     $projects = mysqli_fetch_all($fetch, MYSQLI_ASSOC);
 
-    $fetchMyProjList = mysqli_query($conn, "(SELECT * FROM projects WHERE user_id = $userId and priority ='High' )
+    $fetchMyProjList = mysqli_query($conn, "(SELECT * FROM projects WHERE user_id = $userId and priority ='High' and projstatus != 'Completed')
                                             UNION 
-                                            (SELECT * FROM projects WHERE user_id = $userId and priority ='Medium' )
+                                            (SELECT * FROM projects WHERE user_id = $userId and priority ='Medium' and projstatus != 'Completed')
                                             UNION
-                                            (SELECT * FROM projects WHERE user_id = $userId and priority ='Low' )
+                                            (SELECT * FROM projects WHERE user_id = $userId and priority ='Low' and projstatus != 'Completed')
+                                            UNION
+                                            (SELECT * FROM projects WHERE user_id = $userId and priority ='High' and projstatus = 'Completed')
+                                            UNION 
+                                            (SELECT * FROM projects WHERE user_id = $userId and priority ='Medium' and projstatus = 'Completed')
+                                            UNION
+                                            (SELECT * FROM projects WHERE user_id = $userId and priority ='Low' and projstatus = 'Completed')
                                             ");
     $myProjList = mysqli_fetch_all($fetchMyProjList, MYSQLI_ASSOC);
 
     $fetchAssignedProjs = mysqli_query($conn, "(SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
                                             FROm projects INNER JOIN projmembers
                                             ON projects.proj_id = projmembers.projID
-                                            WHERE projmembers.userID = $userId and priority = 'High' ) 
+                                            WHERE projmembers.userID = $userId and priority = 'High' and projstatus != 'Completed') 
                                             UNION
                                             (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
                                             FROm projects INNER JOIN projmembers
                                             ON projects.proj_id = projmembers.projID
-                                            WHERE projmembers.userID = $userId and priority = 'Medium' ) 
+                                            WHERE projmembers.userID = $userId and priority = 'Medium' and projstatus != 'Completed') 
                                             UNION
                                             (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
                                             FROm projects INNER JOIN projmembers
                                             ON projects.proj_id = projmembers.projID
-                                            WHERE projmembers.userID = $userId and priority = 'Low' ) 
+                                            WHERE projmembers.userID = $userId and priority = 'Low' and projstatus != 'Completed') 
+                                            UNION
+                                            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                            FROm projects INNER JOIN projmembers
+                                            ON projects.proj_id = projmembers.projID
+                                            WHERE projmembers.userID = $userId and priority = 'High' and projstatus = 'Completed') 
+                                            UNION
+                                            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                            FROm projects INNER JOIN projmembers
+                                            ON projects.proj_id = projmembers.projID
+                                            WHERE projmembers.userID = $userId and priority = 'Medium' and projstatus = 'Completed') 
+                                            UNION
+                                            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+                                            FROm projects INNER JOIN projmembers
+                                            ON projects.proj_id = projmembers.projID
+                                            WHERE projmembers.userID = $userId and priority = 'Low' and projstatus = 'Completed') 
                                             ");
     $assignedProjs = mysqli_fetch_all($fetchAssignedProjs, MYSQLI_ASSOC);
 ?>
@@ -123,17 +159,32 @@
             $viewAssignedProjects = mysqli_query($conn, "(SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
             FROm projects INNER JOIN projmembers
             ON projects.proj_id = projmembers.projID
-            WHERE projmembers.userID = $userId and priority ='High' )
+            WHERE projmembers.userID = $userId and priority ='High' and projstatus != 'Completed')
             UNION
             (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
             FROm projects INNER JOIN projmembers
             ON projects.proj_id = projmembers.projID
-            WHERE projmembers.userID = $userId and priority ='Medium' )
+            WHERE projmembers.userID = $userId and priority ='Medium' and projstatus != 'Completed')
             UNION
             (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
             FROm projects INNER JOIN projmembers
             ON projects.proj_id = projmembers.projID
-            WHERE projmembers.userID = $userId and priority ='Low' )
+            WHERE projmembers.userID = $userId and priority ='Low' and projstatus != 'Completed')
+            UNION
+            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+            FROm projects INNER JOIN projmembers
+            ON projects.proj_id = projmembers.projID
+            WHERE projmembers.userID = $userId and priority ='High' and projstatus = 'Completed')
+            UNION
+            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+            FROm projects INNER JOIN projmembers
+            ON projects.proj_id = projmembers.projID
+            WHERE projmembers.userID = $userId and priority ='Medium' and projstatus = 'Completed')
+            UNION
+            (SELECT proj_id, projname, projdescription, priority, projstatus, due, user_id 
+            FROm projects INNER JOIN projmembers
+            ON projects.proj_id = projmembers.projID
+            WHERE projmembers.userID = $userId and priority ='Low' and projstatus = 'Completed')
             ");
             while($rowAP = mysqli_fetch_assoc($viewAssignedProjects))
             {
@@ -374,7 +425,7 @@
                                 echo number_format((float)$percent,0,'.','').'%';
                             if($percent == 100)
                             {
-                                mysqli_query($conn, "UPDATE `projects` SET `priority`='Low',`projstatus`='Completed' WHERE `proj_id` = '$id'");
+                                mysqli_query($conn, "UPDATE `projects` SET `projstatus`='Completed' WHERE `proj_id` = '$id'");
                             }
                             ?></div>
                             </div>
