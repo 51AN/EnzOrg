@@ -39,6 +39,7 @@
         if(!empty($taskname) && !empty($taskdes) && !empty($priority) && !empty($taskstatus))
         {
             $query = mysqli_query($conn, "INSERT INTO `tasks` (`taskName`, `taskDes`, `priority`, `status`, `due`, `projID`) VALUES ('$taskname', '$taskdes', '$priority', '$taskstatus', '$due', '$projId')");
+            $update = mysqli_query($conn, "UPDATE `projects` SET priority = '$priority',`projstatus`='$taskstatus'  WHERE `proj_id` = '$projId' and projstatus = 'Completed'");
             // $name = $message;
             // $fetch = mysqli_query($conn,"select id from users where username = '$name';");
             // $row=mysqli_fetch_assoc($fetch);

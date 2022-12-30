@@ -19,6 +19,10 @@
     session_start();
     $message = '';
 
+    if (!isset($_GET['reload'])) {
+        echo '<meta http-equiv=Refresh content="0;url=index.php?reload=1">';
+    }
+
     if(isset($_SESSION['username']))
         $message = $_SESSION['username'];
 ?>
@@ -424,7 +428,7 @@
                                 echo number_format((float)$percent,0,'.','').'%';
                             if($percent == 100)
                             {
-                                mysqli_query($conn, "UPDATE `projects` SET `projstatus`='Completed' WHERE `proj_id` = '$id'");
+                                mysqli_query($conn, "UPDATE `projects` SET priority = 'Low', `projstatus`='Completed'  WHERE `proj_id` = '$id'");
                             }
                             ?></div>
                             </div>
