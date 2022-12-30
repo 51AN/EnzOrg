@@ -51,7 +51,9 @@
                 $taskstat = mysqli_query($conn, "SELECT tasks.status FROM tasks WHERE taskID = $taskID");
                 $stat = mysqli_fetch_assoc($taskstat);
                 $taskstatus = $stat['status'];
-                $query = mysqli_query($conn, "INSERT INTO `taskmembers`(`userID`, `taskID`, `status`) VALUES ('$userID','$taskID', '$taskstatus')");
+                $query = mysqli_query($conn, "INSERT INTO `taskmembers`(`userID`, `taskID`, `status`) VALUES ('$userID','$taskID', 'Future')");
+                $updateSqltasks = "UPDATE `tasks` SET `status`='In progress' WHERE taskID = $taskID";
+                $executeUpdatee = mysqli_query($conn, $updateSqltasks);
                 header('Location: '.$_SERVER['PHP_SELF'].'?success');
             }
         }  
@@ -83,6 +85,23 @@
         $userdlt = mysqli_fetch_assoc($fetchuserdlt);
         $dltuserID = $userdlt['id'];
         $del = mysqli_query($conn, "DELETE FROM `taskmembers` WHERE userID = $dltuserID");
+        $tuser = mysqli_query($conn, "SELECT COUNT(userID) AS totaluser FROM taskmembers WHERE taskID = $taskID");
+                    $ttluser = mysqli_fetch_assoc($tuser);
+                    $totaluser = $ttluser['totaluser'];
+                    $tuserC = mysqli_query($conn, "SELECT COUNT(userID) AS totaluserC FROM taskmembers WHERE taskID = $taskID AND taskmembers.status = 'Completed'");
+                    $ttluserC = mysqli_fetch_assoc($tuserC);
+                    $totaluserC = $ttluserC['totaluserC'];  
+
+                    if($totaluser == $totaluserC)
+                    {
+                      $updateSqltasks = "UPDATE `tasks` SET `status`='Completed' WHERE taskID = $taskID";
+                      $executeUpdatee = mysqli_query($conn, $updateSqltasks); 
+                    }
+                    // else
+                    // {
+                    //   $updateSqltasks = "UPDATE `tasks` SET `status`='In progress' WHERE taskID = $taskID";
+                    //   $executeUpdatee = mysqli_query($conn, $updateSqltasks); 
+                    // }
         header('Location: '.$_SERVER['PHP_SELF'].'?success');
     }
 ?>
