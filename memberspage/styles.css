@@ -29,6 +29,21 @@ html{
   color:#b80101;
 }
 
+.project__name{
+  font-size: 25px;
+  padding-left: 60px;
+  transform: translateX(-200%);
+opacity: 0;
+animation: slide-in-anim .65s ease-out forwards;
+}
+@keyframes slide-in-anim {
+100% {
+  opacity: 1;
+  transform: translateX(-0%);
+}
+}
+
+
 nav{
     display: flex;
     padding: 2% 6%;

@@ -248,7 +248,6 @@
                 <!-- <input type="text" class="project_input" autofocus placeholder="Status" id="stautus" name="status" require> -->
                 <select class="project_input" id="status" name="status" required>
                     <option disabled selected hidden>Status</option>
-                    <option>Completed</option>
                     <option>In Progress</option>
                     <option>Future</option>
                 </select>

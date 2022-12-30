@@ -189,7 +189,7 @@
 
     <!--  nav bar begins here -->
     <nav>
-        <!-- <div class="title__name">Dash Board</div> -->
+    <div class="project__name"><b>Project -> <?php echo $_SESSION['projectName'] ?></b></div>
         <div class="nav-links">
             <ul>
                 <!-- elements of nav bar  -->

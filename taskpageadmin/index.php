@@ -280,12 +280,14 @@
                 <tr>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Status</th>
                 </tr>
             
                 <?php foreach($members as $member):?>
                     <tr align="center">
                         <td><?php echo $member['username']?></td>
                         <td><?php echo $member['email']?></td>
+                        <td><?php echo $member['status']?></td>
                     </tr>
                 <?php endforeach;?>
             </table>
