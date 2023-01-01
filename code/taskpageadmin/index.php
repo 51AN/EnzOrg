@@ -95,8 +95,11 @@
                     if($totaluser == $totaluserC)
                     {
                       $updateSqltasks = "UPDATE `tasks` SET `status`='Completed' WHERE taskID = $taskID";
-                      $executeUpdatee = mysqli_query($conn, $updateSqltasks); 
+                      $executeUpdatee = mysqli_query($conn, $updateSqltasks);
+                      $updateSqltasksPriority = "UPDATE `tasks` SET `priority`='Low' WHERE taskID = $taskID";
+                      $executeUpdateePriority = mysqli_query($conn, $updateSqltasksPriority); 
                     }
+
                     // else
                     // {
                     //   $updateSqltasks = "UPDATE `tasks` SET `status`='In progress' WHERE taskID = $taskID";

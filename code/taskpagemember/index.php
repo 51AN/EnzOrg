@@ -55,6 +55,8 @@
                     {
                       $updateSqltasks = "UPDATE `tasks` SET `status`='$selectedStatus' WHERE taskID = $tId";
                       $executeUpdatee = mysqli_query($conn, $updateSqltasks); 
+                      $updateSqltasksPriority = "UPDATE `tasks` SET `priority`='Low' WHERE taskID = $tId";
+                      $executeUpdateePriority = mysqli_query($conn, $updateSqltasksPriority);
                     }
                     else
                     {
