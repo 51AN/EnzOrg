@@ -1,5 +1,6 @@
 <?php
    include "../dbconnect.php";
+   session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +18,6 @@
 
 <body>
 <?php
-    session_start();
     $message = '';
 
     if(isset($_SESSION['username']))

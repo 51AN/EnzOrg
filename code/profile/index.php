@@ -1,5 +1,6 @@
 <?php
-   include "../dbconnect.php";
+    include "../dbconnect.php";
+    session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,7 +17,6 @@
 </head>
 
 <?php
-   session_start();
    $user_id = $_SESSION['user_id'];
    if(isset($_POST['update_profile']))
    {

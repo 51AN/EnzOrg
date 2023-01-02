@@ -1,5 +1,6 @@
 <?php
 include "../dbconnect.php";
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +18,7 @@ include "../dbconnect.php";
 </head>
 
 <?php
-session_start();
+
 $taskID =  $_SESSION['taskID'];
 $user_id = $_SESSION['user_id'];
 $name = $_SESSION['taskName'];

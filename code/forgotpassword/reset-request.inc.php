@@ -1,8 +1,8 @@
 <?php
-include "../dbconnect.php";
+    include "../dbconnect.php";
+    session_start();
 ?>
 <?php
-session_start();
 include "testMail.php";
 
 
