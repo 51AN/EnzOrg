@@ -1,9 +1,13 @@
 <?php
+include "../dbconnect.php";
+?>
+<?php
 if(isset($_POST["reset-password-submit"])){
 $selector = $_POST["selector"];
 $validator = $_POST["validator"];
 $password = $_POST["password"];
 $confirmPassword = $_POST["confirmPassword"];
+
 if($password!=$confirmPassword){
     header("location: create-new-password.php?newpassword=passwordnotsame&selector=".$selector."&validator=".$validator);
     exit();
@@ -15,8 +19,6 @@ if($password!=$confirmPassword){
     exit();
 }
 $currentDate = date("U");
-$conn = new mysqli('localhost','root','','spl');
-
 $sql = "SELECT * FROM passwordreset WHERE passwordResetSelector = ? AND passwordResetExpires >= ?";
 $stmt = mysqli_stmt_init($conn);
 if(!mysqli_stmt_prepare($stmt,$sql)){
@@ -72,6 +74,7 @@ if(!mysqli_stmt_prepare($stmt,$sql)){
                                 mysqli_stmt_execute($stmt);
                                 header("location: ../login/index.php?newpassword=passwordUpdated");
                             }
+                            $conn->close();
                         }
                     }
                 }
@@ -79,6 +82,7 @@ if(!mysqli_stmt_prepare($stmt,$sql)){
     }
 }
 }else{
+    $conn->close(); 
     header("location: ../Homepage/index.php");
 }
 ?>

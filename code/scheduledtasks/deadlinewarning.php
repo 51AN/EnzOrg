@@ -1,6 +1,6 @@
 <?php
 include "../forgotpassword/testMail.php";
-$conn = mysqli_connect('localhost', 'root', '', 'spl');
+include "../dbconnect.php";
 if (!$conn) {
     die("Connection Failed: " . mysqli_connect_error());
 }
@@ -23,4 +23,5 @@ while ($row = mysqli_fetch_array($fetch)) {
         ";
     }
 }
+$conn->close();
 ?>

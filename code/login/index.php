@@ -11,8 +11,9 @@
 </head>
 
 <?php
+    include "../dbconnect.php";
     session_start();
-
+    
     $username = $password = $error = '';
 
     if(isset($_POST['submit'])){
@@ -56,7 +57,6 @@
                         $error = 'Invalid password!';
                     }
                 }
-                $conn -> close();
             }
         }
 
@@ -96,7 +96,6 @@
             if(isset($_GET["token"]))
             {
                 if(isset($_GET["create_user"])){
-                    $conn = new mysqli('localhost','root','','spl');
                     if($conn -> connect_error){
                         die('Connection Failed : ' .$conn->connect_error);
                     }

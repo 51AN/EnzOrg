@@ -1,6 +1,8 @@
 <?php
 session_start();
 include "../forgotpassword/testMail.php";
+include "../dbconnect.php";
+
 $username = $email = $passError = $passError1 = $emailError=$emailError1 = $userError = $password = $confirmPassword = '';
 
     if(isset($_POST['submit'])){
@@ -11,7 +13,6 @@ $username = $email = $passError = $passError1 = $emailError=$emailError1 = $user
         $image = '';
         $token = random_bytes(16);
         $binToken = bin2hex($token);
-        $conn = new mysqli('localhost','root','','spl');
         // $query = $conn->query("SELECT * FROM users WHERE `username` = '$username';");
         
 
